@@ -1,12 +1,14 @@
-from fastapi import FastAPI, HTTPException
-import requests
-import pandas as pd
 import os
+import re
 import numpy as np
+import pandas as pd
+import requests
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
-@app.get("/get_clickup_data/{list_id}")
+
+@app.get('/get_clickup_data/{list_id}')
 async def get_clickup_data(list_id: str):
     # Define o caminho da pasta onde os dados serão salvos
     data_folder = 'data'
@@ -15,16 +17,16 @@ async def get_clickup_data(list_id: str):
     if not os.path.exists(data_folder):
         os.makedirs(data_folder)
 
-    url = f"https://api.clickup.com/api/v2/list/{list_id}/task"
+    url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
 
     # Parâmetros da consulta
     query = {
-        "archived": "false",
-        "include_markdown_description": "true",
+        'archived': 'false',
+        'include_markdown_description': 'true',
     }
 
     # Cabeçalhos da solicitação
-    headers = {"Authorization": "pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2"}
+    headers = {'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'}
 
     # Fazendo a solicitação
     response = requests.get(url, headers=headers, params=query)
@@ -70,12 +72,77 @@ async def get_clickup_data(list_id: str):
         df.replace([np.inf, -np.inf, np.nan], 0, inplace=True)
 
         # Define o caminho completo do arquivo CSV
-        csv_file_path = os.path.join(data_folder, f'dados_clickup_{list_id}.xlsx')
+        csv_file_path = os.path.join(
+            data_folder, f'dados_clickup_{list_id}.xlsx'
+        )
 
         # Salva o DataFrame em um arquivo CSV
         df.to_excel(csv_file_path, index=False)
-        
+
         # Retorna a estrutura dos dados e a mensagem de sucesso
-        return {"message": f'Dados salvos com sucesso em "{csv_file_path}"', "data": df.to_dict()}
+        return {
+            'message': f'Dados salvos com sucesso em "{csv_file_path}"',
+            'data': df.to_dict(),
+        }
     else:
-        raise HTTPException(status_code=400, detail=f"Erro ao fazer a solicitação. Código de status: {response.status_code}")
+        raise HTTPException(
+            status_code=400,
+            detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
+        )
+
+
+@app.get('/get_data_organized/{list_id}')
+async def get_clickup_data(list_id: str):
+    url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
+
+    # Parâmetros da consulta
+    query = {
+        'archived': 'false',
+        'include_markdown_description': 'true',
+    }
+
+    # Cabeçalhos da solicitação
+    headers = {'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'}
+
+    # Fazendo a solicitação
+    response = requests.get(url, headers=headers, params=query)
+
+    # Verificando se a solicitação foi bem-sucedida
+    if response.status_code == 200:
+        # Convertendo a resposta JSON em um dicionário
+        data = response.json()
+
+        # Lista para armazenar os dados filtrados
+        filtered_data = []
+
+        # Padrao para encontrar o conteudo dos KPIs
+        kpi_pattern = r"\.: ([^:]+) :\.:\n(.*?)\n\n"
+
+        # Percorre cada tarefa
+        for task in data['tasks']:
+            # Dicionário para armazenar os dados filtrados da tarefa
+            filtered_task = {
+                'id': task['id'],
+                'status': task['status']['status'],
+            }
+
+            # Encontra os KPIs no texto_content
+            kpis = re.findall(kpi_pattern, task['text_content'], re.DOTALL)
+
+            # Adiciona os valores dos KPIs ao dicionário filtrado
+            for kpi_name, kpi_value in kpis:
+                filtered_task[kpi_name.strip()] = kpi_value.strip()
+
+            # Adiciona os dados filtrados à lista
+            filtered_data.append(filtered_task)
+
+        # Retorna os dados filtrados
+        return filtered_data
+    else:
+        raise HTTPException(
+            status_code=400,
+            detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
+        )
+
+
+
