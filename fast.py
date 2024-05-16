@@ -125,18 +125,19 @@ async def get_clickup_data(list_id: str):
             }
 
             # Padrao para encontrar os campos no texto_content
-            field_pattern = r"\.: ([^:]+) :\.:\n(.*?)\n\n"
+            field_pattern = r"\.: ([^:]+) :\.:(.*?)(?=\.:\s[^:]+ :\.:|\Z)"
 
             # Encontra os campos no texto_content
             fields = re.findall(field_pattern, task['text_content'], re.DOTALL)
 
             # Adiciona os campos ao dicionário filtrado
-            for field_name, field_value in fields:
-                filtered_task[field_name.strip()] = field_value.strip()
+            for field in fields:
+                field_name = field[0].strip()
+                field_value = field[1].strip() if field[1].strip() else "Null"
+                filtered_task[field_name] = field_value
 
             # Adiciona os dados filtrados à lista
             filtered_data.append(filtered_task)
-
 
         # Retorna os dados filtrados
         return filtered_data
@@ -145,3 +146,5 @@ async def get_clickup_data(list_id: str):
             status_code=400,
             detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
         )
+
+
