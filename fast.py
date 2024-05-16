@@ -116,19 +116,27 @@ async def get_clickup_data(list_id: str):
         # Lista para armazenar os dados filtrados
         filtered_data = []
 
+        # Variável para contar projetos
+        project_count = 0
+
         # Percorre cada tarefa
         for task in data['tasks']:
+            # Incrementa o contador de projetos
+            project_count += 1
+
             # Dicionário para armazenar os dados filtrados da tarefa
             filtered_task = {
-                'id': task['id'],
-                'status': task['status']['status'],
+                'Projeto': project_count,
+                'ID': task['id'],
+                'Status': task['status']['status'],
             }
 
-            # Padrao para encontrar os campos no texto_content
-            field_pattern = r"\.: ([^:]+) :\.:(.*?)(?=\.:\s[^:]+ :\.:|\Z)"
+            # Texto da tarefa sem quebras de linha
+            task_text = task['text_content'].replace('\n', ' ')
 
-            # Encontra os campos no texto_content
-            fields = re.findall(field_pattern, task['text_content'], re.DOTALL)
+            # Encontra os campos específicos no texto_content e atribui seus valores
+            fields = re.findall(r"\ (CARTEIRA DEMANDANTE|E-MAIL|ESCOPO|OBJETIVO DO GANHO|KPI GANHO|TIPO DE PROJETO|TIPO DE OPERAÇÃO|PRODUTO|OPERAÇÃO|SITE|UNIDADE DE NEGÓCIO|DIRETOR TAHTO|CLIENTE) :\.:(.*?)(?=\.:\s[^:]+ :\.:|\Z)", task_text, re.DOTALL)
+
 
             # Adiciona os campos ao dicionário filtrado
             for field in fields:
@@ -146,5 +154,7 @@ async def get_clickup_data(list_id: str):
             status_code=400,
             detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
         )
+
+
 
 
