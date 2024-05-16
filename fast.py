@@ -1,5 +1,6 @@
 import os
 import re
+
 import numpy as np
 import pandas as pd
 import requests
@@ -115,9 +116,6 @@ async def get_clickup_data(list_id: str):
         # Lista para armazenar os dados filtrados
         filtered_data = []
 
-        # Padrao para encontrar o conteudo dos KPIs
-        kpi_pattern = r"\.: ([^:]+) :\.:\n(.*?)\n\n"
-
         # Percorre cada tarefa
         for task in data['tasks']:
             # Dicionário para armazenar os dados filtrados da tarefa
@@ -126,15 +124,19 @@ async def get_clickup_data(list_id: str):
                 'status': task['status']['status'],
             }
 
-            # Encontra os KPIs no texto_content
-            kpis = re.findall(kpi_pattern, task['text_content'], re.DOTALL)
+            # Padrao para encontrar os campos no texto_content
+            field_pattern = r"\.: ([^:]+) :\.:\n(.*?)\n\n"
 
-            # Adiciona os valores dos KPIs ao dicionário filtrado
-            for kpi_name, kpi_value in kpis:
-                filtered_task[kpi_name.strip()] = kpi_value.strip()
+            # Encontra os campos no texto_content
+            fields = re.findall(field_pattern, task['text_content'], re.DOTALL)
+
+            # Adiciona os campos ao dicionário filtrado
+            for field_name, field_value in fields:
+                filtered_task[field_name.strip()] = field_value.strip()
 
             # Adiciona os dados filtrados à lista
             filtered_data.append(filtered_task)
+
 
         # Retorna os dados filtrados
         return filtered_data
@@ -143,6 +145,3 @@ async def get_clickup_data(list_id: str):
             status_code=400,
             detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
         )
-
-
-
