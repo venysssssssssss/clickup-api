@@ -1,6 +1,6 @@
 import os
 import re
-
+import httpx
 import numpy as np
 import pandas as pd
 import requests
@@ -49,7 +49,7 @@ async def get_clickup_data(list_id: str):
             # Adiciona os campos principais ao dicionário da tarefa
             task_dict['id'] = task['id']
             task_dict['name'] = task['name']
-            task_dict['text_content'] = task['text_content']
+            task_dict['text_content'] = task['text_content'].replace('\n', ' ')
             task_dict['status'] = task['status']['status']
             task_dict['date_created'] = task['date_created']
             task_dict['date_updated'] = task['date_updated']
@@ -134,14 +134,13 @@ async def get_clickup_data(list_id: str):
             # Texto da tarefa sem quebras de linha
             task_text = task['text_content'].replace('\n', ' ')
 
-            # Encontra os campos específicos no texto_content e atribui seus valores
-            fields = re.findall(r"\ (CARTEIRA DEMANDANTE|E-MAIL|ESCOPO|OBJETIVO DO GANHO|KPI GANHO|TIPO DE PROJETO|TIPO DE OPERAÇÃO|PRODUTO|OPERAÇÃO|SITE|UNIDADE DE NEGÓCIO|DIRETOR TAHTO|CLIENTE) :\.:(.*?)(?=\.:\s[^:]+ :\.:|\Z)", task_text, re.DOTALL)
-
+            # Encontra todos os campos no formato NOME: VALOR
+            fields = re.findall(r'(\b[A-ZÁÉÍÓÚÃÕÊÔÇ\s]+):\s*(.*?)(?=\s*[A-ZÁÉÍÓÚÃÕÊÔÇ\s]+:|$)', task_text)
 
             # Adiciona os campos ao dicionário filtrado
             for field in fields:
                 field_name = field[0].strip()
-                field_value = field[1].strip() if field[1].strip() else "Null"
+                field_value = field[1].strip().rstrip('.').replace('.:', '')  # Remove .: e espaços vazios
                 filtered_task[field_name] = field_value
 
             # Adiciona os dados filtrados à lista
