@@ -1,5 +1,6 @@
 import os
 import re
+
 import httpx
 import numpy as np
 import pandas as pd
@@ -135,29 +136,23 @@ async def get_clickup_data(list_id: str):
             task_text = task['text_content'].replace('\n', ' ')
 
             # Encontra todos os campos no formato NOME: VALOR
-            fields = re.findall(r'💡?\s*(\b[A-ZÁÉÍÓÚÃÕÊÔÇ\s]+):\s*(.*?)(?=\s*💡?\s*\b[A-ZÁÉÍÓÚÃÕÊÔÇ\s]+:|$)', task_text)
+            fields = re.findall(
+                r'(\b[A-ZÁÉÍÓÚÃÕÊÔÇ\s💡\$R\(\)]+):\s*(.*?)(?=\s*[A-ZÁÉÍÓÚÃÕÊÔÇ\s💡\$R\(\)]+:|$)',
+                task_text,
+            )
 
             # Adiciona os campos ao dicionário filtrado
             for field_name, field_value in fields:
                 field_name = field_name.strip()  # Remove espaços em branco
-                field_value = field_value.strip().rstrip('.').replace('.:', '')  # Remove .: e espaços vazios
-                
+                field_value = (
+                    field_value.strip().rstrip('.').replace('.:', '')
+                )  # Remove .: e espaços vazios
+
                 # Correção específica para a chave "CARTEIRA DEMANDANTE"
-                if field_name == "CARTEIRA DEMANDANTE":
+                if field_name == 'CARTEIRA DEMANDANTE':
                     field_value = field_value.replace(' E-', '')
 
-                # Separar "ALTERAÇÃO DE ESCOPO" e "R$ ANUAL (PREVISTO)"
-                if field_name == "TIPO DE PROJETO":
-                    # Verifica se a string contém "💡 R$ ANUAL (PREVISTO)"
-                    if "💡 R$ ANUAL (PREVISTO)" in field_value:
-                        # Separa "ALTERAÇÃO DE ESCOPO" e "R$ ANUAL (PREVISTO)"
-                        field_value_split = field_value.split("💡 R$ ANUAL (PREVISTO)")
-                        filtered_task[field_name] = field_value_split[0].strip()
-                        filtered_task["💡 R$ ANUAL (PREVISTO)"] = field_value_split[1].strip()
-                    else:
-                        filtered_task[field_name] = field_value
-                else:
-                    filtered_task[field_name] = field_value
+                filtered_task[field_name] = field_value
 
             # Adiciona os dados filtrados à lista
             filtered_data.append(filtered_task)
@@ -169,6 +164,3 @@ async def get_clickup_data(list_id: str):
             status_code=400,
             detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
         )
-
-
-
