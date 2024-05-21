@@ -155,38 +155,33 @@ async def get_clickup_data(list_id: str):
             }
 
             # Texto da tarefa sem quebras de linha
-            task_text = (
-                task['text_content'].replace('\n', ' ').replace('.:', '')
-            )
+            task_text = task['text_content'].replace('\n', ' ').replace('.:', '')
 
-            # Adiciona os campos ao dicionário filtrado
+            # Inicializa um dicionário para armazenar os campos e valores encontrados
+            field_values = {field: "" for field in field_names}
+
+            # Divide o texto da tarefa por campos conhecidos
             for field_name in field_names:
-                # Encontra o campo no texto da tarefa
-                match = re.search(
-                    f'{field_name}\s*:\s*(.*?)(?=\s*{"|".join(field_names)}\s*:|$)',
-                    task_text,
-                    re.IGNORECASE,
-                )
+                pattern = re.compile(rf'{re.escape(field_name)}\s*:\s*(.*?)(?=\s*({"|".join([re.escape(name) for name in field_names])})\s*:|$)', re.IGNORECASE)
+                match = pattern.search(task_text)
                 if match:
                     field_value = match.group(1).strip()
-                    filtered_task[field_name] = field_value
+                    field_values[field_name] = field_value 
+
+            # Adiciona os campos encontrados ao dicionário filtrado
+            filtered_task.update(field_values)
 
             # Verificação específica para "💡 R$ ANUAL (PREVISTO)"
-            if '💡 TIPO DE PROJETO' in filtered_task:
+            if '💡 TIPO DE PROJETO' in filtered_task and '💡 R$ ANUAL (PREVISTO)' in filtered_task['💡 TIPO DE PROJETO']:
                 tipo_projeto_value = filtered_task['💡 TIPO DE PROJETO']
-                if '💡 R$ ANUAL (PREVISTO)' in tipo_projeto_value:
-                    tipo_projeto_parts = tipo_projeto_value.split(
-                        '💡 R$ ANUAL (PREVISTO)'
-                    )
-                    filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[
-                        0
-                    ].strip()
-                    filtered_task[
-                        '💡 R$ ANUAL (PREVISTO)'
-                    ] = tipo_projeto_parts[1].strip()
+                tipo_projeto_parts = tipo_projeto_value.split('💡 R$ ANUAL (PREVISTO)')
+                filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[0].strip()
+                filtered_task['💡 R$ ANUAL (PREVISTO)'] = tipo_projeto_parts[1].strip()
 
             # Adiciona os dados filtrados à lista
             filtered_data.append(filtered_task)
+
+            print(filtered_task)
 
         # Retorna os dados filtrados
         return filtered_data
