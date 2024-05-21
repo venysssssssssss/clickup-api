@@ -121,10 +121,27 @@ async def get_clickup_data(list_id: str):
         project_count = 0
 
         # Lista de nomes de campos conhecidos
-        field_names = ['CARTEIRA DEMANDANTE', 'E-MAIL', 'ESCOPO', 'OBS', 'OBJETIVO DO GANHO', 'KPI GANHO', 
-                       '💡 TIPO DE PROJETO', 'TIPO DE OPERAÇÃO', 'PRODUTO', 'OPERAÇÃO', 'SITE', 'UNIDADE DE NEGÓCIO', 
-                       'DIRETOR TAHTO', 'CLIENTE', 'TIPO', '💡 R$ ANUAL (PREVISTO)', 'GERENTE OI', 
-                       'FERRAMENTA ENVOLVIDA', 'CENÁRIO PROPOSTO']
+        field_names = [
+            'CARTEIRA DEMANDANTE',
+            'E-MAIL',
+            'ESCOPO',
+            'OBS',
+            'OBJETIVO DO GANHO',
+            'KPI GANHO',
+            '💡 TIPO DE PROJETO',
+            'TIPO DE OPERAÇÃO',
+            'PRODUTO',
+            'OPERAÇÃO',
+            'SITE',
+            'UNIDADE DE NEGÓCIO',
+            'DIRETOR TAHTO',
+            'CLIENTE',
+            'TIPO',
+            '💡 R$ ANUAL (PREVISTO)',
+            'GERENTE OI',
+            'FERRAMENTA ENVOLVIDA',
+            'CENÁRIO PROPOSTO',
+        ]
 
         # Percorre cada tarefa
         for task in data['tasks']:
@@ -139,12 +156,18 @@ async def get_clickup_data(list_id: str):
             }
 
             # Texto da tarefa sem quebras de linha
-            task_text = task['text_content'].replace('\n', ' ').replace('.:', '')
+            task_text = (
+                task['text_content'].replace('\n', ' ').replace('.:', '')
+            )
 
             # Adiciona os campos ao dicionário filtrado
             for field_name in field_names:
                 # Encontra o campo no texto da tarefa
-                match = re.search(f'{field_name}\s*:\s*(.*?)(?=\s*{"|".join(field_names)}\s*:|$)', task_text, re.IGNORECASE)
+                match = re.search(
+                    f'{field_name}\s*:\s*(.*?)(?=\s*{"|".join(field_names)}\s*:|$)',
+                    task_text,
+                    re.IGNORECASE,
+                )
                 if match:
                     field_value = match.group(1).strip()
                     filtered_task[field_name] = field_value
@@ -153,9 +176,15 @@ async def get_clickup_data(list_id: str):
             if '💡 TIPO DE PROJETO' in filtered_task:
                 tipo_projeto_value = filtered_task['💡 TIPO DE PROJETO']
                 if '💡 R$ ANUAL (PREVISTO)' in tipo_projeto_value:
-                    tipo_projeto_parts = tipo_projeto_value.split('💡 R$ ANUAL (PREVISTO)')
-                    filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[0].strip()
-                    filtered_task['💡 R$ ANUAL (PREVISTO)'] = tipo_projeto_parts[1].strip()
+                    tipo_projeto_parts = tipo_projeto_value.split(
+                        '💡 R$ ANUAL (PREVISTO)'
+                    )
+                    filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[
+                        0
+                    ].strip()
+                    filtered_task[
+                        '💡 R$ ANUAL (PREVISTO)'
+                    ] = tipo_projeto_parts[1].strip()
 
             # Adiciona os dados filtrados à lista
             filtered_data.append(filtered_task)
@@ -167,4 +196,3 @@ async def get_clickup_data(list_id: str):
             status_code=400,
             detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
         )
-
