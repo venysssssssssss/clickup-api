@@ -102,7 +102,10 @@ async def get_clickup_data(list_id: str):
 
     headers = {'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'}
 
-    response = requests.get(url, headers=headers, params=query)
+    async with httpx.AsyncClient(timeout=120.0) as client:  # Aumenta o tempo limite para 30 segundos
+
+        response = await client.get(url, headers=headers, params=query)
+
 
     if response.status_code == 200:
         data = response.json()
@@ -151,7 +154,7 @@ async def get_clickup_data(list_id: str):
                 pattern = re.compile(rf'{re.escape(field_name)}\s*:\s*(.*?)(?=\s*({"|".join([re.escape(name) for name in field_names])})\s*:|$)', re.IGNORECASE)
                 match = pattern.search(task_text)
                 if match:
-                    field_value = match.group(1).strip()
+                    field_value = match.group(1).strip() 
                     field_values[field_name] = field_value 
 
             filtered_task.update(field_values)
