@@ -9,79 +9,6 @@ from fastapi import FastAPI, HTTPException
 app = FastAPI()
 
 
-@app.get('/get_clickup_data/{list_id}')
-async def get_clickup_data(list_id: str):
-    """
-    Retrieves data from ClickUp API for a given list ID and saves it to a CSV file.
-
-    Args:
-        list_id (str): The ID of the ClickUp list.
-
-    Returns:
-        dict: A dictionary containing the success message and the data structure.
-    """
-    data_folder = 'data'
-
-    if not os.path.exists(data_folder):
-        os.makedirs(data_folder)
-
-    url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
-
-    query = {
-        'archived': 'false',
-        'include_markdown_description': 'true',
-    }
-
-    headers = {'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'}
-
-    response = requests.get(url, headers=headers, params=query)
-
-    if response.status_code == 200:
-        data = response.json()
-        tasks = data['tasks']
-
-        task_data = []
-
-        for task in tasks:
-            task_dict = {}
-
-            task_dict['id'] = task['id']
-            task_dict['name'] = task['name']
-            task_dict['text_content'] = task['text_content'].replace('\n', ' ')
-            task_dict['status'] = task['status']['status']
-            task_dict['date_created'] = task['date_created']
-            task_dict['date_updated'] = task['date_updated']
-            task_dict['url'] = task['url']
-
-            for field in task['custom_fields']:
-                if 'value' in field:
-                    task_dict[field['name']] = field['value']
-                else:
-                    task_dict[field['name']] = None
-
-            task_data.append(task_dict)
-
-        df = pd.DataFrame(task_data)
-
-        df.replace([np.inf, -np.inf, np.nan], 0, inplace=True)
-
-        csv_file_path = os.path.join(
-            data_folder, f'dados_clickup_{list_id}.xlsx'
-        )
-
-        df.to_excel(csv_file_path, index=False)
-
-        return {
-            'message': f'Dados salvos com sucesso em "{csv_file_path}"',
-            'data': df.to_dict(),
-        }
-    else:
-        raise HTTPException(
-            status_code=400,
-            detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}',
-        )
-
-
 @app.get('/get_data_organized/{list_id}')
 async def get_clickup_data(list_id: str):
     """
@@ -102,16 +29,12 @@ async def get_clickup_data(list_id: str):
 
     headers = {'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'}
 
-    async with httpx.AsyncClient(timeout=120.0) as client:  # Aumenta o tempo limite para 30 segundos
-
+    async with httpx.AsyncClient(timeout=140.0) as client:  # Aumenta o tempo limite para 120 segundos
         response = await client.get(url, headers=headers, params=query)
-
 
     if response.status_code == 200:
         data = response.json()
-
         filtered_data = []
-
         project_count = 0
 
         field_names = [
@@ -144,7 +67,13 @@ async def get_clickup_data(list_id: str):
                 'Projeto': project_count,
                 'ID': task['id'],
                 'Status': task['status']['status'],
+                'Name': task['name'],
             }
+
+            # Extraindo usernames dos assignees
+            if 'assignees' in task:
+                usernames = [assignee['username'] for assignee in task['assignees']]
+                filtered_task['Líder'] = ', '.join(usernames)
 
             task_text = task['text_content'].replace('\n', ' ').replace('.:', '')
 
