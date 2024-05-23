@@ -43,11 +43,11 @@ async def get_clickup_data(list_id: str):
             'Status': task['status']['status'],
             'Name': task['name'],
             'Priority': task.get('priority', {}).get('priority') if task.get('priority') is not None else None,
-            'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
-            'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
+            'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') is not None else None,
+            'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') is not None else None,
             'date_created': datetime.utcfromtimestamp(int(task['date_created']) / 1000).strftime("%Y-%m-%d %H:%M:%S"),
             'date_updated': datetime.utcfromtimestamp(int(task['date_updated']) / 1000).strftime("%Y-%m-%d %H:%M:%S"),
-        }
+        };
 
         task_text = task['text_content'].replace('\n', ' ').replace('.:', '')
         field_values = {field: '' for field in field_names}
