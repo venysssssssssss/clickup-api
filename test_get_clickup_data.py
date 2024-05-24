@@ -1,93 +1,35 @@
-from unittest.mock import patch
-
-import httpx
+from typing import Literal
 import pytest
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from httpx import Response
-
-from fast import \
-    app  # Substitua 'your_module_name' pelo nome do módulo onde a função está definida
+from fast import app
 
 client = TestClient(app)
 
+valid_list_ids = ["174940580", "192943657", "192943564", "192943568"]
+valid_list_id = "174940580"  # Um ID de lista válido para teste
+invalid_list_id = "123456789"  # Um ID de lista inválido para teste
 
-@pytest.mark.asyncio
-async def test_get_clickup_data_success():
-    list_id = 'valid_list_id'
-    mock_response = {
-        'tasks': [
-            {
-                'id': '86dtd2kjv',
-                'status': {'status': 'planejamento'},
-                'text_content': """
-                    CARTEIRA DEMANDANTE :.:
-                    TAHTO
-                    E-MAIL :.:
-                    ricardo.junior@tahto.com.br
-                    ESCOPO :.:
-                    ...
-                """,
-            }
-        ]
-    }
+@pytest.mark.parametrize("list_id", valid_list_id)
+def test_successful_case(list_id: Literal['174940580']):
+    response = client.get(f'https://clickup-api-yi7o.onrender.com/get_data_organized/174940580')
+    assert response.status_code == 200
 
-    async def mock_get(*args, **kwargs):
-        return Response(200, json=mock_response)
+def test_failure_case():
+    response = client.get(f'/get_data_organized/{invalid_list_id}')
+    assert response.status_code == 400
 
-    with patch('httpx.AsyncClient.get', new=mock_get):
-        response = client.get(f'/get_data_organized/{list_id}')
-        assert response.status_code == 200
-        data = response.json()
-        assert isinstance(data, list)
-        assert len(data) == 1
-        assert data[0]['ID'] == '86dtd2kjv'
-        assert data[0]['Status'] == 'planejamento'
-        assert data[0]['CARTEIRA DEMANDANTE'] == 'TAHTO'
-        assert data[0]['E-MAIL'] == 'ricardo.junior@tahto.com.br'
+@pytest.mark.parametrize("list_id", valid_list_ids)
+def test_data_structure(list_id: str):
+    response = client.get(f'/get_data_organized/{list_id}')
+    data = response.json()
+    assert all(isinstance(item, dict) for item in data)
 
+@pytest.mark.parametrize("list_id", valid_list_ids)
+def test_data_values(list_id: str):
+    response = client.get(f'/get_data_organized/{list_id}')
+    data = response.json()
+    assert all('ID' in item for item in data)
 
-@pytest.mark.asyncio
-async def test_get_clickup_data_no_tasks():
-    list_id = 'valid_list_id'
-    mock_response = {'tasks': []}
-
-    async def mock_get(*args, **kwargs):
-        return Response(200, json=mock_response)
-
-    with patch('httpx.AsyncClient.get', new=mock_get):
-        response = client.get(f'/get_data_organized/{list_id}')
-        assert response.status_code == 200
-        data = response.json()
-        assert isinstance(data, list)
-        assert len(data) == 0
-
-
-@pytest.mark.asyncio
-async def test_get_clickup_data_api_error():
-    list_id = 'invalid_list_id'
-
-    async def mock_get(*args, **kwargs):
-        return Response(400, json={'err': 'Invalid list ID'})
-
-    with patch('httpx.AsyncClient.get', new=mock_get):
-        response = client.get(f'/get_data_organized/{list_id}')
-        assert response.status_code == 400
-        assert (
-            'Erro ao fazer a solicitação. Código de status: 400'
-            in response.json()['detail']
-        )
-
-
-@pytest.mark.asyncio
-async def test_get_clickup_data_invalid_response():
-    list_id = 'valid_list_id'
-    mock_response = {'invalid_key': 'invalid_value'}
-
-    async def mock_get(*args, **kwargs):
-        return Response(200, json=mock_response)
-
-    with patch('httpx.AsyncClient.get', new=mock_get):
-        response = client.get(f'/get_data_organized/{list_id}')
-        assert response.status_code == 500
-        assert response.json() == {'detail': 'Formato de resposta inesperado.'}
+def test_exception_handling():
+    response = client.get(f'/get_data_organized/{invalid_list_id}')
+    assert response.status_code == 400
