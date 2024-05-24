@@ -24,7 +24,8 @@ async def get_clickup_data(list_id: str):
         response = await client.get(url, headers=headers, params=query)
 
     if response.status_code != 200:
-        raise HTTPException(status_code=400, detail=f'Erro ao fazer a solicitação. Código de status: {response.status_code}')
+        error_detail = f'Erro ao fazer a solicitação. Código de status: {response.status_code}'
+        raise HTTPException(status_code=400, detail=error_detail)
 
     data = response.json()
     filtered_data = []
@@ -36,20 +37,20 @@ async def get_clickup_data(list_id: str):
         'CENÁRIO PROPOSTO',
     ]
 
-    for project_count, task in enumerate(data['tasks'], start=1):
+    for project_count, task in enumerate(data.get('tasks', []), start=1):
         filtered_task = {
             'Projeto': project_count,
             'ID': task['id'],
-            'Status': task['status']['status'],
-            'Name': task['name'],
-            'Priority': task.get('priority', {}).get('priority') if task.get('priority') is not None else None,
-            'Líder': task.get('assignees', {})[0].get('username') if task.get('assignees') else None,
-            'Email líder': task.get('assignees', {})[0].get('email') if task.get('assignees') is not None else None,
+            'Status': task['status'].get('status', ''),
+            'Name': task.get('name', ''),
+            'Priority': task.get('priority', {}).get('priority', None),
+            'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
+            'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
             'date_created': datetime.utcfromtimestamp(int(task['date_created']) / 1000).strftime("%Y-%m-%d %H:%M:%S"),
             'date_updated': datetime.utcfromtimestamp(int(task['date_updated']) / 1000).strftime("%Y-%m-%d %H:%M:%S"),
-        };
+        }
 
-        task_text = task['text_content'].replace('\n', ' ').replace('.:', '')
+        task_text = task.get('text_content', '').replace('\n', ' ').replace('.:', '')
         field_values = {field: '' for field in field_names}
 
         for field_name in field_names:
