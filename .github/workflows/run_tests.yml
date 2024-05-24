@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   test:
@@ -29,6 +29,9 @@ jobs:
         run: |
           curl -sSL https://install.python-poetry.org | python -
           echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+
+      - name: Update dependencies
+        run: poetry lock --no-update
 
       - name: Install dependencies
         run: poetry install
