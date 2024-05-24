@@ -34,7 +34,7 @@ jobs:
         run: poetry lock --no-update
 
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --no-root
 
       - name: Run tests
         run: poetry run pytest
