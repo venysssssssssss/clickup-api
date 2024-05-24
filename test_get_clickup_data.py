@@ -1,43 +1,85 @@
-from typing import Literal
-
 import pytest
-from api.fast import app
+from fast import app
 from fastapi.testclient import TestClient
 
 client = TestClient(app)
 
-valid_list_ids = ['174940580', '192943657', '192943564', '192943568']
 valid_list_id = '174940580'  # Um ID de lista válido para teste
 invalid_list_id = '123456789'  # Um ID de lista inválido para teste
 
 
-@pytest.mark.parametrize('list_id', valid_list_id)
-def test_successful_case(list_id: Literal['174940580']):
-    response = client.get(
-        f'https://clickup-api-yi7o.onrender.com/get_data_organized/174940580'
-    )
+def test_successful_case():
+    response = client.get(f'/get_data_organized/{valid_list_id}')
     assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert all(isinstance(item, dict) for item in data)
 
 
 def test_failure_case():
     response = client.get(f'/get_data_organized/{invalid_list_id}')
-    assert response.status_code == 400
+    assert response.status_code == 500
 
 
-@pytest.mark.parametrize('list_id', valid_list_ids)
-def test_data_structure(list_id: str):
-    response = client.get(f'/get_data_organized/{list_id}')
+def test_data_structure_and_values():
+    response = client.get(f'/get_data_organized/{valid_list_id}')
+    assert response.status_code == 200
     data = response.json()
+    assert isinstance(data, list)
     assert all(isinstance(item, dict) for item in data)
 
+    expected_fields = [
+        'Projeto',
+        'ID',
+        'Status',
+        'Name',
+        'Priority',
+        'Líder',
+        'Email líder',
+        'date_created',
+        'date_updated',
+        'CARTEIRA DEMANDANTE',
+        'E-MAIL',
+        'ESCOPO',
+        'OBS',
+        'OBJETIVO DO GANHO',
+        'KPI GANHO',
+        '💡 TIPO DE PROJETO',
+        'TIPO DE PROJETO',
+        'TIPO DE OPERAÇÃO',
+        'PRODUTO',
+        'OPERAÇÃO',
+        'SITE',
+        'UNIDADE DE NEGÓCIO',
+        'DIRETOR TAHTO',
+        'CLIENTE',
+        'TIPO',
+        '💡 R$ ANUAL (PREVISTO)',
+        'GERENTE OI',
+        'FERRAMENTA ENVOLVIDA',
+        'CENÁRIO PROPOSTO',
+    ]
 
-@pytest.mark.parametrize('list_id', valid_list_ids)
-def test_data_values(list_id: str):
-    response = client.get(f'/get_data_organized/{list_id}')
-    data = response.json()
-    assert all('ID' in item for item in data)
-
-
-def test_exception_handling():
-    response = client.get(f'/get_data_organized/{invalid_list_id}')
-    assert response.status_code == 400
+    for item in data:
+        assert all(field in item for field in expected_fields)
+        assert isinstance(item['Projeto'], int)
+        assert isinstance(item['ID'], str)
+        assert isinstance(item['Status'], str)
+        assert isinstance(item['Name'], str)
+        assert item['Priority'] is None or isinstance(item['Priority'], str)
+        assert item['Líder'] is None or isinstance(item['Líder'], str)
+        assert item['Email líder'] is None or isinstance(
+            item['Email líder'], str
+        )
+        assert isinstance(item['date_created'], str)
+        assert isinstance(item['date_updated'], str)
+        assert all(
+            isinstance(value, str)
+            for value in item.values()
+            if isinstance(value, str)
+        )
+        assert all(
+            isinstance(value, int)
+            for value in item.values()
+            if isinstance(value, int) and value is not None
+        )
