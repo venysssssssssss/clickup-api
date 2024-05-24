@@ -4,11 +4,21 @@ from fastapi.testclient import TestClient
 
 client = TestClient(app)
 
-valid_list_id = '174940580'  # Um ID de lista válido para teste
-invalid_list_id = '123456789'  # Um ID de lista inválido para teste
+valid_list_id = '174940580'  
+invalid_list_id = '123456789'  
 
 
 def test_successful_case():
+    """
+    Test case to verify the successful retrieval of data from the API.
+
+    This function sends a GET request to the '/get_data_organized/{valid_list_id}' endpoint
+    and asserts that the response status code is 200. It then checks that the response data
+    is a list of dictionaries.
+
+    Returns:
+        None
+    """
     response = client.get(f'/get_data_organized/{valid_list_id}')
     assert response.status_code == 200
     data = response.json()
@@ -17,11 +27,32 @@ def test_successful_case():
 
 
 def test_failure_case():
+    """
+    Test case for failure scenario when getting organized data.
+
+    This test case sends a GET request to the '/get_data_organized' endpoint with an invalid list ID.
+    It asserts that the response status code is 500, indicating a server error.
+    """
     response = client.get(f'/get_data_organized/{invalid_list_id}')
     assert response.status_code == 500
 
 
 def test_data_structure_and_values():
+    """
+    Test the structure and values of the data returned from the API.
+
+    This function sends a GET request to the API endpoint '/get_data_organized/{valid_list_id}'
+    and asserts that the response status code is 200. It then checks the structure and values
+    of the returned data.
+
+    The expected_fields list contains the names of the expected fields in the data. The function
+    iterates over each item in the data and asserts that all expected fields are present. It also
+    checks the data types of specific fields.
+
+    Raises:
+        AssertionError: If any of the assertions fail.
+
+    """
     response = client.get(f'/get_data_organized/{valid_list_id}')
     assert response.status_code == 200
     data = response.json()
