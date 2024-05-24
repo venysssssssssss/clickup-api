@@ -3,9 +3,9 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - main  # Substitua "main" pelo nome do seu branch principal, se necessário
+      - main
   schedule:
-    - cron: "*/1 * * * *"  # Define o cron job para rodar a cada 1 minuto
+    - cron: "*/1 * * * *"
 
 jobs:
   test:
@@ -13,12 +13,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Atualiza para a versão 3 de actions/checkout
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python
         with:
-          python-version: 3.10.0  # Define a versão do Python para 3.10.0
+          python-version: 3.10.0
 
       - name: Use Node.js 16.x
         uses: actions/setup-node@v2
