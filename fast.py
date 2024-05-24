@@ -43,7 +43,7 @@ async def get_clickup_data(list_id: str):
             'ID': task['id'],
             'Status': task['status'].get('status', ''),
             'Name': task.get('name', ''),
-            'Priority': task.get('priority', {}).get('priority', None),
+            'Priority': task.get('priority', {}).get('priority', None) if task.get('priority') else None,
             'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
             'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
             'date_created': datetime.utcfromtimestamp(int(task['date_created']) / 1000).strftime("%Y-%m-%d %H:%M:%S"),
