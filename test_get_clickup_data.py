@@ -1,7 +1,7 @@
 from typing import Literal
 import pytest
 from fastapi.testclient import TestClient
-from fast import app
+from api.fast import app
 
 client = TestClient(app)
 
