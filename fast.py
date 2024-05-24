@@ -1,9 +1,11 @@
 import re
-import httpx
-from fastapi import FastAPI, HTTPException
 from datetime import datetime
 
+import httpx
+from fastapi import FastAPI, HTTPException
+
 app = FastAPI()
+
 
 @app.get('/get_data_organized/{list_id}')
 async def get_clickup_data(list_id: str):
@@ -16,60 +18,113 @@ async def get_clickup_data(list_id: str):
     Returns:
         list: A list of dictionaries containing the filtered data.
     """
-    url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
-    query = {'archived': 'false', 'include_markdown_description': 'true'}
-    headers = {'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'}
-
-    async with httpx.AsyncClient(timeout=140.0) as client:
-        response = await client.get(url, headers=headers, params=query)
-
-    if response.status_code != 200:
-        error_detail = f'Erro ao fazer a solicitação. Código de status: {response.status_code}'
-        raise HTTPException(status_code=400, detail=error_detail)
-
-    data = response.json()
-    filtered_data = []
-    field_names = [
-        'CARTEIRA DEMANDANTE', 'E-MAIL', 'ESCOPO', 'OBS', 'OBJETIVO DO GANHO',
-        'KPI GANHO', '💡 TIPO DE PROJETO', 'TIPO DE PROJETO', 'TIPO DE OPERAÇÃO',
-        'PRODUTO', 'OPERAÇÃO', 'SITE', 'UNIDADE DE NEGÓCIO', 'DIRETOR TAHTO',
-        'CLIENTE', 'TIPO', '💡 R$ ANUAL (PREVISTO)', 'GERENTE OI', 'FERRAMENTA ENVOLVIDA',
-        'CENÁRIO PROPOSTO',
-    ]
-
-    for project_count, task in enumerate(data.get('tasks', []), start=1):
-        filtered_task = {
-            'Projeto': project_count,
-            'ID': task['id'],
-            'Status': task['status'].get('status', ''),
-            'Name': task.get('name', ''),
-            'Priority': task.get('priority', {}).get('priority', None) if task.get('priority') else None,
-            'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
-            'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
-            'date_created': datetime.utcfromtimestamp(int(task['date_created']) / 1000).strftime("%Y-%m-%d %H:%M:%S"),
-            'date_updated': datetime.utcfromtimestamp(int(task['date_updated']) / 1000).strftime("%Y-%m-%d %H:%M:%S"),
+    try:
+        url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
+        query = {'archived': 'false', 'include_markdown_description': 'true'}
+        headers = {
+            'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'
         }
 
-        task_text = task.get('text_content', '').replace('\n', ' ').replace('.:', '')
-        field_values = {field: '' for field in field_names}
+        async with httpx.AsyncClient(timeout=140.0) as client:
+            response = await client.get(url, headers=headers, params=query)
 
-        for field_name in field_names:
-            pattern = re.compile(
-                rf'{re.escape(field_name)}\s*:\s*(.*?)(?=\s*({"|".join([re.escape(name) for name in field_names])})\s*:|$)',
-                re.IGNORECASE,
-            )
-            match = pattern.search(task_text)
-            if match:
-                field_values[field_name] = match.group(1).strip()
+        if response.status_code != 200:
+            error_detail = f'Erro ao fazer a solicitação. Código de status: {response.status_code}'
+            raise HTTPException(status_code=400, detail=error_detail)
 
-        filtered_task.update(field_values)
+        data = response.json()
+        filtered_data = []
+        field_names = [
+            'CARTEIRA DEMANDANTE',
+            'E-MAIL',
+            'ESCOPO',
+            'OBS',
+            'OBJETIVO DO GANHO',
+            'KPI GANHO',
+            '💡 TIPO DE PROJETO',
+            'TIPO DE PROJETO',
+            'TIPO DE OPERAÇÃO',
+            'PRODUTO',
+            'OPERAÇÃO',
+            'SITE',
+            'UNIDADE DE NEGÓCIO',
+            'DIRETOR TAHTO',
+            'CLIENTE',
+            'TIPO',
+            '💡 R$ ANUAL (PREVISTO)',
+            'GERENTE OI',
+            'FERRAMENTA ENVOLVIDA',
+            'CENÁRIO PROPOSTO',
+        ]
 
-        if '💡 TIPO DE PROJETO' in filtered_task and '💡 R$ ANUAL (PREVISTO)' in filtered_task['💡 TIPO DE PROJETO']:
-            tipo_projeto_value = filtered_task['💡 TIPO DE PROJETO']
-            tipo_projeto_parts = tipo_projeto_value.split('💡 R$ ANUAL (PREVISTO)')
-            filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[0].strip()
-            filtered_task['💡 R$ ANUAL (PREVISTO)'] = tipo_projeto_parts[1].strip()
+        for project_count, task in enumerate(data.get('tasks', []), start=1):
+            try:
+                filtered_task = {
+                    'Projeto': project_count,
+                    'ID': task['id'],
+                    'Status': task['status'].get('status', ''),
+                    'Name': task.get('name', ''),
+                    'Priority': task.get('priority', {}).get('priority', None)
+                    if task.get('priority')
+                    else None,
+                    'Líder': task.get('assignees', [{}])[0].get('username')
+                    if task.get('assignees')
+                    else None,
+                    'Email líder': task.get('assignees', [{}])[0].get('email')
+                    if task.get('assignees')
+                    else None,
+                    'date_created': datetime.utcfromtimestamp(
+                        int(task['date_created']) / 1000
+                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                    'date_updated': datetime.utcfromtimestamp(
+                        int(task['date_updated']) / 1000
+                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                }
 
-        filtered_data.append(filtered_task)
+                task_text = (
+                    task.get('text_content', '')
+                    .replace('\n', ' ')
+                    .replace('.:', '')
+                )
+                field_values = {field: '' for field in field_names}
 
-    return filtered_data
+                for field_name in field_names:
+                    pattern = re.compile(
+                        rf'{re.escape(field_name)}\s*:\s*(.*?)(?=\s*({"|".join([re.escape(name) for name in field_names])})\s*:|$)',
+                        re.IGNORECASE,
+                    )
+                    match = pattern.search(task_text)
+                    if match:
+                        field_values[field_name] = match.group(1).strip()
+
+                filtered_task.update(field_values)
+
+                if (
+                    '💡 TIPO DE PROJETO' in filtered_task
+                    and '💡 R$ ANUAL (PREVISTO)'
+                    in filtered_task['💡 TIPO DE PROJETO']
+                ):
+                    tipo_projeto_value = filtered_task['💡 TIPO DE PROJETO']
+                    tipo_projeto_parts = tipo_projeto_value.split(
+                        '💡 R$ ANUAL (PREVISTO)'
+                    )
+                    filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[
+                        0
+                    ].strip()
+                    filtered_task[
+                        '💡 R$ ANUAL (PREVISTO)'
+                    ] = tipo_projeto_parts[1].strip()
+
+                filtered_data.append(filtered_task)
+            except Exception as e:
+                raise HTTPException(
+                    status_code=500,
+                    detail=f'Erro ao processar uma tarefa: {str(e)}',
+                )
+
+        return filtered_data
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f'Erro ao obter dados do ClickUp API: {str(e)}',
+        )
