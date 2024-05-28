@@ -63,7 +63,7 @@ async def get_clickup_data(list_id: str):
         headers = {'Authorization': API_KEY}
 
         async with httpx.AsyncClient(
-            timeout=30.0
+            timeout=180.0
         ) as client:  # Timeout reduzido
             response = await client.get(url, headers=headers, params=query)
 
