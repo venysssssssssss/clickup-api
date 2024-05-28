@@ -1,12 +1,13 @@
 import pytest
-from fast import app
 from fastapi.testclient import TestClient
+
+from fast import app
 
 client = TestClient(app)
 
-valid_list_id = '174940580' 
+valid_list_id = '174940580'
 
-invalid_list_id = '123456789'  
+invalid_list_id = '123456789'
 
 
 def test_successful_case():

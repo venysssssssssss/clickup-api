@@ -1,31 +1,70 @@
+import os
 import re
 from datetime import datetime
 
 import httpx
+import pytz
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 
+brt_zone = pytz.timezone('America/Sao_Paulo')
+
+load_dotenv()
 app = FastAPI()
+
+# Utilize variáveis de ambiente para a chave de API
+API_KEY = os.getenv('CLICKUP_API_KEY')
+
+# Compile as expressões regulares uma vez para reutilização
+FIELD_NAMES = [
+    'CARTEIRA DEMANDANTE',
+    'E-MAIL',
+    'ESCOPO',
+    'OBS',
+    'OBJETIVO DO GANHO',
+    'KPI GANHO',
+    '💡 TIPO DE PROJETO',
+    'TIPO DE PROJETO',
+    'TIPO DE OPERAÇÃO',
+    'PRODUTO',
+    'OPERAÇÃO',
+    'SITE',
+    'UNIDADE DE NEGÓCIO',
+    'DIRETOR TAHTO',
+    'CLIENTE',
+    'TIPO',
+    '💡 R$ ANUAL (PREVISTO)',
+    'GERENTE OI',
+    'FERRAMENTA ENVOLVIDA',
+    'CENÁRIO PROPOSTO',
+]
+
+FIELD_PATTERNS = {
+    field_name: re.compile(
+        rf'{re.escape(field_name)}\s*:\s*(.*?)(?=\s*({"|".join([re.escape(name) for name in FIELD_NAMES])})\s*:|$)',
+        re.IGNORECASE,
+    )
+    for field_name in FIELD_NAMES
+}
 
 
 @app.get('/get_data_organized/{list_id}')
 async def get_clickup_data(list_id: str):
     """
     Retrieve and organize data from ClickUp API.
-
-    Args:
-        list_id (str): The ID of the ClickUp list.
-
-    Returns:
-        list: A list of dictionaries containing the filtered data.
     """
+    # Validação do list_id
+    if not list_id.isalnum():
+        raise HTTPException(status_code=400, detail='ID da lista inválido.')
+
     try:
         url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
         query = {'archived': 'false', 'include_markdown_description': 'true'}
-        headers = {
-            'Authorization': 'pk_43030192_303UC2Z0VJEJ5QY9ES23X8I22ISAHUX2'
-        }
+        headers = {'Authorization': API_KEY}
 
-        async with httpx.AsyncClient(timeout=140.0) as client:
+        async with httpx.AsyncClient(
+            timeout=30.0
+        ) as client:  # Timeout reduzido
             response = await client.get(url, headers=headers, params=query)
 
         if response.status_code != 200:
@@ -34,28 +73,6 @@ async def get_clickup_data(list_id: str):
 
         data = response.json()
         filtered_data = []
-        field_names = [
-            'CARTEIRA DEMANDANTE',
-            'E-MAIL',
-            'ESCOPO',
-            'OBS',
-            'OBJETIVO DO GANHO',
-            'KPI GANHO',
-            '💡 TIPO DE PROJETO',
-            'TIPO DE PROJETO',
-            'TIPO DE OPERAÇÃO',
-            'PRODUTO',
-            'OPERAÇÃO',
-            'SITE',
-            'UNIDADE DE NEGÓCIO',
-            'DIRETOR TAHTO',
-            'CLIENTE',
-            'TIPO',
-            '💡 R$ ANUAL (PREVISTO)',
-            'GERENTE OI',
-            'FERRAMENTA ENVOLVIDA',
-            'CENÁRIO PROPOSTO',
-        ]
 
         for project_count, task in enumerate(data.get('tasks', []), start=1):
             try:
@@ -75,10 +92,16 @@ async def get_clickup_data(list_id: str):
                     else None,
                     'date_created': datetime.utcfromtimestamp(
                         int(task['date_created']) / 1000
-                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                    )
+                    .replace(tzinfo=pytz.utc)
+                    .astimezone(brt_zone)
+                    .strftime('%d-%m-%Y %H:%M:%S'),
                     'date_updated': datetime.utcfromtimestamp(
                         int(task['date_updated']) / 1000
-                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                    )
+                    .replace(tzinfo=pytz.utc)
+                    .astimezone(brt_zone)
+                    .strftime('%d-%m-%Y %H:%M:%S'),
                 }
 
                 task_text = (
@@ -86,13 +109,10 @@ async def get_clickup_data(list_id: str):
                     .replace('\n', ' ')
                     .replace('.:', '')
                 )
-                field_values = {field: '' for field in field_names}
+                field_values = {field: '' for field in FIELD_NAMES}
 
-                for field_name in field_names:
-                    pattern = re.compile(
-                        rf'{re.escape(field_name)}\s*:\s*(.*?)(?=\s*({"|".join([re.escape(name) for name in field_names])})\s*:|$)',
-                        re.IGNORECASE,
-                    )
+                for field_name in FIELD_NAMES:
+                    pattern = FIELD_PATTERNS[field_name]
                     match = pattern.search(task_text)
                     if match:
                         field_values[field_name] = match.group(1).strip()
@@ -123,8 +143,13 @@ async def get_clickup_data(list_id: str):
                 )
 
         return filtered_data
+    except httpx.HTTPError as http_err:
+        raise HTTPException(
+            status_code=500,
+            detail=f'Erro na solicitação HTTP: {str(http_err)}',
+        )
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f'Erro ao obter dados do ClickUp API: {str(e)}',
+            detail=f'Erro desconhecido: {str(e)}',
         )
