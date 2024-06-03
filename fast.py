@@ -43,6 +43,7 @@ FIELD_NAMES = [
     'CENÁRIO PROPOSTO',
 ]
 
+# Compile regular expressions once for reuse
 FIELD_PATTERNS = {
     field_name: re.compile(
         rf'{re.escape(field_name)}\s*:\s*(.*?)(?=\s*({"|".join([re.escape(name) for name in FIELD_NAMES])})\s*:|$)',
@@ -52,18 +53,60 @@ FIELD_PATTERNS = {
 }
 
 async def fetch_clickup_data(url, headers, query):
+    """
+    Fetches data from the ClickUp API.
+
+    Args:
+        url (str): The URL of the API endpoint.
+        headers (dict): The headers to be included in the request.
+        query (dict): The query parameters to be included in the request.
+
+    Returns:
+        dict: The JSON response from the API.
+
+    Raises:
+        HTTPException: If there is an HTTP error while making the API request.
+    """
     async with httpx.AsyncClient(timeout=180.0) as client:
         response = await client.get(url, headers=headers, params=query)
         response.raise_for_status()
         return response.json()
 
 def parse_task_text(task_text):
+    """
+    Parses the given task text by replacing newline characters with spaces and removing '.:' characters.
+
+    Args:
+        task_text (str): The task text to be parsed.
+
+    Returns:
+        str: The parsed task text.
+    """
     return task_text.replace('\n', ' ').replace('.:', '')
 
 def parse_date(timestamp):
+    """
+    Parses a timestamp and converts it to a formatted date string.
+
+    Args:
+        timestamp (int): The timestamp to parse.
+
+    Returns:
+        str: The formatted date string.
+
+    """
     return datetime.utcfromtimestamp(int(timestamp) / 1000).replace(tzinfo=pytz.utc).astimezone(brt_zone).strftime('%d-%m-%Y %H:%M:%S')
 
 def extract_field_values(task_text):
+    """
+    Extracts field values from the given task text.
+
+    Args:
+        task_text (str): The text of the task.
+
+    Returns:
+        dict: A dictionary containing field names as keys and their corresponding values as values.
+    """
     field_values = {field: '' for field in FIELD_NAMES}
     for field_name in FIELD_NAMES:
         pattern = FIELD_PATTERNS[field_name]
@@ -76,6 +119,18 @@ def extract_field_values(task_text):
 async def get_clickup_data(list_id: str):
     """
     Retrieve and organize data from ClickUp API.
+
+    Parameters:
+    - list_id (str): The ID of the ClickUp list.
+
+    Returns:
+    - filtered_data (list): A list of dictionaries containing the filtered and organized data.
+
+    Raises:
+    - HTTPException: If the list ID is invalid or if there is an error processing a task.
+    - HTTPException: If there is an HTTP error while making the API request.
+    - HTTPException: If there is an unknown error.
+
     """
     if not list_id.isalnum():
         raise HTTPException(status_code=400, detail='Invalid list ID.')
