@@ -2,6 +2,7 @@ import os
 import re
 from datetime import datetime
 import asyncio
+from typing import List, Dict, Union
 
 import httpx
 import pytz
@@ -54,87 +55,122 @@ FIELD_PATTERNS = {
 }
 
 
-async def fetch_clickup_data(url, headers, query, retries=3):
-    """
-    Fetches data from the ClickUp API with retry logic.
+class ClickUpAPI:
+    def __init__(self, api_key: str, timezone: str):
+        self.api_key = api_key
+        self.timezone = pytz.timezone(timezone)
+        self.headers = {'Authorization': api_key}
+        self.semaphore = asyncio.Semaphore(10)  # Limit concurrent tasks to 10
 
-    Args:
-        url (str): The URL of the API endpoint.
-        headers (dict): The headers to be included in the request.
-        query (dict): The query parameters to be included in the request.
-        retries (int): The number of retries for the request.
+    async def fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -> Dict:
+        attempt = 0
+        while attempt < retries:
+            try:
+                async with self.semaphore, httpx.AsyncClient(timeout=180.0) as client:
+                    response = await client.get(url, headers=self.headers, params=query)
+                    response.raise_for_status()
+                    return response.json()
+            except httpx.RequestError as e:
+                attempt += 1
+                if attempt >= retries:
+                    raise HTTPException(status_code=500, detail=f"HTTP error: {str(e)}")
+                await asyncio.sleep(2 ** attempt)  # Exponential backoff
 
-    Returns:
-        dict: The JSON response from the API.
+    async def fetch_all_tasks(self, url: str, initial_query: Dict, start_page: int, end_page: int) -> List[Dict]:
+        tasks = []
+        for page in range(start_page, end_page):
+            query = initial_query.copy()
+            query['page'] = page
+            data = await self.fetch_clickup_data(url, query)
+            tasks.extend(data.get('tasks', []))
+        return tasks
 
-    Raises:
-        HTTPException: If there is an HTTP error while making the API request.
-    """
-    attempt = 0
-    while attempt < retries:
-        try:
-            async with httpx.AsyncClient(timeout=180.0) as client:
-                response = await client.get(url, headers=headers, params=query)
-                response.raise_for_status()
-                return response.json()
-        except httpx.RequestError as e:
-            attempt += 1
-            if attempt >= retries:
-                raise HTTPException(status_code=500, detail=f"HTTP error: {str(e)}")
-            await asyncio.sleep(2 ** attempt)  # Exponential backoff
+    def parse_task_text(self, task_text: str) -> str:
+        if task_text is None:
+            return ''
+        return task_text.replace('\n', ' ').replace('.:', '')
 
+    def parse_date(self, timestamp: int) -> str:
+        return (
+            datetime.utcfromtimestamp(int(timestamp) / 1000)
+            .replace(tzinfo=pytz.utc)
+            .astimezone(self.timezone)
+            .strftime('%d-%m-%Y %H:%M:%S')
+        )
 
-def parse_task_text(task_text):
-    """
-    Parses the given task text by replacing newline characters with spaces and removing '.:' characters.
+    def extract_field_values(self, task_text: str) -> Dict[str, str]:
+        field_values = {field: '' for field in FIELD_NAMES}
+        for field_name in FIELD_NAMES:
+            pattern = FIELD_PATTERNS[field_name]
+            match = pattern.search(task_text)
+            if match:
+                field_values[field_name] = match.group(1).strip()
+        return field_values
 
-    Args:
-        task_text (str): The task text to be parsed.
+    async def get_tasks(self, list_id: str) -> List[Dict[str, Union[str, None]]]:
+        url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
+        initial_query = {
+            'archived': 'false',
+            'include_markdown_description': 'true',
+            'include_closed': "true",
+            'page_size': 100,  # Maximize the number of tasks per page
+        }
 
-    Returns:
-        str: The parsed task text.
-    """
-    if task_text is None:
-        return ''
-    return task_text.replace('\n', ' ').replace('.:', '')
+        if list_id == '192943568':
+            # Specific logic for large list ID 192943568
+            tasks = await asyncio.gather(*[
+                self.fetch_all_tasks(url, initial_query, i, i + 10)
+                for i in range(0, 4600, 10)
+            ])
+            tasks = [task for sublist in tasks for task in sublist]  # Flatten the list
+        else:
+            tasks = []
+            page = 0
+            while True:
+                initial_query['page'] = page
+                data = await self.fetch_clickup_data(url, initial_query)
+                batch = data.get('tasks', [])
+                if not batch:
+                    break
+                tasks.extend(batch)
+                page += 1
 
+        return tasks
 
-def parse_date(timestamp):
-    """
-    Parses a timestamp and converts it to a formatted date string.
+    def filter_tasks(self, tasks: List[Dict]) -> List[Dict]:
+        filtered_data = []
 
-    Args:
-        timestamp (int): The timestamp to parse.
+        for project_count, task in enumerate(tasks, start=1):
+            filtered_task = {
+                'Projeto': project_count,
+                'ID': task['id'],
+                'Status': task['status'].get('status', ''),
+                'Name': task.get('name', ''),
+                'Priority': task.get('priority', {}).get('priority', None)
+                if task.get('priority') else None,
+                'Líder': task.get('assignees', [{}])[0].get('username')
+                if task.get('assignees') else None,
+                'Email líder': task.get('assignees', [{}])[0].get('email')
+                if task.get('assignees') else None,
+                'date_created': self.parse_date(task['date_created']),
+                'date_updated': self.parse_date(task['date_updated']),
+            }
 
-    Returns:
-        str: The formatted date string.
+            task_text = self.parse_task_text(task.get('text_content', ''))
+            field_values = self.extract_field_values(task_text)
+            filtered_task.update(field_values)
 
-    """
-    return (
-        datetime.utcfromtimestamp(int(timestamp) / 1000)
-        .replace(tzinfo=pytz.utc)
-        .astimezone(brt_zone)
-        .strftime('%d-%m-%Y %H:%M:%S')
-    )
+            if ('💡 TIPO DE PROJETO' in filtered_task) and (
+                '💡 R$ ANUAL (PREVISTO)' in filtered_task['💡 TIPO DE PROJETO']
+            ):
+                tipo_projeto_value = filtered_task['💡 TIPO DE PROJETO']
+                tipo_projeto_parts = tipo_projeto_value.split('💡 R$ ANUAL (PREVISTO)')
+                filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[0].strip()
+                filtered_task['💡 R$ ANUAL (PREVISTO)'] = tipo_projeto_parts[1].strip()
 
+            filtered_data.append(filtered_task)
 
-def extract_field_values(task_text):
-    """
-    Extracts field values from the given task text.
-
-    Args:
-        task_text (str): The text of the task.
-
-    Returns:
-        dict: A dictionary containing field names as keys and their corresponding values as values.
-    """
-    field_values = {field: '' for field in FIELD_NAMES}
-    for field_name in FIELD_NAMES:
-        pattern = FIELD_PATTERNS[field_name]
-        match = pattern.search(task_text)
-        if match:
-            field_values[field_name] = match.group(1).strip()
-    return field_values
+        return filtered_data
 
 
 @app.get('/get_data_organized/{list_id}')
@@ -152,81 +188,14 @@ async def get_clickup_data(list_id: str):
     - HTTPException: If the list ID is invalid or if there is an error processing a task.
     - HTTPException: If there is an HTTP error while making the API request.
     - HTTPException: If there is an unknown error.
-
     """
     if not list_id.isalnum():
         raise HTTPException(status_code=400, detail='Invalid list ID.')
 
     try:
-        url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
-        query = {
-            'archived': 'false',
-            'include_markdown_description': 'true',
-            'include_closed': "true",
-        }
-        headers = {'Authorization': API_KEY}
-
-        filtered_data = []
-        page = 0
-        while True:
-            query['page'] = page
-            data = await fetch_clickup_data(url, headers, query)
-            tasks = data.get('tasks', [])
-            if not tasks:
-                break
-
-            for project_count, task in enumerate(tasks, start=1 + page * 100):
-                try:
-                    filtered_task = {
-                        'Projeto': project_count,
-                        'ID': task['id'],
-                        'Status': task['status'].get('status', ''),
-                        'Name': task.get('name', ''),
-                        'Priority': task.get('priority', {}).get(
-                            'priority', None
-                        )
-                        if task.get('priority')
-                        else None,
-                        'Líder': task.get('assignees', [{}])[0].get('username')
-                        if task.get('assignees')
-                        else None,
-                        'Email líder': task.get('assignees', [{}])[0].get(
-                            'email'
-                        )
-                        if task.get('assignees')
-                        else None,
-                        'date_created': parse_date(task['date_created']),
-                        'date_updated': parse_date(task['date_updated']),
-                    }
-
-                    task_text = parse_task_text(task.get('text_content', ''))
-                    field_values = extract_field_values(task_text)
-                    filtered_task.update(field_values)
-
-                    if ('💡 TIPO DE PROJETO' in filtered_task) and (
-                        '💡 R$ ANUAL (PREVISTO)'
-                        in filtered_task['💡 TIPO DE PROJETO']
-                    ):
-                        tipo_projeto_value = filtered_task['💡 TIPO DE PROJETO']
-                        tipo_projeto_parts = tipo_projeto_value.split(
-                            '💡 R$ ANUAL (PREVISTO)'
-                        )
-                        filtered_task[
-                            '💡 TIPO DE PROJETO'
-                        ] = tipo_projeto_parts[0].strip()
-                        filtered_task[
-                            '💡 R$ ANUAL (PREVISTO)'
-                        ] = tipo_projeto_parts[1].strip()
-
-                    filtered_data.append(filtered_task)
-                except Exception as e:
-                    raise HTTPException(
-                        status_code=500,
-                        detail=f'Error processing a task: {str(e)}',
-                    )
-
-            page += 1
-
+        clickup_api = ClickUpAPI(api_key=API_KEY, timezone='America/Sao_Paulo')
+        tasks = await clickup_api.get_tasks(list_id)
+        filtered_data = clickup_api.filter_tasks(tasks)
         return filtered_data
     except httpx.HTTPError as http_err:
         raise HTTPException(
