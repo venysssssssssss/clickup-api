@@ -1,6 +1,7 @@
 import os
 import re
 from datetime import datetime
+
 import httpx
 import pytz
 from dotenv import load_dotenv
@@ -55,8 +56,11 @@ def compile_patterns():
         for field_name in FIELD_NAMES
     }
 
+
 def parse_task_data(task, patterns):
-    task_text = task.get('text_content', '').replace('\n', ' ').replace('.:', '')
+    task_text = (
+        task.get('text_content', '').replace('\n', ' ').replace('.:', '')
+    )
     field_values = {field: '' for field in FIELD_NAMES}
     for field_name in FIELD_NAMES:
         pattern = patterns[field_name]
@@ -65,14 +69,21 @@ def parse_task_data(task, patterns):
             field_values[field_name] = match.group(1).strip()
     return field_values
 
+
 def format_task_data(task, project_count, brt_zone):
     return {
         'Projeto': project_count,
         'ID': task['id'],
         # Outros campos omitidos para brevidade
-        'date_created': datetime.utcfromtimestamp(int(task['date_created']) / 1000).replace(tzinfo=pytz.utc).astimezone(brt_zone).strftime('%d-%m-%Y %H:%M:%S'),
+        'date_created': datetime.utcfromtimestamp(
+            int(task['date_created']) / 1000
+        )
+        .replace(tzinfo=pytz.utc)
+        .astimezone(brt_zone)
+        .strftime('%d-%m-%Y %H:%M:%S'),
         # Outros campos omitidos para brevidade
     }
+
 
 # Rota principal
 @app.get('/get_data_organized/{list_id}')
@@ -97,10 +108,14 @@ async def get_clickup_data(list_id: str):
                 task_data.update(parse_task_data(task, patterns))
                 filtered_data.append(task_data)
             except Exception as e:
-                raise HTTPException(status_code=500, detail=f'Erro ao processar uma tarefa: {str(e)}')
+                raise HTTPException(
+                    status_code=500,
+                    detail=f'Erro ao processar uma tarefa: {str(e)}',
+                )
         page += 1
 
     return filtered_data
+
 
 async def fetch_clickup_tasks(list_id, headers, query, page):
     url = f'{CLICKUP_API_URL}/list/{list_id}/task'

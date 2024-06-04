@@ -52,6 +52,7 @@ FIELD_PATTERNS = {
     for field_name in FIELD_NAMES
 }
 
+
 async def fetch_clickup_data(url, headers, query):
     """
     Fetches data from the ClickUp API.
@@ -71,6 +72,7 @@ async def fetch_clickup_data(url, headers, query):
         response = await client.get(url, headers=headers, params=query)
         response.raise_for_status()
         return response.json()
+
 
 def parse_task_text(task_text):
     """
@@ -98,7 +100,13 @@ def parse_date(timestamp):
         str: The formatted date string.
 
     """
-    return datetime.utcfromtimestamp(int(timestamp) / 1000).replace(tzinfo=pytz.utc).astimezone(brt_zone).strftime('%d-%m-%Y %H:%M:%S')
+    return (
+        datetime.utcfromtimestamp(int(timestamp) / 1000)
+        .replace(tzinfo=pytz.utc)
+        .astimezone(brt_zone)
+        .strftime('%d-%m-%Y %H:%M:%S')
+    )
+
 
 def extract_field_values(task_text):
     """
@@ -117,6 +125,7 @@ def extract_field_values(task_text):
         if match:
             field_values[field_name] = match.group(1).strip()
     return field_values
+
 
 @app.get('/get_data_organized/{list_id}')
 async def get_clickup_data(list_id: str):
@@ -159,9 +168,19 @@ async def get_clickup_data(list_id: str):
                         'ID': task['id'],
                         'Status': task['status'].get('status', ''),
                         'Name': task.get('name', ''),
-                        'Priority': task.get('priority', {}).get('priority', None) if task.get('priority') else None,
-                        'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
-                        'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
+                        'Priority': task.get('priority', {}).get(
+                            'priority', None
+                        )
+                        if task.get('priority')
+                        else None,
+                        'Líder': task.get('assignees', [{}])[0].get('username')
+                        if task.get('assignees')
+                        else None,
+                        'Email líder': task.get('assignees', [{}])[0].get(
+                            'email'
+                        )
+                        if task.get('assignees')
+                        else None,
                         'date_created': parse_date(task['date_created']),
                         'date_updated': parse_date(task['date_updated']),
                     }
@@ -170,20 +189,34 @@ async def get_clickup_data(list_id: str):
                     field_values = extract_field_values(task_text)
                     filtered_task.update(field_values)
 
-                    if ('💡 TIPO DE PROJETO' in filtered_task) and ('💡 R$ ANUAL (PREVISTO)' in filtered_task['💡 TIPO DE PROJETO']):
+                    if ('💡 TIPO DE PROJETO' in filtered_task) and (
+                        '💡 R$ ANUAL (PREVISTO)'
+                        in filtered_task['💡 TIPO DE PROJETO']
+                    ):
                         tipo_projeto_value = filtered_task['💡 TIPO DE PROJETO']
-                        tipo_projeto_parts = tipo_projeto_value.split('💡 R$ ANUAL (PREVISTO)')
-                        filtered_task['💡 TIPO DE PROJETO'] = tipo_projeto_parts[0].strip()
-                        filtered_task['💡 R$ ANUAL (PREVISTO)'] = tipo_projeto_parts[1].strip()
+                        tipo_projeto_parts = tipo_projeto_value.split(
+                            '💡 R$ ANUAL (PREVISTO)'
+                        )
+                        filtered_task[
+                            '💡 TIPO DE PROJETO'
+                        ] = tipo_projeto_parts[0].strip()
+                        filtered_task[
+                            '💡 R$ ANUAL (PREVISTO)'
+                        ] = tipo_projeto_parts[1].strip()
 
                     filtered_data.append(filtered_task)
                 except Exception as e:
-                    raise HTTPException(status_code=500, detail=f'Error processing a task: {str(e)}')
+                    raise HTTPException(
+                        status_code=500,
+                        detail=f'Error processing a task: {str(e)}',
+                    )
 
             page += 1
 
         return filtered_data
     except httpx.HTTPError as http_err:
-        raise HTTPException(status_code=500, detail=f'HTTP error: {str(http_err)}')
+        raise HTTPException(
+            status_code=500, detail=f'HTTP error: {str(http_err)}'
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Unknown error: {str(e)}')
