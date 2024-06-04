@@ -82,7 +82,10 @@ def parse_task_text(task_text):
     Returns:
         str: The parsed task text.
     """
+    if task_text is None:
+        return ''
     return task_text.replace('\n', ' ').replace('.:', '')
+
 
 def parse_date(timestamp):
     """
