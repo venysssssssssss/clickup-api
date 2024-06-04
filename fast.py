@@ -112,11 +112,11 @@ class ClickUpAPI:
         initial_query = {
             'archived': 'false',
             'include_markdown_description': 'true',
-            'include_closed': "true",
-            'page_size': 100,  # Maximize the number of tasks per page
         }
 
         if list_id == '192943568':
+
+            initial_query.update({'include_closed': "true"})
             # Specific logic for large list ID 192943568
             tasks = await asyncio.gather(*[
                 self.fetch_all_tasks(url, initial_query, i, i + 10)
