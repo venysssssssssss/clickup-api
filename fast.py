@@ -1,6 +1,7 @@
 import os
 import re
 from datetime import datetime
+import asyncio
 
 import httpx
 import pytz
@@ -53,14 +54,15 @@ FIELD_PATTERNS = {
 }
 
 
-async def fetch_clickup_data(url, headers, query):
+async def fetch_clickup_data(url, headers, query, retries=3):
     """
-    Fetches data from the ClickUp API.
+    Fetches data from the ClickUp API with retry logic.
 
     Args:
         url (str): The URL of the API endpoint.
         headers (dict): The headers to be included in the request.
         query (dict): The query parameters to be included in the request.
+        retries (int): The number of retries for the request.
 
     Returns:
         dict: The JSON response from the API.
@@ -68,10 +70,18 @@ async def fetch_clickup_data(url, headers, query):
     Raises:
         HTTPException: If there is an HTTP error while making the API request.
     """
-    async with httpx.AsyncClient(timeout=180.0) as client:
-        response = await client.get(url, headers=headers, params=query)
-        response.raise_for_status()
-        return response.json()
+    attempt = 0
+    while attempt < retries:
+        try:
+            async with httpx.AsyncClient(timeout=180.0) as client:
+                response = await client.get(url, headers=headers, params=query)
+                response.raise_for_status()
+                return response.json()
+        except httpx.RequestError as e:
+            attempt += 1
+            if attempt >= retries:
+                raise HTTPException(status_code=500, detail=f"HTTP error: {str(e)}")
+            await asyncio.sleep(2 ** attempt)  # Exponential backoff
 
 
 def parse_task_text(task_text):
@@ -149,7 +159,11 @@ async def get_clickup_data(list_id: str):
 
     try:
         url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
-        query = {'archived': 'false', 'include_markdown_description': 'true'}
+        query = {
+            'archived': 'false',
+            'include_markdown_description': 'true',
+            'include_closed': "true",
+        }
         headers = {'Authorization': API_KEY}
 
         filtered_data = []
