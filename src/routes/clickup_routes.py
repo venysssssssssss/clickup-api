@@ -10,9 +10,7 @@ API_KEY = os.getenv('CLICKUP_API_KEY')
 @router.get('/get_data_organized/{list_id}')
 async def get_clickup_data(list_id: str):
     if not list_id.isalnum():
-        raise HTTPException(status_code=400, detail='[
-        
-        Invalid list ID.')
+        raise HTTPException(status_code=400, detail='[Invalid list ID.')
 
     try:
         clickup_api = ClickUpAPI(api_key=API_KEY, timezone='America/Sao_Paulo')
