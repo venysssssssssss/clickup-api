@@ -1,5 +1,7 @@
 from datetime import datetime
+
 import pytz
+
 
 def parse_date(timestamp: int, timezone: pytz.timezone) -> str:
     return (

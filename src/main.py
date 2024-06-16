@@ -1,6 +1,8 @@
 import os
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
+
 from routes.clickup_routes import router as clickup_router
 
 # Load environment variables

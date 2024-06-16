@@ -1,11 +1,14 @@
-from fastapi import APIRouter, HTTPException
-import httpx
-from api.clickup_api import ClickUpAPI  # Corrigido aqui
 import os
+
+import httpx
+from fastapi import APIRouter, HTTPException
+
+from api.clickup_api import ClickUpAPI  # Corrigido aqui
 
 router = APIRouter()
 
 API_KEY = os.getenv('CLICKUP_API_KEY')
+
 
 @router.get('/get_data_organized/{list_id}')
 async def get_clickup_data(list_id: str):
