@@ -9,7 +9,7 @@ from api.clickup_api import \
 router = APIRouter()
 
 API_KEY = os.getenv('CLICKUP_API_KEY')
-REDIS_URL = 'rediss://red-cpn3p3o8fa8c73aqq8q0:vYcELCVWAem69bACEgQRp6XKnpCAcHfH@oregon-redis.render.com:6379'  # URL interna do Redis no Render
+REDIS_URL = os.getenv('REDIS_URL') # URL interna do Redis no Render
 
 
 @router.get('/get_data_organized/{list_id}')
