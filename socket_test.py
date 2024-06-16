@@ -5,6 +5,6 @@ port = 6379
 
 try:
     ip = socket.gethostbyname(host)
-    print(f"Resolved {host} to IP address: {ip}")
+    print(f'Resolved {host} to IP address: {ip}')
 except socket.gaierror as e:
-    print(f"Failed to resolve {host}: {e}")
+    print(f'Failed to resolve {host}: {e}')
