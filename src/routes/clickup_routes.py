@@ -3,12 +3,12 @@ import os
 import httpx
 from fastapi import APIRouter, HTTPException
 
-from api.clickup_api import ClickUpAPI  # Corrigido aqui
+from api.clickup_api import ClickUpAPI  # Importe ajustado conforme a estrutura do seu projeto
 
 router = APIRouter()
 
 API_KEY = os.getenv('CLICKUP_API_KEY')
-
+REDIS_URL = 'rediss://red-cpn3p3o8fa8c73aqq8q0:vYcELCVWAem69bACEgQRp6XKnpCAcHfH@oregon-redis.render.com:6379'  # URL interna do Redis no Render
 
 @router.get('/get_data_organized/{list_id}')
 async def get_clickup_data(list_id: str):
@@ -16,7 +16,7 @@ async def get_clickup_data(list_id: str):
         raise HTTPException(status_code=400, detail='[Invalid list ID.')
 
     try:
-        clickup_api = ClickUpAPI(api_key=API_KEY, timezone='America/Sao_Paulo')
+        clickup_api = ClickUpAPI(api_key=API_KEY, timezone='America/Sao_Paulo', redis_url=REDIS_URL)
         tasks = await clickup_api.get_tasks(list_id)
         filtered_data = clickup_api.filter_tasks(tasks)
         return filtered_data
