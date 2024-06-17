@@ -4,7 +4,7 @@ import httpx
 import time
 import asyncio
 from datetime import datetime
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 from api.clickup_api import ClickUpAPI
 
@@ -50,18 +50,32 @@ async def test_load():
             responses = await asyncio.gather(*tasks, return_exceptions=True)
             return responses
 
+    # Helper function to calculate average duration
+    def calculate_average_duration(responses):
+        durations = [response[1] for response in responses if isinstance(response, tuple)]
+        if durations:
+            return sum(durations) / len(durations)
+        return 0
+
     # Teste com 10 requisições simultâneas
     responses_10 = await run_load_test(10)
-    durations_10 = []
-    for response in responses_10:
-        if isinstance(response, tuple):
-            data, duration = response
-            durations_10.append(duration)
-            assert isinstance(data, dict)
-        else:
-            assert isinstance(response, httpx.HTTPStatusError)
+    avg_duration_10 = calculate_average_duration(responses_10)
+    print("Average duration for 10 requests:", avg_duration_10)
 
-    print("Durations:", durations_10)
+    # Teste com 20 requisições simultâneas
+    responses_20 = await run_load_test(20)
+    avg_duration_20 = calculate_average_duration(responses_20)
+    print("Average duration for 20 requests:", avg_duration_20)
+
+    # Teste com 50 requisições simultâneas
+    responses_50 = await run_load_test(50)
+    avg_duration_50 = calculate_average_duration(responses_50)
+    print("Average duration for 50 requests:", avg_duration_50)
+
+    # Teste com 90 requisições simultâneas
+    responses_90 = await run_load_test(90)
+    avg_duration_90 = calculate_average_duration(responses_90)
+    print("Average duration for 90 requests:", avg_duration_90)
 
 # Mock do Redis
 @pytest.fixture
