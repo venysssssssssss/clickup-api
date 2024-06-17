@@ -92,7 +92,6 @@ class ClickUpAPI:
         query = {
             'archived': 'false',
             'include_markdown_description': 'true',
-            'page_size': 100,
         }
 
         # Define the date range for 2024
