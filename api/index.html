@@ -1,0 +1,1444 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../backup/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>API - CLICKUPAPI DOCUMENTATION</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#clickup-api-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-header__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CLICKUPAPI DOCUMENTATION
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-nav__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    CLICKUPAPI DOCUMENTATION
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-clickupapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class: ClickUpAPI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Class: ClickUpAPI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attributes:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-method-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Method Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Method Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#__init__self-api_key-str-timezone-str-redis_url-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__(self, api_key: str, timezone: str, redis_url: str)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="__init__(self, api_key: str, timezone: str, redis_url: str)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test_redis_connectionself" class="md-nav__link">
+    <span class="md-ellipsis">
+      test_redis_connection(self)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_from_cacheself-key-str-unionlist-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_from_cache(self, key: str) -&gt; Union[List, None]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get_from_cache(self, key: str) -> Union[List, None]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_in_cacheself-key-str-data-list-ttl-int-600" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_in_cache(self, key: str, data: List, ttl: int = 600)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="set_in_cache(self, key: str, data: List, ttl: int = 600)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch_clickup_dataself-url-str-query-dict-retries-int-3-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -&gt; Dict
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -> Dict">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch_all_tasksself-url-str-query-dict-listdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      fetch_all_tasks(self, url: str, query: Dict) -&gt; List[Dict]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fetch_all_tasks(self, url: str, query: Dict) -> List[Dict]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_task_textself-task_text-str-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      parse_task_text(self, task_text: str) -&gt; str
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="parse_task_text(self, task_text: str) -> str">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_dateself-timestamp-int-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      parse_date(self, timestamp: int) -&gt; str
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="parse_date(self, timestamp: int) -> str">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract_field_valuesself-task_text-str-dictstr-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      extract_field_values(self, task_text: str) -&gt; Dict[str, str]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="extract_field_values(self, task_text: str) -> Dict[str, str]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_tasksself-list_id-str-listdictstr-unionstr-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_tasks(self, list_id: str) -&gt; List[Dict[str, Union[str, None]]]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get_tasks(self, list_id: str) -> List[Dict[str, Union[str, None]]]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_tasksself-tasks-listdict-listdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      filter_tasks(self, tasks: List[Dict]) -&gt; List[Dict]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="filter_tasks(self, tasks: List[Dict]) -> List[Dict]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bakcup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Main
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../render/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Render
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../routes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Routes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utils
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-clickupapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class: ClickUpAPI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Class: ClickUpAPI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attributes:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-method-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Method Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Method Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#__init__self-api_key-str-timezone-str-redis_url-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__(self, api_key: str, timezone: str, redis_url: str)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="__init__(self, api_key: str, timezone: str, redis_url: str)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test_redis_connectionself" class="md-nav__link">
+    <span class="md-ellipsis">
+      test_redis_connection(self)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_from_cacheself-key-str-unionlist-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_from_cache(self, key: str) -&gt; Union[List, None]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get_from_cache(self, key: str) -> Union[List, None]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_in_cacheself-key-str-data-list-ttl-int-600" class="md-nav__link">
+    <span class="md-ellipsis">
+      set_in_cache(self, key: str, data: List, ttl: int = 600)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="set_in_cache(self, key: str, data: List, ttl: int = 600)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch_clickup_dataself-url-str-query-dict-retries-int-3-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -&gt; Dict
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -> Dict">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch_all_tasksself-url-str-query-dict-listdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      fetch_all_tasks(self, url: str, query: Dict) -&gt; List[Dict]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fetch_all_tasks(self, url: str, query: Dict) -> List[Dict]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_task_textself-task_text-str-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      parse_task_text(self, task_text: str) -&gt; str
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="parse_task_text(self, task_text: str) -> str">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_dateself-timestamp-int-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      parse_date(self, timestamp: int) -&gt; str
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="parse_date(self, timestamp: int) -> str">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract_field_valuesself-task_text-str-dictstr-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      extract_field_values(self, task_text: str) -&gt; Dict[str, str]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="extract_field_values(self, task_text: str) -> Dict[str, str]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_tasksself-list_id-str-listdictstr-unionstr-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_tasks(self, list_id: str) -&gt; List[Dict[str, Union[str, None]]]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get_tasks(self, list_id: str) -> List[Dict[str, Union[str, None]]]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_tasksself-tasks-listdict-listdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      filter_tasks(self, tasks: List[Dict]) -&gt; List[Dict]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="filter_tasks(self, tasks: List[Dict]) -> List[Dict]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="clickup-api-documentation">ClickUp API Documentation</h1>
+<h2 id="overview">Overview</h2>
+<p>The <code>ClickUpAPI</code> class interacts with the ClickUp API to fetch and process task data, using Redis for caching and supporting asynchronous HTTP requests.</p>
+<h2 id="class-clickupapi">Class: ClickUpAPI</h2>
+<h3 id="attributes">Attributes:</h3>
+<ul>
+<li><code>api_key</code>: The API key for authentication with ClickUp.</li>
+<li><code>timezone</code>: The timezone to use for date/time conversions.</li>
+<li><code>headers</code>: Headers for HTTP requests, including the API key.</li>
+<li><code>semaphore</code>: Limits the number of concurrent tasks to avoid overwhelming the server.</li>
+<li><code>redis</code>: Redis client for caching.</li>
+<li><code>FIELD_NAMES_SET</code>: Set of field names for faster lookup.</li>
+</ul>
+<h3 id="methods">Methods:</h3>
+<ul>
+<li><code>__init__(self, api_key: str, timezone: str, redis_url: str)</code>: Initializes the ClickUpAPI instance.</li>
+<li><code>test_redis_connection(self)</code>: Tests the connection to the Redis server.</li>
+<li><code>get_from_cache(self, key: str) -&gt; Union[List, None]</code>: Retrieves data from the Redis cache.</li>
+<li><code>set_in_cache(self, key: str, data: List, ttl: int = 600)</code>: Stores data in the Redis cache with a TTL.</li>
+<li><code>fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -&gt; Dict</code>: Asynchronously fetches data from the ClickUp API.</li>
+<li><code>fetch_all_tasks(self, url: str, query: Dict) -&gt; List[Dict]</code>: Asynchronously fetches all tasks, handling pagination.</li>
+<li><code>parse_task_text(self, task_text: str) -&gt; str</code>: Parses and cleans up task text.</li>
+<li><code>parse_date(self, timestamp: int) -&gt; str</code>: Converts a timestamp to a formatted date string.</li>
+<li><code>extract_field_values(self, task_text: str) -&gt; Dict[str, str]</code>: Extracts specific field values from task text using regex patterns.</li>
+<li><code>get_tasks(self, list_id: str) -&gt; List[Dict[str, Union[str, None]]]</code>: Fetches and caches tasks from a specific list.</li>
+<li><code>filter_tasks(self, tasks: List[Dict]) -&gt; List[Dict]</code>: Filters and processes tasks for specific fields and formatting.</li>
+</ul>
+<h2 id="detailed-method-documentation">Detailed Method Documentation</h2>
+<h3 id="__init__self-api_key-str-timezone-str-redis_url-str"><code>__init__(self, api_key: str, timezone: str, redis_url: str)</code></h3>
+<p>Initializes the ClickUpAPI instance.</p>
+<h4 id="parameters">Parameters:</h4>
+<ul>
+<li><code>api_key</code> (str): The ClickUp API key.</li>
+<li><code>timezone</code> (str): The timezone for date/time conversions.</li>
+<li><code>redis_url</code> (str): The URL of the Redis server.</li>
+</ul>
+<h3 id="test_redis_connectionself"><code>test_redis_connection(self)</code></h3>
+<p>Tests the connection to the Redis server. Raises an HTTPException if the connection fails.</p>
+<h3 id="get_from_cacheself-key-str-unionlist-none"><code>get_from_cache(self, key: str) -&gt; Union[List, None]</code></h3>
+<p>Retrieves data from the Redis cache.</p>
+<h4 id="parameters_1">Parameters:</h4>
+<ul>
+<li><code>key</code> (str): The cache key.</li>
+</ul>
+<h4 id="returns">Returns:</h4>
+<ul>
+<li>Union[List, None]: The cached data or None if not found.</li>
+</ul>
+<h3 id="set_in_cacheself-key-str-data-list-ttl-int-600"><code>set_in_cache(self, key: str, data: List, ttl: int = 600)</code></h3>
+<p>Stores data in the Redis cache with a TTL.</p>
+<h4 id="parameters_2">Parameters:</h4>
+<ul>
+<li><code>key</code> (str): The cache key.</li>
+<li><code>data</code> (List): The data to cache.</li>
+<li><code>ttl</code> (int, optional): Time-to-live for the cache entry. Default is 600 seconds.</li>
+</ul>
+<h3 id="fetch_clickup_dataself-url-str-query-dict-retries-int-3-dict"><code>fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -&gt; Dict</code></h3>
+<p>Asynchronously fetches data from the ClickUp API.</p>
+<h4 id="parameters_3">Parameters:</h4>
+<ul>
+<li><code>url</code> (str): The API endpoint URL.</li>
+<li><code>query</code> (Dict): Query parameters for the API request.</li>
+<li><code>retries</code> (int, optional): Number of retry attempts in case of failure. Default is 3.</li>
+</ul>
+<h4 id="returns_1">Returns:</h4>
+<ul>
+<li>Dict: The JSON response from the API.</li>
+</ul>
+<h3 id="fetch_all_tasksself-url-str-query-dict-listdict"><code>fetch_all_tasks(self, url: str, query: Dict) -&gt; List[Dict]</code></h3>
+<p>Asynchronously fetches all tasks, handling pagination.</p>
+<h4 id="parameters_4">Parameters:</h4>
+<ul>
+<li><code>url</code> (str): The API endpoint URL.</li>
+<li><code>query</code> (Dict): Query parameters for the API request.</li>
+</ul>
+<h4 id="returns_2">Returns:</h4>
+<ul>
+<li>List[Dict]: A list of tasks.</li>
+</ul>
+<h3 id="parse_task_textself-task_text-str-str"><code>parse_task_text(self, task_text: str) -&gt; str</code></h3>
+<p>Parses and cleans up task text.</p>
+<h4 id="parameters_5">Parameters:</h4>
+<ul>
+<li><code>task_text</code> (str): The text content of a task.</li>
+</ul>
+<h4 id="returns_3">Returns:</h4>
+<ul>
+<li>str: The cleaned-up task text.</li>
+</ul>
+<h3 id="parse_dateself-timestamp-int-str"><code>parse_date(self, timestamp: int) -&gt; str</code></h3>
+<p>Converts a timestamp to a formatted date string.</p>
+<h4 id="parameters_6">Parameters:</h4>
+<ul>
+<li><code>timestamp</code> (int): The timestamp to convert.</li>
+</ul>
+<h4 id="returns_4">Returns:</h4>
+<ul>
+<li>str: The formatted date string.</li>
+</ul>
+<h3 id="extract_field_valuesself-task_text-str-dictstr-str"><code>extract_field_values(self, task_text: str) -&gt; Dict[str, str]</code></h3>
+<p>Extracts specific field values from task text using regex patterns.</p>
+<h4 id="parameters_7">Parameters:</h4>
+<ul>
+<li><code>task_text</code> (str): The text content of a task.</li>
+</ul>
+<h4 id="returns_5">Returns:</h4>
+<ul>
+<li>Dict[str, str]: A dictionary of extracted field values.</li>
+</ul>
+<h3 id="get_tasksself-list_id-str-listdictstr-unionstr-none"><code>get_tasks(self, list_id: str) -&gt; List[Dict[str, Union[str, None]]]</code></h3>
+<p>Fetches and caches tasks from a specific list.</p>
+<h4 id="parameters_8">Parameters:</h4>
+<ul>
+<li><code>list_id</code> (str): The ID of the task list.</li>
+</ul>
+<h4 id="returns_6">Returns:</h4>
+<ul>
+<li>List[Dict[str, Union[str, None]]]: A list of tasks with relevant fields.</li>
+</ul>
+<h3 id="filter_tasksself-tasks-listdict-listdict"><code>filter_tasks(self, tasks: List[Dict]) -&gt; List[Dict]</code></h3>
+<p>Filters and processes tasks for specific fields and formatting.</p>
+<h4 id="parameters_9">Parameters:</h4>
+<ul>
+<li><code>tasks</code> (List[Dict]): The list of tasks to filter.</li>
+</ul>
+<h4 id="returns_7">Returns:</h4>
+<ul>
+<li>List[Dict]: The filtered and processed list of tasks.</li>
+</ul>
+<h2 id="usage-example">Usage Example</h2>
+<pre><code class="language-python">from clickup_api import ClickUpAPI
+import asyncio
+
+api_key = 'your_clickup_api_key'
+timezone = 'UTC'
+redis_url = 'redis://localhost:6379/0'
+list_id = 'your_list_id'
+
+clickup_api = ClickUpAPI(api_key, timezone, redis_url)
+
+async def main():
+    tasks = await clickup_api.get_tasks(list_id)
+    filtered_tasks = clickup_api.filter_tasks(tasks)
+    print(filtered_tasks)
+
+asyncio.run(main())
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+    
+  </body>
+</html>

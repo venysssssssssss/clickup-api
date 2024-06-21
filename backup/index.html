@@ -1,0 +1,640 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../api/">
+      
+      
+        <link rel="next" href="../docker/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Bakcup - CLICKUPAPI DOCUMENTATION</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#this-script-are-a-backup-of-the-complete-structure-of-the-on-produce-code" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-header__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CLICKUPAPI DOCUMENTATION
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bakcup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-nav__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    CLICKUPAPI DOCUMENTATION
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Bakcup
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Main
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../render/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Render
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../routes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Routes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utils
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="this-script-are-a-backup-of-the-complete-structure-of-the-on-produce-code">This script are a backup of the complete structure of the on produce code</h1>
+<h1 id="backup-script-documentation">Backup Script Documentation</h1>
+<h2 id="overview">Overview</h2>
+<p>This script fetches and processes task data from the ClickUp API, leveraging FastAPI for the API interface and environment variables for configuration. Regular expressions are used for parsing specific fields from task text.</p>
+<h2 id="environment-variables">Environment Variables</h2>
+<ul>
+<li><code>CLICKUP_API_KEY</code>: The API key for authenticating with the ClickUp API.</li>
+</ul>
+<h2 id="endpoints">Endpoints</h2>
+<ul>
+<li><code>GET /get_data_organized/{list_id}</code>: Retrieves and organizes data from the ClickUp API for a specified list.</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<ol>
+<li>Install dependencies using <code>pip install -r requirements.txt</code>.</li>
+<li>Ensure the <code>.env</code> file is present with the <code>CLICKUP_API_KEY</code>.</li>
+</ol>
+<h2 id="fastapi-application">FastAPI Application</h2>
+<h3 id="endpoint-get-get_data_organizedlist_id">Endpoint: <code>GET /get_data_organized/{list_id}</code></h3>
+<p>Retrieves and organizes data from the ClickUp API.</p>
+<h4 id="parameters">Parameters:</h4>
+<ul>
+<li><code>list_id</code> (str): The ID of the ClickUp list.</li>
+</ul>
+<h4 id="returns">Returns:</h4>
+<ul>
+<li><code>filtered_data</code> (list): A list of dictionaries containing the filtered and organized data.</li>
+</ul>
+<h4 id="raises">Raises:</h4>
+<ul>
+<li><code>HTTPException</code>: If the list ID is invalid or if there is an error processing a task.</li>
+<li><code>HTTPException</code>: If there is an HTTP error while making the API request.</li>
+<li><code>HTTPException</code>: If there is an unknown error.</li>
+</ul>
+<h2 id="clickupapi-class">ClickUpAPI Class</h2>
+<h3 id="attributes">Attributes:</h3>
+<ul>
+<li><code>api_key</code>: The API key for authentication with ClickUp.</li>
+<li><code>timezone</code>: The timezone for date/time conversions.</li>
+<li><code>headers</code>: Headers for HTTP requests, including the API key.</li>
+<li><code>semaphore</code>: Limits the number of concurrent tasks to avoid overwhelming the server.</li>
+<li><code>FIELD_NAMES</code>: List of field names for parsing.</li>
+<li><code>FIELD_PATTERNS</code>: Dictionary of compiled regular expressions for each field.</li>
+</ul>
+<h3 id="methods">Methods:</h3>
+<ul>
+<li><code>__init__(self, api_key: str, timezone: str)</code>: Initializes the ClickUpAPI instance.</li>
+<li><code>fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -&gt; Dict</code>: Asynchronously fetches data from the ClickUp API with retries.</li>
+<li><code>fetch_all_tasks(self, url: str, initial_query: Dict, start_page: int, end_page: int) -&gt; List[Dict]</code>: Asynchronously fetches all tasks, handling pagination.</li>
+<li><code>parse_task_text(self, task_text: str) -&gt; str</code>: Parses and cleans up task text.</li>
+<li><code>parse_date(self, timestamp: int) -&gt; str</code>: Converts a timestamp to a formatted date string.</li>
+<li><code>extract_field_values(self, task_text: str) -&gt; Dict[str, str]</code>: Extracts specific field values from task text using regex patterns.</li>
+<li><code>get_tasks(self, list_id: str) -&gt; List[Dict[str, Union[str, None]]]</code>: Fetches and processes tasks from a specific list.</li>
+<li><code>filter_tasks(self, tasks: List[Dict]) -&gt; List[Dict]</code>: Filters and processes tasks for specific fields and formatting.</li>
+</ul>
+<h2 id="detailed-method-documentation">Detailed Method Documentation</h2>
+<h3 id="__init__self-api_key-str-timezone-str"><code>__init__(self, api_key: str, timezone: str)</code></h3>
+<p>Initializes the ClickUpAPI instance.</p>
+<h4 id="parameters_1">Parameters:</h4>
+<ul>
+<li><code>api_key</code> (str): The ClickUp API key.</li>
+<li><code>timezone</code> (str): The timezone for date/time conversions.</li>
+</ul>
+<h3 id="fetch_clickup_dataself-url-str-query-dict-retries-int-3-dict"><code>fetch_clickup_data(self, url: str, query: Dict, retries: int = 3) -&gt; Dict</code></h3>
+<p>Asynchronously fetches data from the ClickUp API with retries.</p>
+<h4 id="parameters_2">Parameters:</h4>
+<ul>
+<li><code>url</code> (str): The API endpoint URL.</li>
+<li><code>query</code> (Dict): Query parameters for the API request.</li>
+<li><code>retries</code> (int, optional): Number of retry attempts in case of failure. Default is 3.</li>
+</ul>
+<h4 id="returns_1">Returns:</h4>
+<ul>
+<li><code>Dict</code>: The JSON response from the API.</li>
+</ul>
+<h3 id="fetch_all_tasksself-url-str-initial_query-dict-start_page-int-end_page-int-listdict"><code>fetch_all_tasks(self, url: str, initial_query: Dict, start_page: int, end_page: int) -&gt; List[Dict]</code></h3>
+<p>Asynchronously fetches all tasks, handling pagination.</p>
+<h4 id="parameters_3">Parameters:</h4>
+<ul>
+<li><code>url</code> (str): The API endpoint URL.</li>
+<li><code>initial_query</code> (Dict): Initial query parameters for the API request.</li>
+<li><code>start_page</code> (int): The starting page for pagination.</li>
+<li><code>end_page</code> (int): The ending page for pagination.</li>
+</ul>
+<h4 id="returns_2">Returns:</h4>
+<ul>
+<li><code>List[Dict]</code>: A list of tasks.</li>
+</ul>
+<h3 id="parse_task_textself-task_text-str-str"><code>parse_task_text(self, task_text: str) -&gt; str</code></h3>
+<p>Parses and cleans up task text.</p>
+<h4 id="parameters_4">Parameters:</h4>
+<ul>
+<li><code>task_text</code> (str): The text content of a task.</li>
+</ul>
+<h4 id="returns_3">Returns:</h4>
+<ul>
+<li><code>str</code>: The cleaned-up task text.</li>
+</ul>
+<h3 id="parse_dateself-timestamp-int-str"><code>parse_date(self, timestamp: int) -&gt; str</code></h3>
+<p>Converts a timestamp to a formatted date string.</p>
+<h4 id="parameters_5">Parameters:</h4>
+<ul>
+<li><code>timestamp</code> (int): The timestamp to convert.</li>
+</ul>
+<h4 id="returns_4">Returns:</h4>
+<ul>
+<li><code>str</code>: The formatted date string.</li>
+</ul>
+<h3 id="extract_field_valuesself-task_text-str-dictstr-str"><code>extract_field_values(self, task_text: str) -&gt; Dict[str, str]</code></h3>
+<p>Extracts specific field values from task text using regex patterns.</p>
+<h4 id="parameters_6">Parameters:</h4>
+<ul>
+<li><code>task_text</code> (str): The text content of a task.</li>
+</ul>
+<h4 id="returns_5">Returns:</h4>
+<ul>
+<li><code>Dict[str, str]</code>: A dictionary of extracted field values.</li>
+</ul>
+<h3 id="get_tasksself-list_id-str-listdictstr-unionstr-none"><code>get_tasks(self, list_id: str) -&gt; List[Dict[str, Union[str, None]]]</code></h3>
+<p>Fetches and processes tasks from a specific list.</p>
+<h4 id="parameters_7">Parameters:</h4>
+<ul>
+<li><code>list_id</code> (str): The ID of the task list.</li>
+</ul>
+<h4 id="returns_6">Returns:</h4>
+<ul>
+<li><code>List[Dict[str, Union[str, None]]]</code>: A list of tasks with relevant fields.</li>
+</ul>
+<h3 id="filter_tasksself-tasks-listdict-listdict"><code>filter_tasks(self, tasks: List[Dict]) -&gt; List[Dict]</code></h3>
+<p>Filters and processes tasks for specific fields and formatting.</p>
+<h4 id="parameters_8">Parameters:</h4>
+<ul>
+<li><code>tasks</code> (List[Dict]): The list of tasks to filter.</li>
+</ul>
+<h4 id="returns_7">Returns:</h4>
+<ul>
+<li><code>List[Dict]</code>: The filtered and processed list of tasks.</li>
+</ul>
+<h2 id="usage-example">Usage Example</h2>
+<pre><code class="language-python">from backup import ClickUpAPI
+import asyncio
+
+api_key = 'your_clickup_api_key'
+timezone = 'America/Sao_Paulo'
+list_id = 'your_list_id'
+
+clickup_api = ClickUpAPI(api_key, timezone)
+
+async def main():
+    tasks = await clickup_api.get_tasks(list_id)
+    filtered_tasks = clickup_api.filter_tasks(tasks)
+    print(filtered_tasks)
+
+asyncio.run(main())
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+    
+  </body>
+</html>
