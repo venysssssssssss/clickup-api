@@ -1,3 +1,4 @@
+from typing import Dict
 from src.utils.regex_utils import FIELD_NAMES_SET, FIELD_PATTERNS
 
 def parse_task_text(task_text: str) -> str:
