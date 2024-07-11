@@ -1,9 +1,15 @@
 import os
+import sys
+
+# Adicionar o diretório 'src' ao sys.path
+sys.path.insert(
+    0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+)
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from routes.clickup_routes import router as clickup_router
+from src.routes.clickup_routes import router as clickup_router
 
 # Load environment variables
 load_dotenv()
