@@ -1,0 +1,22 @@
+name: 'dwclickup'
+version: '1.0.0'
+config-version: 2
+
+profile: 'dwclickup'
+
+model-paths: ["models"]
+
+models:
+  dwclickup:
+    +schema: public
+    staging:
+      check_columns:
+        +materialized: view
+      raw_tasks:
+        +materialized: view
+      tasks_cleaned:
+        +materialized: table
+      tasks:
+        +materialized: table
+      leaders:
+        +materialized: table

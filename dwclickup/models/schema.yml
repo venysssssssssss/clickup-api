@@ -1,0 +1,65 @@
+version: 2
+
+sources:
+  - name: dwclickup
+    schema: public
+    tables:
+      - name: tasks
+        description: "Tabela com os dados brutos das tarefas"
+        columns:
+          - name: id
+            description: "Identificador da tarefa"
+          - name: Projeto
+            description: "Número do projeto"
+          - name: ID
+            description: "Identificador da tarefa no ClickUp"
+          - name: Status
+            description: "Status da tarefa"
+          - name: Name
+            description: "Nome da tarefa"
+          - name: Priority
+            description: "Prioridade da tarefa"
+          - name: Líder
+            description: "Líder da tarefa"
+          - name: Email líder
+            description: "Email do líder da tarefa"
+          - name: date_created
+            description: "Data de criação da tarefa"
+          - name: date_updated
+            description: "Data de atualização da tarefa"
+          - name: Status History
+            description: "Histórico de status da tarefa"
+          - name: OPERAÇÃO
+            description: "Operação relacionada à tarefa"
+          - name: UNIDADE DE NEGÓCIO
+            description: "Unidade de negócio relacionada à tarefa"
+          - name: DIRETOR TAHTO
+            description: "Diretor responsável pela tarefa"
+          - name: CLIENTE
+            description: "Cliente relacionado à tarefa"
+          - name: CENÁRIO PROPOSTO
+            description: "Cenário proposto da tarefa"
+          - name: ESCOPO
+            description: "Escopo da tarefa"
+          - name: OBJETIVO DO GANHO
+            description: "Objetivo do ganho da tarefa"
+          - name: TIPO
+            description: "Tipo da tarefa"
+          - name: CARTEIRA DEMANDANTE
+            description: "Carteira demandante da tarefa"
+          - name: FERRAMENTA ENVOLVIDA
+            description: "Ferramenta envolvida na tarefa"
+          - name: KPI GANHO
+            description: "KPI de ganho da tarefa"
+          - name: TIPO DE OPERAÇÃO
+            description: "Tipo de operação da tarefa"
+          - name: TIPO DE PROJETO
+            description: "Tipo de projeto da tarefa"
+          - name: E-MAIL
+            description: "Email relacionado à tarefa"
+          - name: 💡 R$ ANUAL (PREVISTO)
+            description: "R$ anual previsto da tarefa"
+          - name: GERENTE OI
+            description: "Gerente OI relacionado à tarefa"
+          - name: SITE
+            description: "Site relacionado à tarefa"
