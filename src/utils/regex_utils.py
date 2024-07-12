@@ -31,3 +31,5 @@ FIELD_PATTERNS = {
     )
     for field_name in FIELD_NAMES
 }
+
+FIELD_NAMES_SET = set(FIELD_NAMES)
