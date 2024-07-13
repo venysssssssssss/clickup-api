@@ -1,7 +1,9 @@
 from typing import List, Union
+
 import msgpack
 import redis
 from fastapi import HTTPException
+
 
 class RedisCache:
     def __init__(self, redis_url: str):

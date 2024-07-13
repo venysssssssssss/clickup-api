@@ -1,15 +1,18 @@
 from datetime import datetime
+
 import pytz
+
 
 def convert_time(time_in_minutes: int) -> str:
     if time_in_minutes < 60:
-        return f"{time_in_minutes} minutos"
+        return f'{time_in_minutes} minutos'
     elif time_in_minutes < 1440:
         hours = time_in_minutes / 60
-        return f"{hours:.1f} horas"
+        return f'{hours:.1f} horas'
     else:
         days = time_in_minutes / 1440
-        return f"{days:.1f} dias"
+        return f'{days:.1f} dias'
+
 
 def parse_date(timestamp: int, timezone: pytz.timezone) -> str:
     return (

@@ -1,11 +1,12 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv("API_KEY")
-TIMEZONE = os.getenv("TIMEZONE", "UTC")
-REDIS_URL = os.getenv("REDIS_URL")
+API_KEY = os.getenv('API_KEY')
+TIMEZONE = os.getenv('TIMEZONE', 'UTC')
+REDIS_URL = os.getenv('REDIS_URL')
 
 DB_HOST = os.getenv('DB_HOST_PROD')
 DB_PORT = os.getenv('DB_PORT_PROD')
