@@ -1,10 +1,10 @@
+import logging
 import os
-from fastapi import logger
+
 import pandas as pd
+from fastapi import logger
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
-import logging
-
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -48,13 +48,15 @@ class PostgresDB:
         """
         Verifica se a tabela já existe no banco de dados.
         """
-        query = text(f"""
+        query = text(
+            f"""
         SELECT EXISTS (
             SELECT 1
             FROM information_schema.tables 
             WHERE table_schema = '{self.schema}'
             AND table_name = :table_name
         );
-        """)
+        """
+        )
         with self.engine.connect() as conn:
             return conn.execute(query, {'table_name': table_name}).scalar()
