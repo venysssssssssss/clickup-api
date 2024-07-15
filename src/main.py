@@ -1,7 +1,8 @@
 import asyncio
+import logging
+
 import pandas as pd
 import pytz
-import logging
 from fastapi import FastAPI
 
 from src.api.clickup_api import ClickUpAPI
