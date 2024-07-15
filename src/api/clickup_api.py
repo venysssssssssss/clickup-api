@@ -23,12 +23,18 @@ class ClickUpAPI:
 
     async def fetch_clickup_data(self, url: str, query: Dict) -> Dict:
         try:
-            async with self.semaphore, httpx.AsyncClient(timeout=300.0) as client:
-                response = await client.get(url, headers=self.headers, params=query)
+            async with self.semaphore, httpx.AsyncClient(
+                timeout=300.0
+            ) as client:
+                response = await client.get(
+                    url, headers=self.headers, params=query
+                )
                 response.raise_for_status()
                 return response.json()
         except httpx.RequestError as e:
-            raise HTTPException(status_code=500, detail=f'HTTP error: {str(e)}')
+            raise HTTPException(
+                status_code=500, detail=f'HTTP error: {str(e)}'
+            )
 
     async def fetch_all_tasks(self, url: str, query: Dict) -> List[Dict]:
         tasks = []
@@ -43,7 +49,9 @@ class ClickUpAPI:
             page += 1
         return tasks
 
-    async def fetch_time_in_status(self, task_id: str, client: httpx.AsyncClient) -> Dict:
+    async def fetch_time_in_status(
+        self, task_id: str, client: httpx.AsyncClient
+    ) -> Dict:
         url = f'https://api.clickup.com/api/v2/task/{task_id}/time_in_status'
         response = await client.get(url, headers=self.headers)
         response.raise_for_status()
@@ -51,26 +59,37 @@ class ClickUpAPI:
 
     async def fetch_all_time_in_status(self, tasks: List[Dict]) -> None:
         async with httpx.AsyncClient() as client:
-            tasks_with_time_in_status = await asyncio.gather(*[
-                self.fetch_time_in_status(task['id'], client) for task in tasks
-            ])
+            tasks_with_time_in_status = await asyncio.gather(
+                *[
+                    self.fetch_time_in_status(task['id'], client)
+                    for task in tasks
+                ]
+            )
             for task, time_in_status in zip(tasks, tasks_with_time_in_status):
                 task['time_in_status'] = time_in_status
 
-    def filter_tasks(self, tasks: List[Dict]) -> List[Dict]:
+    def filter_tasks(
+        self, tasks: List[Dict]
+    ) -> (List[Dict], List[Dict]):   # type: ignore
         filtered_data = []
+        status_history_data = []
         for project_count, task in enumerate(tasks, start=1):
             filtered_task = {
                 'Projeto': project_count,
                 'ID': task['id'],
                 'Status': task['status'].get('status', ''),
                 'Name': task.get('name', ''),
-                'Priority': task.get('priority', {}).get('priority', None) if task.get('priority') else None,
-                'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
-                'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
+                'Priority': task.get('priority', {}).get('priority', None)
+                if task.get('priority')
+                else None,
+                'Líder': task.get('assignees', [{}])[0].get('username')
+                if task.get('assignees')
+                else None,
+                'Email líder': task.get('assignees', [{}])[0].get('email')
+                if task.get('assignees')
+                else None,
                 'date_created': self.parse_date(task['date_created']),
                 'date_updated': self.parse_date(task['date_updated']),
-                'Status History': json.dumps(self.convert_status_history(task.get('time_in_status', {}))),
             }
 
             task_text = self.parse_task_text(task.get('text_content', ''))
@@ -78,7 +97,21 @@ class ClickUpAPI:
             filtered_task.update(field_values)
 
             filtered_data.append(filtered_task)
-        return filtered_data
+
+            status_history = self.convert_status_history(
+                task.get('time_in_status', {})
+            )
+            for entry in status_history.get('status_history', []):
+                status_history_data.append(
+                    {
+                        'task_id': task['id'],
+                        'status': entry['status'],
+                        'time_in_status': entry['time_in_status'],
+                        'timestamp': datetime.now(self.timezone),
+                    }
+                )
+
+        return filtered_data, status_history_data
 
     def parse_date(self, timestamp: int) -> str:
         return (
@@ -101,7 +134,9 @@ class ClickUpAPI:
 
     @staticmethod
     def parse_task_text(task_text: str) -> str:
-        return task_text.replace('\n', ' ').replace('.:', '') if task_text else ''
+        return (
+            task_text.replace('\n', ' ').replace('.:', '') if task_text else ''
+        )
 
     @staticmethod
     def extract_field_values(task_text: str) -> Dict[str, str]:
@@ -115,23 +150,32 @@ class ClickUpAPI:
 
     def convert_status_history(self, status_history: Dict) -> Dict:
         result = {}
-        if 'current_status' in status_history and 'total_time' in status_history['current_status']:
+        if (
+            'current_status' in status_history
+            and 'total_time' in status_history['current_status']
+        ):
             result['current_status'] = {
                 'status': status_history['current_status']['status'],
-                'time_in_status': self.convert_time(status_history['current_status']['total_time']['by_minute']),
+                'time_in_status': self.convert_time(
+                    status_history['current_status']['total_time']['by_minute']
+                ),
             }
         if 'status_history' in status_history:
             result['status_history'] = [
                 {
                     'status': status['status'],
-                    'time_in_status': self.convert_time(status['total_time']['by_minute']),
+                    'time_in_status': self.convert_time(
+                        status['total_time']['by_minute']
+                    ),
                 }
                 for status in status_history['status_history']
                 if 'total_time' in status
             ]
         return result
 
-    async def get_tasks(self, list_id: str) -> List[Dict[str, Union[str, None]]]:
+    async def get_tasks(
+        self, list_id: str
+    ) -> List[Dict[str, Union[str, None]]]:
         url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
         query = {
             'archived': 'false',
