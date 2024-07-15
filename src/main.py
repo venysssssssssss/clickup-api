@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 import pandas as pd
 import pytz
@@ -11,10 +10,6 @@ from src.config import settings
 from src.db.postgres import PostgresDB
 
 app = FastAPI()
-
-# Configuração do logger
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 redis_cache = RedisCache(settings.REDIS_URL)
 clickup_api = ClickUpAPI(settings.API_KEY, settings.TIMEZONE, redis_cache)
@@ -28,31 +23,26 @@ postgres_db = PostgresDB(
 )
 
 
-def get_table_name(list_id: str) -> str:
-    """
-    Retorna o nome da tabela baseado no list_id.
-    """
-    table_mapping = {
-        '192959544': 'lista_dados_inovacao',
-        '174940580': 'lista_dados_negocios',
-    }
-    return table_mapping.get(list_id, 'tasks')
-
-
 @app.get('/get_data_organized/{list_id}')
 async def get_data_organized(list_id: str):
-    logger.info(f'Fetching tasks for list ID: {list_id}')
+    print(f'Fetching tasks for list ID: {list_id}')
     tasks = await clickup_api.get_tasks(list_id)
-    filtered_tasks = clickup_api.filter_tasks(tasks)
+    filtered_tasks, status_history_data = clickup_api.filter_tasks(tasks)
 
-    # Converting the list of dictionaries to a pandas DataFrame
-    df = pd.DataFrame(filtered_tasks)
+    # Converting the list of dictionaries to pandas DataFrames
+    df_tasks = pd.DataFrame(filtered_tasks)
+    df_status_history = pd.DataFrame(status_history_data)
 
-    # Determine the table name based on the list_id
-    table_name = get_table_name(list_id)
-    logger.info(f'Saving data to table: {table_name}')
-
-    # Saving the DataFrame to PostgreSQL
-    postgres_db.save_to_postgres(df, table_name)
+    # Saving the DataFrames to PostgreSQL
+    if list_id == '192959544':
+        postgres_db.save_to_postgres(df_tasks, 'lista_dados_inovacao')
+        postgres_db.save_to_postgres(
+            df_status_history, 'status_history_inovacao'
+        )
+    elif list_id == '174940580':
+        postgres_db.save_to_postgres(df_tasks, 'lista_dados_negocios')
+        postgres_db.save_to_postgres(
+            df_status_history, 'status_history_negocios'
+        )
 
     return filtered_tasks
