@@ -1,18 +1,19 @@
 site_name: CLICKUPAPI DOCUMENTATION
 nav:
-  - Home: index.md
-  - API: api.md
-  - Bakcup: backup.md
-  - Docker: docker.md
-  - Main: main.md
-  - Redis: redis.md
-  - Render: render.md
-  - Routes: routes.md
-  - Tests: tests.md
-  - Utils: utils.md
+  - Início: index.pt.md
+  - API: api.pt.md
+  - Backup: backup.pt.md
+  - Docker: docker.pt.md
+  - Principal: main.pt.md
+  - Redis: redis.pt.md
+  - Renderizar: render.pt.md
+  - Rotas: routes.pt.md
+  - Testes: tests.pt.md
+  - Utilidades: utils.pt.md
 plugins:
   - search
   - mkdocstrings:
       default_handler: python
 theme:
   name: material
+  language: pt

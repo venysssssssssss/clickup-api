@@ -173,11 +173,13 @@ class ClickUpAPI:
             ]
         return result
 
-    async def get_tasks(self, list_id: str) -> List[Dict[str, Union[str, None]]]:
-        cache_key = f"tasks_{list_id}"
+    async def get_tasks(
+        self, list_id: str
+    ) -> List[Dict[str, Union[str, None]]]:
+        cache_key = f'tasks_{list_id}'
         cached_tasks = self.cache.get(cache_key)
         if cached_tasks:
-            print("Using cached data")
+            print('Using cached data')
             return cached_tasks
 
         url = f'https://api.clickup.com/api/v2/list/{list_id}/task'
