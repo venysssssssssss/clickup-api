@@ -10,17 +10,13 @@ jobs:
 
     steps:
     - name: Make API request to get_data_organized/192959544
-      run: |
-        curl -s -o /dev/null -w "%{http_code}" "https://clickup-api-7d94.onrender.com/get_data_organized/192959544"
-        if [ $? -ne 0 ]; then
-          echo "Failed to fetch https://clickup-api-7d94.onrender.com/get_data_organized/192959544"
-          exit 1
-        fi
+      uses: githubcommunity/http-request-action@v1
+      with:
+        url: "https://clickup-api-7d94.onrender.com/get_data_organized/192959544"
+        method: 'GET'
 
     - name: Make API request to get_data_organized/174940580
-      run: |
-        curl -s -o /dev/null -w "%{http_code}" "https://clickup-api-7d94.onrender.com/get_data_organized/174940580"
-        if [ $? -ne 0 ]; then
-          echo "Failed to fetch https://clickup-api-7d94.onrender.com/get_data_organized/174940580"
-          exit 1
-        fi
+      uses: githubcommunity/http-request-action@v1
+      with:
+        url: "https://clickup-api-7d94.onrender.com/get_data_organized/174940580"
+        method: 'GET'
