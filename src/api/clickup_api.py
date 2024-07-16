@@ -8,7 +8,7 @@ import pytz
 from fastapi import HTTPException
 import logging
 
-from utils.regex_utils import FIELD_NAMES_SET, FIELD_PATTERNS
+from src.utils.regex_utils import FIELD_NAMES_SET, FIELD_PATTERNS
 
 logger = logging.getLogger(__name__)
 
