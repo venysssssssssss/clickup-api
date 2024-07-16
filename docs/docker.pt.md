@@ -28,3 +28,4 @@ EXPOSE 8000
 
 # Define o comando padrão para iniciar a aplicação usando Poetry e Uvicorn
 CMD ["poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
