@@ -1,0 +1,26 @@
+name: Schedule API Requests
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'  # Executa a cada 3 horas
+
+jobs:
+  call_apis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Make API request to get_data_organized/192959544
+      run: |
+        curl -s -o /dev/null -w "%{http_code}" ${{ secrets.API_URL_1 }}
+        if [ $? -ne 0 ]; then
+          echo "Failed to fetch ${{ secrets.API_URL_1 }}"
+          exit 1
+        fi
+
+    - name: Make API request to get_data_organized/174940580
+      run: |
+        curl -s -o /dev/null -w "%{http_code}" ${{ secrets.API_URL_2 }}
+        if [ $? -ne 0 ]; then
+          echo "Failed to fetch ${{ secrets.API_URL_2 }}"
+          exit 1
+        fi
