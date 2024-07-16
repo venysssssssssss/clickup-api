@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Make API request to get_data_organized/192959544
       run: |
-        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_1 }}"
+        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_1_INO }}"
         if [ $? -ne 0 ]; then
           echo "Failed to fetch ${{ secrets.API_URL_1 }}"
           exit 1
@@ -21,6 +21,6 @@ jobs:
       run: |
         curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_2 }}"
         if [ $? -ne 0 ]; then
-          echo "Failed to fetch ${{ secrets.API_URL_2 }}"
+          echo "Failed to fetch ${{ secrets.API_URL_2_NEG }}"
           exit 1
         fi
