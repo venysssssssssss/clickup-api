@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="pt" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -9,22 +9,22 @@
       
       
       
-        <link rel="prev" href="../routes/">
+        <link rel="prev" href="../api.pt/">
       
       
-        <link rel="next" href="../utils/">
+        <link rel="next" href="../main.pt/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
-        <title>Tests - CLICKUPAPI DOCUMENTATION</title>
+        <title>Docker - CLICKUPAPI DOCUMENTATION</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.76a95c52.min.css">
       
       
 
@@ -64,8 +64,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#testes-automatizados-em-pytest-para-fastapi" class="md-skip">
-          Skip to content
+        <a href="#documentacao-do-dockerfile-para-aplicacao-fastapi-com-poetry" class="md-skip">
+          Ir para o conteúdo
         </a>
       
     </div>
@@ -79,7 +79,7 @@
   
 
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
     <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-header__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
       
   
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tests
+              Docker
             
           </span>
         </div>
@@ -120,16 +120,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Pesquisar">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
@@ -140,7 +140,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            Inicializando a pesquisa
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -173,7 +173,7 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-nav__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
       
@@ -193,11 +193,11 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../index.pt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Home
+    Início
   </span>
   
 
@@ -213,131 +213,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../api/" class="md-nav__link">
+      <a href="../api.pt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     API
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../backup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Bakcup
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../docker/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Docker
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../main/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Main
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../redis/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Redis
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../render/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Render
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../routes/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Routes
   </span>
   
 
@@ -366,7 +246,7 @@
           
   
   <span class="md-ellipsis">
-    Tests
+    Docker
   </span>
   
 
@@ -377,7 +257,7 @@
         
   
   <span class="md-ellipsis">
-    Tests
+    Docker
   </span>
   
 
@@ -385,7 +265,7 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
   
@@ -394,23 +274,14 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      Índice
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#visao-geral" class="md-nav__link">
+  <a href="#estrutura-do-dockerfile" class="md-nav__link">
     <span class="md-ellipsis">
-      Visão Geral
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuracao-inicial" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuração Inicial
+      Estrutura do Dockerfile
     </span>
   </a>
   
@@ -431,11 +302,211 @@
   
   
     <li class="md-nav__item">
-      <a href="../utils/" class="md-nav__link">
+      <a href="../main.pt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Utils
+    Principal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../render.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Render
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../routes.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rotas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tests.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilidades
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postgre.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Postgre
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gh_actions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GitHub Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dbt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DBT
   </span>
   
 
@@ -457,7 +528,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
   
@@ -466,23 +537,14 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      Índice
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#visao-geral" class="md-nav__link">
+  <a href="#estrutura-do-dockerfile" class="md-nav__link">
     <span class="md-ellipsis">
-      Visão Geral
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuracao-inicial" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuração Inicial
+      Estrutura do Dockerfile
     </span>
   </a>
   
@@ -503,19 +565,33 @@
                   
 
 
-<p>cat &lt;&lt; 'EOF' &gt; testes_fastapi.md</p>
-<h1 id="testes-automatizados-em-pytest-para-fastapi">Testes Automatizados em Pytest para FastAPI</h1>
-<h2 id="visao-geral">Visão Geral</h2>
-<p>Este arquivo contém testes automatizados utilizando Pytest para verificar o comportamento da API FastAPI implementada no arquivo <code>backup.py</code>.</p>
-<h2 id="configuracao-inicial">Configuração Inicial</h2>
-<p>Antes de executar os testes, o ambiente deve estar configurado com o Pytest instalado e um cliente de teste configurado para interagir com a aplicação FastAPI.</p>
-<p>```python
-import pytest
-from fastapi.testclient import TestClient
-from backup import app</p>
-<p>client = TestClient(app)</p>
-<p>valid_list_id = '174940580'
-invalid_list_id = '123456789'</p>
+<h1 id="documentacao-do-dockerfile-para-aplicacao-fastapi-com-poetry">Documentação do Dockerfile para Aplicação FastAPI com Poetry</h1>
+<p>Este Dockerfile é configurado para construir uma imagem Docker para uma aplicação FastAPI, utilizando o gerenciador de pacotes Poetry para gerenciar as dependências do Python.</p>
+<h2 id="estrutura-do-dockerfile">Estrutura do Dockerfile</h2>
+<pre><code class="language-dockerfile"># Utiliza a imagem oficial do Python 3.10.0 como base
+FROM python:3.10.0
+
+# Instala o gerenciador de pacotes Poetry
+RUN pip install poetry
+
+# Copia o arquivo pyproject.toml e o arquivo de bloqueio poetry.lock para o diretório de trabalho
+COPY . /src
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /src
+
+# Instala as dependências do projeto definidas no Poetry, exceto o próprio projeto (opção --no-root)
+RUN poetry install --no-root
+
+# Copia o restante do código da aplicação para o diretório de trabalho
+COPY . .
+
+# Expõe a porta 8000, configurada para a aplicação FastAPI acessar a rede
+EXPOSE 8000
+
+# Define o comando padrão para iniciar a aplicação usando Poetry e Uvicorn
+CMD [&quot;poetry&quot;, &quot;run&quot;, &quot;uvicorn&quot;, &quot;src.main:app&quot;, &quot;--host&quot;, &quot;0.0.0.0&quot;, &quot;--port&quot;, &quot;8000&quot;]
+</code></pre>
 
 
 
@@ -562,10 +638,10 @@ invalid_list_id = '123456789'</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>

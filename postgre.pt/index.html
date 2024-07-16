@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="pt" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -9,22 +9,22 @@
       
       
       
-        <link rel="prev" href="../backup/">
+        <link rel="prev" href="../settings.pt/">
       
       
-        <link rel="next" href="../main/">
+        <link rel="next" href="../backup/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
-        <title>Docker - CLICKUPAPI DOCUMENTATION</title>
+        <title>Postgre - CLICKUPAPI DOCUMENTATION</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.76a95c52.min.css">
       
       
 
@@ -64,8 +64,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#dockerfile-documentation" class="md-skip">
-          Skip to content
+        <a href="#documentacao-da-classe-postgresdb" class="md-skip">
+          Ir para o conteúdo
         </a>
       
     </div>
@@ -79,7 +79,7 @@
   
 
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
     <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-header__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
       
   
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker
+              Postgre
             
           </span>
         </div>
@@ -120,16 +120,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Pesquisar">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
@@ -140,7 +140,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            Inicializando a pesquisa
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -173,7 +173,7 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="CLICKUPAPI DOCUMENTATION" class="md-nav__button md-logo" aria-label="CLICKUPAPI DOCUMENTATION" data-md-component="logo">
       
@@ -193,11 +193,11 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../index.pt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Home
+    Início
   </span>
   
 
@@ -213,7 +213,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api/" class="md-nav__link">
+      <a href="../api.pt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -233,11 +233,151 @@
   
   
     <li class="md-nav__item">
-      <a href="../backup/" class="md-nav__link">
+      <a href="../docker.pt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Bakcup
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Principal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../render.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Render
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../routes.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rotas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tests.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilidades
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings.pt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Settings
   </span>
   
 
@@ -266,7 +406,7 @@
           
   
   <span class="md-ellipsis">
-    Docker
+    Postgre
   </span>
   
 
@@ -277,7 +417,7 @@
         
   
   <span class="md-ellipsis">
-    Docker
+    Postgre
   </span>
   
 
@@ -285,7 +425,7 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
   
@@ -294,96 +434,43 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      Índice
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#classe-postgresdb" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Classe: PostgresDB
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#instructions-breakdown" class="md-nav__link">
-    <span class="md-ellipsis">
-      Instructions Breakdown
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Instructions Breakdown">
+    <nav class="md-nav" aria-label="Classe: PostgresDB">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#base-image" class="md-nav__link">
+  <a href="#inicializador" class="md-nav__link">
     <span class="md-ellipsis">
-      Base Image
+      Inicializador
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inicializador">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros:
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#install-poetry" class="md-nav__link">
+  <a href="#atributos" class="md-nav__link">
     <span class="md-ellipsis">
-      Install Poetry
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#copy-project-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Copy Project Files
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-working-directory" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set Working Directory
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install Dependencies
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#copy-application-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Copy Application Code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#expose-port" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expose Port
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-the-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      Run the Application
+      Atributos:
     </span>
   </a>
   
@@ -393,11 +480,115 @@
     </nav>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Métodos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Métodos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save_to_postgresdf-pddataframe-table_name-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      save_to_postgres(df: pd.DataFrame, table_name: str)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="save_to_postgres(df: pd.DataFrame, table_name: str)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excecoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceções:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comportamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comportamento:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table_existstable_name-str-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      table_exists(table_name: str) -&gt; bool
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="table_exists(table_name: str) -> bool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retorna" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retorna:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detalhes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detalhes:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#complete-dockerfile" class="md-nav__link">
+  <a href="#exemplo-de-uso" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Dockerfile
+      Exemplo de Uso
     </span>
   </a>
   
@@ -418,11 +609,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../main/" class="md-nav__link">
+      <a href="../backup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Main
+    Backup
   </span>
   
 
@@ -438,11 +629,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../redis/" class="md-nav__link">
+      <a href="../gh_actions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Redis
+    GitHub Actions
   </span>
   
 
@@ -458,71 +649,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../render/" class="md-nav__link">
+      <a href="../dbt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Render
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../routes/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Routes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tests/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Tests
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../utils/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Utils
+    DBT
   </span>
   
 
@@ -544,7 +675,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
   
@@ -553,96 +684,43 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      Índice
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#classe-postgresdb" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Classe: PostgresDB
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#instructions-breakdown" class="md-nav__link">
-    <span class="md-ellipsis">
-      Instructions Breakdown
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Instructions Breakdown">
+    <nav class="md-nav" aria-label="Classe: PostgresDB">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#base-image" class="md-nav__link">
+  <a href="#inicializador" class="md-nav__link">
     <span class="md-ellipsis">
-      Base Image
+      Inicializador
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inicializador">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros:
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#install-poetry" class="md-nav__link">
+  <a href="#atributos" class="md-nav__link">
     <span class="md-ellipsis">
-      Install Poetry
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#copy-project-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Copy Project Files
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-working-directory" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set Working Directory
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install Dependencies
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#copy-application-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Copy Application Code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#expose-port" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expose Port
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-the-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      Run the Application
+      Atributos:
     </span>
   </a>
   
@@ -652,11 +730,115 @@
     </nav>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Métodos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Métodos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save_to_postgresdf-pddataframe-table_name-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      save_to_postgres(df: pd.DataFrame, table_name: str)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="save_to_postgres(df: pd.DataFrame, table_name: str)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excecoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceções:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comportamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comportamento:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table_existstable_name-str-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      table_exists(table_name: str) -&gt; bool
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="table_exists(table_name: str) -> bool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retorna" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retorna:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detalhes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detalhes:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#complete-dockerfile" class="md-nav__link">
+  <a href="#exemplo-de-uso" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Dockerfile
+      Exemplo de Uso
     </span>
   </a>
   
@@ -677,76 +859,76 @@
                   
 
 
-<h1 id="dockerfile-documentation">Dockerfile Documentation</h1>
-<h2 id="overview">Overview</h2>
-<p>This Dockerfile is used to create a container for a FastAPI application. It uses Python 3.10 and Poetry for dependency management.</p>
-<h2 id="instructions-breakdown">Instructions Breakdown</h2>
-<h3 id="base-image">Base Image</h3>
+<h1 id="documentacao-da-classe-postgresdb">Documentação da Classe PostgresDB</h1>
+<p>Esta documentação fornece detalhes sobre a classe <code>PostgresDB</code>, projetada para interagir com um banco de dados PostgreSQL, permitindo operações como verificar a existência de tabelas e salvar dados de um DataFrame do pandas.</p>
+<h2 id="classe-postgresdb">Classe: PostgresDB</h2>
+<h3 id="inicializador">Inicializador</h3>
+<p>Inicializa uma instância da classe <code>PostgresDB</code>, configurando a conexão com o banco de dados PostgreSQL.</p>
+<h4 id="parametros">Parâmetros:</h4>
 <ul>
-<li><strong>Python 3.10.0</strong>: The Dockerfile starts by pulling the official Python 3.10.0 image.
-    <code>dockerfile
-    FROM python:3.10.0</code></li>
+<li><code>host</code> (str): O nome do host ou endereço IP do servidor PostgreSQL.</li>
+<li><code>port</code> (str): O número da porta do servidor PostgreSQL.</li>
+<li><code>dbname</code> (str): O nome do banco de dados PostgreSQL.</li>
+<li><code>user</code> (str): O nome de usuário para autenticação no servidor PostgreSQL.</li>
+<li><code>password</code> (str): A senha para autenticação no servidor PostgreSQL.</li>
+<li><code>schema</code> (str, opcional): O esquema a ser usado no banco de dados PostgreSQL. Padrão é 'public'.</li>
 </ul>
-<h3 id="install-poetry">Install Poetry</h3>
+<h4 id="atributos">Atributos:</h4>
 <ul>
-<li><strong>Poetry</strong>: Poetry is installed using pip to manage project dependencies.
-    <code>dockerfile
-    RUN pip install poetry</code></li>
+<li><code>schema</code> (str): O esquema usado no banco de dados.</li>
+<li><code>database_url</code> (str): A URL para conexão com o banco de dados.</li>
+<li><code>engine</code> (sqlalchemy.engine.Engine): O engine SQLAlchemy para conexão com o banco de dados.</li>
 </ul>
-<h3 id="copy-project-files">Copy Project Files</h3>
+<h3 id="metodos">Métodos</h3>
+<h4 id="save_to_postgresdf-pddataframe-table_name-str"><code>save_to_postgres(df: pd.DataFrame, table_name: str)</code></h4>
+<p>Salva um DataFrame do pandas em uma tabela do PostgreSQL. Se a tabela já existir, os dados serão substituídos.</p>
+<h5 id="parametros_1">Parâmetros:</h5>
 <ul>
-<li><strong>Copy pyproject.toml and poetry.lock</strong>: These files are copied to the <code>/src</code> directory in the container. These files contain the project's dependency specifications.
-    <code>dockerfile
-    COPY . /src</code></li>
+<li><code>df</code> (pd.DataFrame): O DataFrame a ser salvo.</li>
+<li><code>table_name</code> (str): O nome da tabela onde o DataFrame será salvo.</li>
 </ul>
-<h3 id="set-working-directory">Set Working Directory</h3>
+<h5 id="excecoes">Exceções:</h5>
 <ul>
-<li><strong>Working Directory</strong>: The working directory inside the container is set to <code>/src</code>.
-    <code>dockerfile
-    WORKDIR /src</code></li>
+<li><code>SQLAlchemyError</code>: Lançada se ocorrer um erro durante a operação de salvamento no banco de dados.</li>
 </ul>
-<h3 id="install-dependencies">Install Dependencies</h3>
+<h5 id="comportamento">Comportamento:</h5>
 <ul>
-<li><strong>Install Dependencies</strong>: Poetry is used to install the project's dependencies specified in <code>pyproject.toml</code> and <code>poetry.lock</code>, without installing the project itself.
-    <code>dockerfile
-    RUN poetry install --no-root</code></li>
+<li>A função verifica primeiro se a tabela existe utilizando o método <code>table_exists</code>. Se existir, utiliza o parâmetro <code>replace</code> para a função <code>to_sql</code>, caso contrário, usa <code>fail</code>.</li>
 </ul>
-<h3 id="copy-application-code">Copy Application Code</h3>
+<h4 id="table_existstable_name-str-bool"><code>table_exists(table_name: str) -&gt; bool</code></h4>
+<p>Verifica se uma tabela especificada existe no esquema configurado do banco de dados PostgreSQL.</p>
+<h5 id="parametros_2">Parâmetros:</h5>
 <ul>
-<li><strong>Copy Remaining Code</strong>: The rest of the application code is copied into the <code>/src</code> directory.
-    <code>dockerfile
-    COPY . .</code></li>
+<li><code>table_name</code> (str): O nome da tabela a ser verificada.</li>
 </ul>
-<h3 id="expose-port">Expose Port</h3>
+<h5 id="retorna">Retorna:</h5>
 <ul>
-<li><strong>Expose Port 8000</strong>: The container exposes port 8000 to allow external access to the FastAPI application.
-    <code>dockerfile
-    EXPOSE 8000</code></li>
+<li><code>bool</code>: <code>True</code> se a tabela existir, <code>False</code> caso contrário.</li>
 </ul>
-<h3 id="run-the-application">Run the Application</h3>
+<h5 id="detalhes">Detalhes:</h5>
 <ul>
-<li><strong>Command to Run Application</strong>: The container is set to run the FastAPI application using Uvicorn. It will listen on all network interfaces (<code>0.0.0.0</code>) and use port 8000.
-    <code>dockerfile
-    CMD ["poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]</code></li>
+<li>A consulta SQL verificando a existência da tabela é executada através do engine SQLAlchemy, utilizando o esquema definido no inicializador da classe.</li>
 </ul>
-<h2 id="complete-dockerfile">Complete Dockerfile</h2>
-<p>```dockerfile</p>
-<h1 id="use-a-imagem-base-oficial-do-python">Use a imagem base oficial do Python</h1>
-<p>FROM python:3.10.0</p>
-<h1 id="instale-o-poetry">Instale o Poetry</h1>
-<p>RUN pip install poetry</p>
-<h1 id="copia-o-pyprojecttoml-e-o-poetrylock-para-o-diretorio-de-trabalho">Copia o pyproject.toml e o poetry.lock para o diretório de trabalho</h1>
-<p>COPY . /src</p>
-<h1 id="define-o-diretorio-de-trabalho-dentro-do-container">Define o diretório de trabalho dentro do container</h1>
-<p>WORKDIR /src</p>
-<h1 id="instala-as-dependencias-do-projeto-usando-o-poetry">Instala as dependências do projeto usando o Poetry</h1>
-<p>RUN poetry install --no-root</p>
-<h1 id="copia-o-restante-do-codigo-da-aplicacao-para-o-diretorio-de-trabalho">Copia o restante do código da aplicação para o diretório de trabalho</h1>
-<p>COPY . .</p>
-<h1 id="expoe-a-porta-8000-para-acesso-a-aplicacao-fastapi">Expõe a porta 8000 para acesso à aplicação FastAPI</h1>
-<p>EXPOSE 8000</p>
-<h1 id="define-o-comando-para-rodar-a-aplicacao">Define o comando para rodar a aplicação</h1>
-<p>CMD ["poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]</p>
+<h2 id="exemplo-de-uso">Exemplo de Uso</h2>
+<pre><code class="language-python"># Configuração da conexão com o banco de dados
+db = PostgresDB(
+    host=&quot;localhost&quot;,
+    port=&quot;5432&quot;,
+    dbname=&quot;meu_banco&quot;,
+    user=&quot;usuario&quot;,
+    password=&quot;senha&quot;,
+    schema=&quot;meu_esquema&quot;
+)
+
+# DataFrame exemplo para salvar
+df = pd.DataFrame({
+    &quot;coluna1&quot;: [1, 2, 3],
+    &quot;coluna2&quot;: [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]
+})
+
+# Salvar DataFrame no PostgreSQL
+db.save_to_postgres(df, &quot;minha_tabela&quot;)
+</code></pre>
 
 
 
@@ -793,10 +975,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>

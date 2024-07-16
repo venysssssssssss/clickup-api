@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../postgre.pt/">
+        <link rel="prev" href="../render.pt/">
       
       
-        <link rel="next" href="../gh_actions/">
+        <link rel="next" href="../tests.pt/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Backup - CLICKUPAPI DOCUMENTATION</title>
+        <title>Rotas - CLICKUPAPI DOCUMENTATION</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inicializacao-da-aplicacao" class="md-skip">
+        <a href="#documentacao-do-endpoint-get_data_organizedlist_id" class="md-skip">
           Ir para o conteúdo
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Backup
+              Rotas
             
           </span>
         </div>
@@ -310,10 +310,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../routes.pt/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Rotas
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -322,6 +342,104 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descricao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descrição
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoint-get-get_data_organizedlist_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint: GET /get_data_organized/{list_id}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Endpoint: GET /get_data_organized/{list_id}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#respostas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Respostas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacoes-e-configuracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validações e Configurações
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processamento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tratamento de Erros
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-de-resposta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemplo de Resposta
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -410,28 +528,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Backup
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../backup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -440,102 +540,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Índice">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Índice
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-da-aplicacao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização da Aplicação
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-das-instancias-de-cache-api-e-banco-de-dados" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização das Instâncias de Cache, API e Banco de Dados
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoint-get_data_organizedlist_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Endpoint: /get_data_organized/{list_id}
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Endpoint: /get_data_organized/{list_id}">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#definicao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Definição
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#descricao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Descrição
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#funcionamento" class="md-nav__link">
-    <span class="md-ellipsis">
-      Funcionamento
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#condicional-list_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Condicional list_id
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#consideracoes-finais" class="md-nav__link">
-    <span class="md-ellipsis">
-      Considerações Finais
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -597,6 +601,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -605,43 +611,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#inicializacao-da-aplicacao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização da Aplicação
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-das-instancias-de-cache-api-e-banco-de-dados" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização das Instâncias de Cache, API e Banco de Dados
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoint-get_data_organizedlist_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Endpoint: /get_data_organized/{list_id}
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Endpoint: /get_data_organized/{list_id}">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#definicao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Definição
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#descricao" class="md-nav__link">
     <span class="md-ellipsis">
       Descrição
@@ -649,20 +618,57 @@
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoint-get-get_data_organizedlist_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint: GET /get_data_organized/{list_id}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Endpoint: GET /get_data_organized/{list_id}">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#funcionamento" class="md-nav__link">
+  <a href="#parametros" class="md-nav__link">
     <span class="md-ellipsis">
-      Funcionamento
+      Parâmetros
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#condicional-list_id" class="md-nav__link">
+  <a href="#respostas" class="md-nav__link">
     <span class="md-ellipsis">
-      Condicional list_id
+      Respostas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacoes-e-configuracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validações e Configurações
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processamento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tratamento de Erros
     </span>
   </a>
   
@@ -674,9 +680,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#consideracoes-finais" class="md-nav__link">
+  <a href="#exemplo-de-resposta" class="md-nav__link">
     <span class="md-ellipsis">
-      Considerações Finais
+      Exemplo de Resposta
     </span>
   </a>
   
@@ -697,105 +703,51 @@
                   
 
 
-  <h1>Backup</h1>
-
-<pre><code class="language-markdown"># Documentação do Projeto
-
-Este projeto utiliza o framework FastAPI para criar uma API que interage com o serviço ClickUp e armazena dados em um banco de dados PostgreSQL. A aplicação também faz uso de um cache Redis para melhorar a performance.
-
-## Arquivo `src/main.py`
-
-### Dependências
-
-```python
-import asyncio
-import pandas as pd
-import pytz
-from fastapi import FastAPI
-
-from src.api.clickup_api import ClickUpAPI
-from src.cache.redis_cache import RedisCache
-from src.config import settings
-from src.db.postgres import PostgresDB
-</code></pre>
-<h3 id="inicializacao-da-aplicacao">Inicialização da Aplicação</h3>
-<p>A aplicação FastAPI é inicializada da seguinte forma:</p>
-<pre><code class="language-python">app = FastAPI()
-</code></pre>
-<h3 id="inicializacao-das-instancias-de-cache-api-e-banco-de-dados">Inicialização das Instâncias de Cache, API e Banco de Dados</h3>
-<p>Criamos instâncias das classes <code>RedisCache</code>, <code>ClickUpAPI</code> e <code>PostgresDB</code> utilizando configurações definidas em <code>settings</code>.</p>
-<pre><code class="language-python">redis_cache = RedisCache(settings.REDIS_URL)
-clickup_api = ClickUpAPI(settings.API_KEY, settings.TIMEZONE, redis_cache)
-postgres_db = PostgresDB(
-    settings.DB_HOST,
-    settings.DB_PORT,
-    settings.DB_NAME,
-    settings.DB_USER,
-    settings.DB_PASS,
-    settings.DB_SCHEMA,
-)
-</code></pre>
-<h3 id="endpoint-get_data_organizedlist_id">Endpoint: <code>/get_data_organized/{list_id}</code></h3>
-<p>Este endpoint obtém e organiza os dados das tarefas de uma lista específica no ClickUp.</p>
-<h4 id="definicao">Definição</h4>
-<pre><code class="language-python">@app.get('/get_data_organized/{list_id}')
-async def get_data_organized(list_id: str):
-    &quot;&quot;&quot;
-    Obtém e organiza os dados das tarefas de uma lista específica no ClickUp.
-
-    Args:
-        list_id (str): O ID da lista no ClickUp.
-
-    Returns:
-        list: Uma lista de tarefas filtradas.
-    &quot;&quot;&quot;
-    print(f'Fetching tasks for list ID: {list_id}')
-    tasks = await clickup_api.get_tasks(list_id)
-    filtered_tasks, status_history_data = clickup_api.filter_tasks(tasks)
-
-    # Converting the list of dictionaries to pandas DataFrames
-    df_tasks = pd.DataFrame(filtered_tasks)
-    df_status_history = pd.DataFrame(status_history_data)
-
-    # Saving the DataFrames to PostgreSQL
-    if list_id == '192959544':
-        postgres_db.save_to_postgres(df_tasks, 'lista_dados_inovacao')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_inovacao')
-    elif list_id == '174940580':
-        postgres_db.save_to_postgres(df_tasks, 'lista_dados_negocios')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_negocios')
-
-    return filtered_tasks
-</code></pre>
-<h4 id="descricao">Descrição</h4>
+<h1 id="documentacao-do-endpoint-get_data_organizedlist_id">Documentação do Endpoint <code>/get_data_organized/{list_id}</code></h1>
+<p>Este documento detalha o endpoint <code>get_data_organized/{list_id}</code>, que é responsável por recuperar e organizar dados de tarefas do ClickUp utilizando uma API personalizada e armazenamento em cache via Redis.</p>
+<h2 id="descricao">Descrição</h2>
+<p>O endpoint recupera as tarefas de uma lista específica no ClickUp, filtra essas tarefas para dados relevantes, e retorna esses dados organizados para o usuário. Ele valida a lista e configurações de ambiente antes de executar as operações.</p>
+<h2 id="endpoint-get-get_data_organizedlist_id">Endpoint: <code>GET /get_data_organized/{list_id}</code></h2>
+<h3 id="parametros">Parâmetros</h3>
 <ul>
-<li><strong>Args</strong>:</li>
-<li>
-<p><code>list_id</code> (str): O ID da lista no ClickUp.</p>
-</li>
-<li>
-<p><strong>Returns</strong>:</p>
-</li>
-<li><code>list</code>: Uma lista de tarefas filtradas.</li>
+<li><code>list_id</code> (str): O identificador da lista de tarefas no ClickUp. Deve ser um valor alfanumérico para garantir que é um ID válido.</li>
 </ul>
-<h4 id="funcionamento">Funcionamento</h4>
+<h3 id="respostas">Respostas</h3>
+<ul>
+<li><strong>200 OK</strong>: Retorna os dados das tarefas filtrados e organizados.</li>
+<li><strong>400 Bad Request</strong>: Retorna uma mensagem de erro se o <code>list_id</code> não for alfanumérico.</li>
+<li><strong>500 Internal Server Error</strong>: Retorna uma mensagem de erro se a chave API ou a URL do Redis não estiverem configuradas corretamente, ou se ocorrer um erro durante a recuperação ou processamento dos dados.</li>
+</ul>
+<h3 id="validacoes-e-configuracoes">Validações e Configurações</h3>
+<ul>
+<li>Verifica se <code>list_id</code> é alfanumérico.</li>
+<li>Confirma que a chave API (<code>API_KEY</code>) e a URL do Redis (<code>REDIS_URL</code>) estão definidas, levantando exceções HTTP com código de status 500 se alguma estiver ausente.</li>
+</ul>
+<h3 id="processamento">Processamento</h3>
 <ol>
-<li>O endpoint recebe um <code>list_id</code> como parâmetro.</li>
-<li>Utiliza o <code>clickup_api</code> para obter as tarefas da lista especificada.</li>
-<li>Filtra as tarefas e obtém os dados do histórico de status.</li>
-<li>Converte as listas de dicionários em DataFrames do pandas.</li>
-<li>Salva os DataFrames em tabelas específicas no PostgreSQL, dependendo do <code>list_id</code>.</li>
-<li>Retorna a lista de tarefas filtradas.</li>
+<li><strong>Criação da Instância ClickUpAPI</strong>: Uma instância de <code>ClickUpAPI</code> é criada com as configurações da API e do Redis.</li>
+<li><strong>Recuperação de Tarefas</strong>: As tarefas são recuperadas da API do ClickUp.</li>
+<li><strong>Filtragem de Tarefas</strong>: As tarefas são filtradas para extrair dados relevantes.</li>
+<li><strong>Retorno dos Dados</strong>: Os dados filtrados são retornados como resposta ao cliente.</li>
 </ol>
-<h4 id="condicional-list_id">Condicional <code>list_id</code></h4>
+<h3 id="tratamento-de-erros">Tratamento de Erros</h3>
 <ul>
-<li>Se <code>list_id</code> for '192959544', os dados são salvos nas tabelas <code>lista_dados_inovacao</code> e <code>status_history_inovacao</code>.</li>
-<li>Se <code>list_id</code> for '174940580', os dados são salvos nas tabelas <code>lista_dados_negocios</code> e <code>status_history_negocios</code>.</li>
+<li>Erros HTTP da API do ClickUp são capturados e transformados em <code>HTTPException</code> com status 500.</li>
+<li>Erros inesperados são capturados, registrados e também transformados em <code>HTTPException</code> com status 500.</li>
 </ul>
-<h3 id="consideracoes-finais">Considerações Finais</h3>
-<p>Este arquivo principal (<code>src/main.py</code>) configura e inicializa os componentes principais da aplicação, define o endpoint e implementa a lógica necessária para obter, filtrar e salvar os dados das tarefas do ClickUp. A documentação detalhada aqui visa fornecer uma compreensão clara e acessível de como o código funciona, mesmo para aqueles que não têm familiaridade com programação.
-```</p>
-<p>Espero que isso atenda às suas necessidades. Se precisar de mais alguma coisa, é só avisar.</p>
+<h2 id="exemplo-de-resposta">Exemplo de Resposta</h2>
+<pre><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;task_id&quot;: &quot;12345&quot;,
+      &quot;status&quot;: &quot;complete&quot;,
+      &quot;name&quot;: &quot;Document API Endpoint&quot;,
+      &quot;assignees&quot;: [&quot;user1&quot;, &quot;user2&quot;],
+      &quot;priority&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
 
 
 

@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../postgre.pt/">
+        <link rel="prev" href="../main.pt/">
       
       
-        <link rel="next" href="../gh_actions/">
+        <link rel="next" href="../render.pt/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Backup - CLICKUPAPI DOCUMENTATION</title>
+        <title>Redis - CLICKUPAPI DOCUMENTATION</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inicializacao-da-aplicacao" class="md-skip">
+        <a href="#documentacao-da-classe-rediscache" class="md-skip">
           Ir para o conteúdo
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Backup
+              Redis
             
           </span>
         </div>
@@ -270,10 +270,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../redis.pt/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Redis
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -282,6 +302,215 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classe-rediscache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classe: RedisCache
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classe: RedisCache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inicializador" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inicializador
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inicializador">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comportamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comportamento
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Métodos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Métodos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_redis_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      test_redis_connection()
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="test_redis_connection()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#excecoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceções
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#efeitos-colaterais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Efeitos Colaterais
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getkey-str-unionlist-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      get(key: str) -&gt; Union[List, None]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get(key: str) -> Union[List, None]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retorna" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retorna
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comportamento_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comportamento
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setkey-str-data-list-ttl-int-600" class="md-nav__link">
+    <span class="md-ellipsis">
+      set(key: str, data: List, ttl: int = 600)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="set(key: str, data: List, ttl: int = 600)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comportamento_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comportamento
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excecoes-comuns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceções Comuns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -410,28 +639,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Backup
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../backup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -440,102 +651,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Índice">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Índice
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-da-aplicacao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização da Aplicação
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-das-instancias-de-cache-api-e-banco-de-dados" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização das Instâncias de Cache, API e Banco de Dados
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoint-get_data_organizedlist_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Endpoint: /get_data_organized/{list_id}
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Endpoint: /get_data_organized/{list_id}">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#definicao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Definição
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#descricao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Descrição
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#funcionamento" class="md-nav__link">
-    <span class="md-ellipsis">
-      Funcionamento
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#condicional-list_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Condicional list_id
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#consideracoes-finais" class="md-nav__link">
-    <span class="md-ellipsis">
-      Considerações Finais
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -597,6 +712,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -605,64 +722,175 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#inicializacao-da-aplicacao" class="md-nav__link">
+  <a href="#classe-rediscache" class="md-nav__link">
     <span class="md-ellipsis">
-      Inicialização da Aplicação
+      Classe: RedisCache
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-das-instancias-de-cache-api-e-banco-de-dados" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização das Instâncias de Cache, API e Banco de Dados
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoint-get_data_organizedlist_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Endpoint: /get_data_organized/{list_id}
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Endpoint: /get_data_organized/{list_id}">
+    <nav class="md-nav" aria-label="Classe: RedisCache">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#definicao" class="md-nav__link">
+  <a href="#inicializador" class="md-nav__link">
     <span class="md-ellipsis">
-      Definição
+      Inicializador
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inicializador">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#descricao" class="md-nav__link">
+  <a href="#comportamento" class="md-nav__link">
     <span class="md-ellipsis">
-      Descrição
+      Comportamento
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Métodos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Métodos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test_redis_connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      test_redis_connection()
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="test_redis_connection()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#excecoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceções
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#funcionamento" class="md-nav__link">
+  <a href="#efeitos-colaterais" class="md-nav__link">
     <span class="md-ellipsis">
-      Funcionamento
+      Efeitos Colaterais
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getkey-str-unionlist-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      get(key: str) -&gt; Union[List, None]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get(key: str) -> Union[List, None]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#condicional-list_id" class="md-nav__link">
+  <a href="#retorna" class="md-nav__link">
     <span class="md-ellipsis">
-      Condicional list_id
+      Retorna
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comportamento_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comportamento
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setkey-str-data-list-ttl-int-600" class="md-nav__link">
+    <span class="md-ellipsis">
+      set(key: str, data: List, ttl: int = 600)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="set(key: str, data: List, ttl: int = 600)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parâmetros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comportamento_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comportamento
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excecoes-comuns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceções Comuns
     </span>
   </a>
   
@@ -674,9 +902,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#consideracoes-finais" class="md-nav__link">
+  <a href="#uso" class="md-nav__link">
     <span class="md-ellipsis">
-      Considerações Finais
+      Uso
     </span>
   </a>
   
@@ -697,105 +925,62 @@
                   
 
 
-  <h1>Backup</h1>
-
-<pre><code class="language-markdown"># Documentação do Projeto
-
-Este projeto utiliza o framework FastAPI para criar uma API que interage com o serviço ClickUp e armazena dados em um banco de dados PostgreSQL. A aplicação também faz uso de um cache Redis para melhorar a performance.
-
-## Arquivo `src/main.py`
-
-### Dependências
-
-```python
-import asyncio
-import pandas as pd
-import pytz
-from fastapi import FastAPI
-
-from src.api.clickup_api import ClickUpAPI
-from src.cache.redis_cache import RedisCache
-from src.config import settings
-from src.db.postgres import PostgresDB
-</code></pre>
-<h3 id="inicializacao-da-aplicacao">Inicialização da Aplicação</h3>
-<p>A aplicação FastAPI é inicializada da seguinte forma:</p>
-<pre><code class="language-python">app = FastAPI()
-</code></pre>
-<h3 id="inicializacao-das-instancias-de-cache-api-e-banco-de-dados">Inicialização das Instâncias de Cache, API e Banco de Dados</h3>
-<p>Criamos instâncias das classes <code>RedisCache</code>, <code>ClickUpAPI</code> e <code>PostgresDB</code> utilizando configurações definidas em <code>settings</code>.</p>
-<pre><code class="language-python">redis_cache = RedisCache(settings.REDIS_URL)
-clickup_api = ClickUpAPI(settings.API_KEY, settings.TIMEZONE, redis_cache)
-postgres_db = PostgresDB(
-    settings.DB_HOST,
-    settings.DB_PORT,
-    settings.DB_NAME,
-    settings.DB_USER,
-    settings.DB_PASS,
-    settings.DB_SCHEMA,
-)
-</code></pre>
-<h3 id="endpoint-get_data_organizedlist_id">Endpoint: <code>/get_data_organized/{list_id}</code></h3>
-<p>Este endpoint obtém e organiza os dados das tarefas de uma lista específica no ClickUp.</p>
-<h4 id="definicao">Definição</h4>
-<pre><code class="language-python">@app.get('/get_data_organized/{list_id}')
-async def get_data_organized(list_id: str):
-    &quot;&quot;&quot;
-    Obtém e organiza os dados das tarefas de uma lista específica no ClickUp.
-
-    Args:
-        list_id (str): O ID da lista no ClickUp.
-
-    Returns:
-        list: Uma lista de tarefas filtradas.
-    &quot;&quot;&quot;
-    print(f'Fetching tasks for list ID: {list_id}')
-    tasks = await clickup_api.get_tasks(list_id)
-    filtered_tasks, status_history_data = clickup_api.filter_tasks(tasks)
-
-    # Converting the list of dictionaries to pandas DataFrames
-    df_tasks = pd.DataFrame(filtered_tasks)
-    df_status_history = pd.DataFrame(status_history_data)
-
-    # Saving the DataFrames to PostgreSQL
-    if list_id == '192959544':
-        postgres_db.save_to_postgres(df_tasks, 'lista_dados_inovacao')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_inovacao')
-    elif list_id == '174940580':
-        postgres_db.save_to_postgres(df_tasks, 'lista_dados_negocios')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_negocios')
-
-    return filtered_tasks
-</code></pre>
-<h4 id="descricao">Descrição</h4>
+<h1 id="documentacao-da-classe-rediscache">Documentação da Classe RedisCache</h1>
+<p>Este documento fornece uma visão detalhada da classe <code>RedisCache</code>, utilizada para interagir com um banco de dados Redis para armazenar e recuperar dados de forma eficiente.</p>
+<h2 id="classe-rediscache">Classe: RedisCache</h2>
+<h3 id="inicializador">Inicializador</h3>
+<p>Inicializa uma instância da classe <code>RedisCache</code>, configurando a conexão com um servidor Redis especificado pela URL.</p>
+<h4 id="parametros">Parâmetros</h4>
 <ul>
-<li><strong>Args</strong>:</li>
-<li>
-<p><code>list_id</code> (str): O ID da lista no ClickUp.</p>
-</li>
-<li>
-<p><strong>Returns</strong>:</p>
-</li>
-<li><code>list</code>: Uma lista de tarefas filtradas.</li>
+<li><code>redis_url</code> (str): A URL de conexão com o Redis.</li>
 </ul>
-<h4 id="funcionamento">Funcionamento</h4>
-<ol>
-<li>O endpoint recebe um <code>list_id</code> como parâmetro.</li>
-<li>Utiliza o <code>clickup_api</code> para obter as tarefas da lista especificada.</li>
-<li>Filtra as tarefas e obtém os dados do histórico de status.</li>
-<li>Converte as listas de dicionários em DataFrames do pandas.</li>
-<li>Salva os DataFrames em tabelas específicas no PostgreSQL, dependendo do <code>list_id</code>.</li>
-<li>Retorna a lista de tarefas filtradas.</li>
-</ol>
-<h4 id="condicional-list_id">Condicional <code>list_id</code></h4>
+<h4 id="comportamento">Comportamento</h4>
 <ul>
-<li>Se <code>list_id</code> for '192959544', os dados são salvos nas tabelas <code>lista_dados_inovacao</code> e <code>status_history_inovacao</code>.</li>
-<li>Se <code>list_id</code> for '174940580', os dados são salvos nas tabelas <code>lista_dados_negocios</code> e <code>status_history_negocios</code>.</li>
+<li>Ao inicializar, a conexão com o Redis é testada automaticamente. Se a conexão falhar, uma exceção HTTP será lançada.</li>
 </ul>
-<h3 id="consideracoes-finais">Considerações Finais</h3>
-<p>Este arquivo principal (<code>src/main.py</code>) configura e inicializa os componentes principais da aplicação, define o endpoint e implementa a lógica necessária para obter, filtrar e salvar os dados das tarefas do ClickUp. A documentação detalhada aqui visa fornecer uma compreensão clara e acessível de como o código funciona, mesmo para aqueles que não têm familiaridade com programação.
-```</p>
-<p>Espero que isso atenda às suas necessidades. Se precisar de mais alguma coisa, é só avisar.</p>
+<h3 id="metodos">Métodos</h3>
+<h4 id="test_redis_connection"><code>test_redis_connection()</code></h4>
+<p>Testa a conexão com o servidor Redis para garantir que está ativa e funcional.</p>
+<h5 id="excecoes">Exceções</h5>
+<ul>
+<li><code>HTTPException</code>: Lançada se a conexão com o Redis falhar, com o status code 500 e uma mensagem detalhada do erro.</li>
+</ul>
+<h5 id="efeitos-colaterais">Efeitos Colaterais</h5>
+<ul>
+<li>Imprime uma mensagem no console indicando sucesso ou falha na conexão.</li>
+</ul>
+<h4 id="getkey-str-unionlist-none"><code>get(key: str) -&gt; Union[List, None]</code></h4>
+<p>Recupera os dados armazenados no Redis associados à chave especificada.</p>
+<h5 id="parametros_1">Parâmetros</h5>
+<ul>
+<li><code>key</code> (str): A chave dos dados a serem obtidos.</li>
+</ul>
+<h5 id="retorna">Retorna</h5>
+<ul>
+<li><code>Union[List, None]</code>: Retorna os dados deserializados armazenados sob a chave especificada, ou <code>None</code> se não existirem dados para a chave.</li>
+</ul>
+<h5 id="comportamento_1">Comportamento</h5>
+<ul>
+<li>Se ocorrer um erro ao acessar o Redis, uma mensagem de erro é impressa e <code>None</code> é retornado.</li>
+</ul>
+<h4 id="setkey-str-data-list-ttl-int-600"><code>set(key: str, data: List, ttl: int = 600)</code></h4>
+<p>Armazena os dados no Redis associados a uma chave, com um tempo de vida especificado.</p>
+<h5 id="parametros_2">Parâmetros</h5>
+<ul>
+<li><code>key</code> (str): A chave sob a qual os dados serão armazenados.</li>
+<li><code>data</code> (List): Os dados a serem armazenados.</li>
+<li><code>ttl</code> (int, opcional): O tempo de vida dos dados em segundos. O padrão é 600 segundos (10 minutos).</li>
+</ul>
+<h5 id="comportamento_2">Comportamento</h5>
+<ul>
+<li>Armazena os dados serializados no Redis. Se ocorrer um erro durante o armazenamento, uma mensagem de erro é impressa.</li>
+</ul>
+<h3 id="excecoes-comuns">Exceções Comuns</h3>
+<ul>
+<li><code>redis.RedisError</code>: Capturada e tratada dentro dos métodos <code>get</code> e <code>set</code>, resultando na impressão de mensagens de erro no console em caso de falha nas operações.</li>
+</ul>
+<h2 id="uso">Uso</h2>
+<p>A classe <code>RedisCache</code> é projetada para ser utilizada em aplicações que requerem armazenamento de dados rápido e eficiente com capacidade de expiração automática. Ela é particularmente útil em cenários de cache de dados para aplicações web, onde a velocidade de acesso aos dados é crítica.</p>
 
 
 

@@ -9,10 +9,8 @@
       
       
       
-        <link rel="prev" href="../postgre.pt/">
       
-      
-        <link rel="next" href="../gh_actions/">
+        <link rel="next" href="../api.pt/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +18,7 @@
     
     
       
-        <title>Backup - CLICKUPAPI DOCUMENTATION</title>
+        <title>Início - CLICKUPAPI DOCUMENTATION</title>
       
     
     
@@ -64,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inicializacao-da-aplicacao" class="md-skip">
+        <a href="#instalacao-do-pyenv" class="md-skip">
           Ir para o conteúdo
         </a>
       
@@ -100,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Backup
+              Início
             
           </span>
         </div>
@@ -190,10 +188,28 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../index.pt/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Início
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -202,6 +218,99 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#instalacao-do-pyenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalação do pyenv
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalação do pyenv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      macOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacao-do-poetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalação do Poetry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalação do Poetry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-linux-windows-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Universal (Linux, Windows, macOS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-do-projeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuração do Projeto
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -410,28 +519,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Backup
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../backup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -440,102 +531,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Índice">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Índice
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-da-aplicacao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização da Aplicação
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-das-instancias-de-cache-api-e-banco-de-dados" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização das Instâncias de Cache, API e Banco de Dados
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoint-get_data_organizedlist_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Endpoint: /get_data_organized/{list_id}
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Endpoint: /get_data_organized/{list_id}">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#definicao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Definição
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#descricao" class="md-nav__link">
-    <span class="md-ellipsis">
-      Descrição
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#funcionamento" class="md-nav__link">
-    <span class="md-ellipsis">
-      Funcionamento
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#condicional-list_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Condicional list_id
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#consideracoes-finais" class="md-nav__link">
-    <span class="md-ellipsis">
-      Considerações Finais
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -605,64 +600,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#inicializacao-da-aplicacao" class="md-nav__link">
+  <a href="#instalacao-do-pyenv" class="md-nav__link">
     <span class="md-ellipsis">
-      Inicialização da Aplicação
+      Instalação do pyenv
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inicializacao-das-instancias-de-cache-api-e-banco-de-dados" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inicialização das Instâncias de Cache, API e Banco de Dados
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoint-get_data_organizedlist_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Endpoint: /get_data_organized/{list_id}
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Endpoint: /get_data_organized/{list_id}">
+    <nav class="md-nav" aria-label="Instalação do pyenv">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#definicao" class="md-nav__link">
+  <a href="#linux" class="md-nav__link">
     <span class="md-ellipsis">
-      Definição
+      Linux
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#descricao" class="md-nav__link">
+  <a href="#windows" class="md-nav__link">
     <span class="md-ellipsis">
-      Descrição
+      Windows
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#funcionamento" class="md-nav__link">
+  <a href="#macos" class="md-nav__link">
     <span class="md-ellipsis">
-      Funcionamento
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#condicional-list_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      Condicional list_id
+      macOS
     </span>
   </a>
   
@@ -674,9 +642,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#consideracoes-finais" class="md-nav__link">
+  <a href="#instalacao-do-poetry" class="md-nav__link">
     <span class="md-ellipsis">
-      Considerações Finais
+      Instalação do Poetry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalação do Poetry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-linux-windows-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Universal (Linux, Windows, macOS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-do-projeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuração do Projeto
     </span>
   </a>
   
@@ -697,105 +689,117 @@
                   
 
 
-  <h1>Backup</h1>
+  <h1>Início</h1>
 
-<pre><code class="language-markdown"># Documentação do Projeto
-
-Este projeto utiliza o framework FastAPI para criar uma API que interage com o serviço ClickUp e armazena dados em um banco de dados PostgreSQL. A aplicação também faz uso de um cache Redis para melhorar a performance.
-
-## Arquivo `src/main.py`
-
-### Dependências
-
-```python
-import asyncio
-import pandas as pd
-import pytz
-from fastapi import FastAPI
-
-from src.api.clickup_api import ClickUpAPI
-from src.cache.redis_cache import RedisCache
-from src.config import settings
-from src.db.postgres import PostgresDB
-</code></pre>
-<h3 id="inicializacao-da-aplicacao">Inicialização da Aplicação</h3>
-<p>A aplicação FastAPI é inicializada da seguinte forma:</p>
-<pre><code class="language-python">app = FastAPI()
-</code></pre>
-<h3 id="inicializacao-das-instancias-de-cache-api-e-banco-de-dados">Inicialização das Instâncias de Cache, API e Banco de Dados</h3>
-<p>Criamos instâncias das classes <code>RedisCache</code>, <code>ClickUpAPI</code> e <code>PostgresDB</code> utilizando configurações definidas em <code>settings</code>.</p>
-<pre><code class="language-python">redis_cache = RedisCache(settings.REDIS_URL)
-clickup_api = ClickUpAPI(settings.API_KEY, settings.TIMEZONE, redis_cache)
-postgres_db = PostgresDB(
-    settings.DB_HOST,
-    settings.DB_PORT,
-    settings.DB_NAME,
-    settings.DB_USER,
-    settings.DB_PASS,
-    settings.DB_SCHEMA,
-)
-</code></pre>
-<h3 id="endpoint-get_data_organizedlist_id">Endpoint: <code>/get_data_organized/{list_id}</code></h3>
-<p>Este endpoint obtém e organiza os dados das tarefas de uma lista específica no ClickUp.</p>
-<h4 id="definicao">Definição</h4>
-<pre><code class="language-python">@app.get('/get_data_organized/{list_id}')
-async def get_data_organized(list_id: str):
-    &quot;&quot;&quot;
-    Obtém e organiza os dados das tarefas de uma lista específica no ClickUp.
-
-    Args:
-        list_id (str): O ID da lista no ClickUp.
-
-    Returns:
-        list: Uma lista de tarefas filtradas.
-    &quot;&quot;&quot;
-    print(f'Fetching tasks for list ID: {list_id}')
-    tasks = await clickup_api.get_tasks(list_id)
-    filtered_tasks, status_history_data = clickup_api.filter_tasks(tasks)
-
-    # Converting the list of dictionaries to pandas DataFrames
-    df_tasks = pd.DataFrame(filtered_tasks)
-    df_status_history = pd.DataFrame(status_history_data)
-
-    # Saving the DataFrames to PostgreSQL
-    if list_id == '192959544':
-        postgres_db.save_to_postgres(df_tasks, 'lista_dados_inovacao')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_inovacao')
-    elif list_id == '174940580':
-        postgres_db.save_to_postgres(df_tasks, 'lista_dados_negocios')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_negocios')
-
-    return filtered_tasks
-</code></pre>
-<h4 id="descricao">Descrição</h4>
-<ul>
-<li><strong>Args</strong>:</li>
-<li>
-<p><code>list_id</code> (str): O ID da lista no ClickUp.</p>
-</li>
-<li>
-<p><strong>Returns</strong>:</p>
-</li>
-<li><code>list</code>: Uma lista de tarefas filtradas.</li>
-</ul>
-<h4 id="funcionamento">Funcionamento</h4>
+<p><a href="https://excalidraw.com/#json=CNdxxeExm7K-clUexHxMr,DGr7x_W10WefJ8Up9aey7w"><img alt="clickup_api_to_dw" src="/img_exca.svg" /></a></p>
+<hr />
+<h2 id="instalacao-do-pyenv">Instalação do pyenv</h2>
+<h3 id="linux">Linux</h3>
 <ol>
-<li>O endpoint recebe um <code>list_id</code> como parâmetro.</li>
-<li>Utiliza o <code>clickup_api</code> para obter as tarefas da lista especificada.</li>
-<li>Filtra as tarefas e obtém os dados do histórico de status.</li>
-<li>Converte as listas de dicionários em DataFrames do pandas.</li>
-<li>Salva os DataFrames em tabelas específicas no PostgreSQL, dependendo do <code>list_id</code>.</li>
-<li>Retorna a lista de tarefas filtradas.</li>
+<li>
+<p><strong>Instale as dependências necessárias</strong>:
+   <code>bash
+   sudo apt-get update
+   sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+   libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+   xz-utils tk-dev libffi-dev liblzma-dev python-openssl git</code></p>
+</li>
+<li>
+<p><strong>Instale o pyenv</strong>:
+   <code>bash
+   curl https://pyenv.run | bash</code></p>
+</li>
+<li>
+<p><strong>Configure o ambiente</strong>:
+   Adicione as seguintes linhas ao seu <code>~/.bashrc</code>:
+   <code>bash
+   export PATH="$HOME/.pyenv/bin:$PATH"
+   eval "$(pyenv init --path)"
+   eval "$(pyenv virtualenv-init -)"</code></p>
+</li>
+<li>
+<p><strong>Reinicie o terminal</strong> ou execute <code>source ~/.bashrc</code>.</p>
+</li>
 </ol>
-<h4 id="condicional-list_id">Condicional <code>list_id</code></h4>
-<ul>
-<li>Se <code>list_id</code> for '192959544', os dados são salvos nas tabelas <code>lista_dados_inovacao</code> e <code>status_history_inovacao</code>.</li>
-<li>Se <code>list_id</code> for '174940580', os dados são salvos nas tabelas <code>lista_dados_negocios</code> e <code>status_history_negocios</code>.</li>
-</ul>
-<h3 id="consideracoes-finais">Considerações Finais</h3>
-<p>Este arquivo principal (<code>src/main.py</code>) configura e inicializa os componentes principais da aplicação, define o endpoint e implementa a lógica necessária para obter, filtrar e salvar os dados das tarefas do ClickUp. A documentação detalhada aqui visa fornecer uma compreensão clara e acessível de como o código funciona, mesmo para aqueles que não têm familiaridade com programação.
-```</p>
-<p>Espero que isso atenda às suas necessidades. Se precisar de mais alguma coisa, é só avisar.</p>
+<h3 id="windows">Windows</h3>
+<p>Para Windows, recomendamos usar o <code>pyenv-win</code>:</p>
+<ol>
+<li>
+<p><strong>Instale o pyenv-win</strong>:
+   <code>powershell
+   pip install pyenv-win --target "$HOME/.pyenv"</code></p>
+</li>
+<li>
+<p><strong>Configure o ambiente</strong>:
+   Adicione <code>$HOME/.pyenv/pyenv-win/bin</code> e <code>$HOME/.pyenv/pyenv-win/shims</code> ao seu PATH através das Configurações do Sistema.</p>
+</li>
+</ol>
+<h3 id="macos">macOS</h3>
+<ol>
+<li>
+<p><strong>Instale o Homebrew</strong> se ainda não estiver instalado:
+   <code>bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></p>
+</li>
+<li>
+<p><strong>Instale o pyenv</strong> usando o Homebrew:
+   <code>bash
+   brew install pyenv</code></p>
+</li>
+<li>
+<p><strong>Adicione o pyenv ao seu perfil</strong>:
+   <code>bash
+   echo 'if which pyenv &gt; /dev/null; then eval "$(pyenv init -)"; fi' &gt;&gt; ~/.zprofile</code></p>
+</li>
+<li>
+<p><strong>Instale o Python desejado</strong>:
+   <code>bash
+   pyenv install 3.9.0</code></p>
+</li>
+</ol>
+<h2 id="instalacao-do-poetry">Instalação do Poetry</h2>
+<h3 id="universal-linux-windows-macos">Universal (Linux, Windows, macOS)</h3>
+<ol>
+<li>
+<p><strong>Instale o Poetry</strong>:
+   <code>bash
+   curl -sSL https://install.python-poetry.org | python3 -</code></p>
+</li>
+<li>
+<p><strong>Configure o PATH</strong> (se necessário):
+   Certifique-se de que o diretório <code>~/.local/bin</code> está no seu PATH para acessar o binário do Poetry.</p>
+</li>
+</ol>
+<hr />
+<h2 id="configuracao-do-projeto">Configuração do Projeto</h2>
+<ol>
+<li>
+<p><strong>Defina a versão do Python usando pyenv</strong>:
+   <code>bash
+   pyenv local 3.9.0</code></p>
+</li>
+<li>
+<p><strong>Navegue até o diretório do seu projeto</strong>:
+   <code>bash
+   cd caminho_para_seu_projeto</code></p>
+</li>
+<li>
+<p><strong>Inicialize o ambiente virtual usando Poetry</strong>:
+   <code>bash
+   poetry shell</code></p>
+</li>
+<li>
+<p><strong>Instale as dependências do projeto sem instalar o pacote raiz</strong>:
+   <code>bash
+   poetry install --no-root</code></p>
+</li>
+<li>
+<p><strong>Execute o projeto</strong>:
+   <code>bash
+   python nome_do_script.py</code></p>
+</li>
+</ol>
+<p>Estas instruções ajudarão você a configurar e executar seu projeto Python atual, utilizando as versões específicas do Python definidas pelo <code>pyenv</code> e gerenciando dependências com <code>Poetry</code>.</p>
 
 
 
