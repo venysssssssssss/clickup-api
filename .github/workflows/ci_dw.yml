@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Debug secrets
+      run: |
+        echo "API URL 1: ${{ secrets.API_URL_1_INO }}"
+        echo "API URL 2: ${{ secrets.API_URL_2_NEG }}"
+
     - name: Make API request to get_data_organized/192959544
       run: |
         curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_1_INO }}"
