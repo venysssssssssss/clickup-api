@@ -1,0 +1,22 @@
+name: Schedule API Requests
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'  # Executa a cada 3 horas
+
+jobs:
+  call_apis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Make API request to get_data_organized/192959544
+      uses: githubcommunity/http-request-action@v1
+      with:
+        url: "${{ secrets.API_URL_1_INO }}"
+        method: 'GET'
+
+    - name: Make API request to get_data_organized/174940580
+      uses: githubcommunity/http-request-action@v1
+      with:
+        url: "${{ secrets.API_URL_2_NEG }}"
+        method: 'GET'

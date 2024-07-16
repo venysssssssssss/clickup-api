@@ -1,4 +1,3 @@
-import zlib
 from typing import List, Union
 
 import msgpack
@@ -25,8 +24,7 @@ class RedisCache:
         try:
             cached_data = self.redis.get(key)
             if cached_data:
-                decompressed_data = zlib.decompress(cached_data)
-                return msgpack.unpackb(decompressed_data)
+                return msgpack.unpackb(cached_data, raw=False)
             return None
         except redis.RedisError as e:
             print(f'Redis get error: {e}')
@@ -34,7 +32,6 @@ class RedisCache:
 
     def set(self, key: str, data: List, ttl: int = 600):
         try:
-            compressed_data = zlib.compress(msgpack.packb(data))
-            self.redis.setex(key, ttl, compressed_data)
+            self.redis.setex(key, ttl, msgpack.packb(data, use_bin_type=True))
         except redis.RedisError as e:
             print(f'Redis set error: {e}')
