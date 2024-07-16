@@ -9,20 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Make API request to get_data_organized/192959544
-      run: |
-        echo "Fetching: ${{ secrets.API_URL_1_INO }}"
-        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_1_INO }}"
-        if [ $? -ne 0 ]; then
-          echo "Failed to fetch ${{ secrets.API_URL_1_INO }}"
-          exit 1
-        fi
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-    - name: Make API request to get_data_organized/174940580
-      run: |
-        echo "Fetching: ${{ secrets.API_URL_2_NEG }}"
-        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_2_NEG }}"
-        if [ $? -ne 0 ]; then
-          echo "Failed to fetch ${{ secrets.API_URL_2_NEG }}"
-          exit 1
-        fi
+    - name: Set up shell script permissions
+      run: chmod +x ./run_api_requests.sh
+
+    - name: Make API requests
+      run: ./run_api_requests.sh "${{ secrets.API_URL_1_INO }}" "${{ secrets.API_URL_2_NEG }}"
