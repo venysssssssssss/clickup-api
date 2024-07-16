@@ -1,6 +1,6 @@
 site_name: CLICKUPAPI DOCUMENTATION
 nav:
-  - Início: index.pt.md
+  - Início: index.md
   - API: api.pt.md
   - Docker: docker.pt.md
   - Principal: main.pt.md
