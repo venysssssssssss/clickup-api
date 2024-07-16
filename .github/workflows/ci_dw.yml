@@ -9,13 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Debug secrets
-      run: |
-        echo "API URL 1: ${{ secrets.API_URL_1_INO }}"
-        echo "API URL 2: ${{ secrets.API_URL_2_NEG }}"
-
     - name: Make API request to get_data_organized/192959544
       run: |
+        echo "Fetching: ${{ secrets.API_URL_1_INO }}"
         curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_1_INO }}"
         if [ $? -ne 0 ]; then
           echo "Failed to fetch ${{ secrets.API_URL_1_INO }}"
@@ -24,6 +20,7 @@ jobs:
 
     - name: Make API request to get_data_organized/174940580
       run: |
+        echo "Fetching: ${{ secrets.API_URL_2_NEG }}"
         curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_2_NEG }}"
         if [ $? -ne 0 ]; then
           echo "Failed to fetch ${{ secrets.API_URL_2_NEG }}"
