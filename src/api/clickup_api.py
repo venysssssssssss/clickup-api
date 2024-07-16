@@ -26,7 +26,7 @@ class ClickUpAPI:
     async def fetch_clickup_data(self, url: str, query: Dict) -> Dict:
         try:
             async with self.semaphore, httpx.AsyncClient(
-                timeout=300.0
+                timeout=60.0
             ) as client:
                 response = await client.get(
                     url, headers=self.headers, params=query
@@ -194,5 +194,6 @@ class ClickUpAPI:
         }
         tasks = await self.fetch_all_tasks(url, query)
         await self.fetch_all_time_in_status(tasks)
-        self.cache.set(cache_key, tasks)
-        return tasks
+        valid_tasks = [task for task in tasks if 'id' in task]  # Ensure all tasks have 'id' before caching
+        self.cache.set(cache_key, valid_tasks)
+        return valid_tasks
