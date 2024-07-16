@@ -12,11 +12,11 @@ jobs:
     - name: Make API request to get_data_organized/192959544
       uses: githubcommunity/http-request-action@v1
       with:
-        url: "https://clickup-api-7d94.onrender.com/get_data_organized/192959544"
+        url: "${{ secrets.API_URL_1_INO }}"
         method: 'GET'
 
     - name: Make API request to get_data_organized/174940580
       uses: githubcommunity/http-request-action@v1
       with:
-        url: "https://clickup-api-7d94.onrender.com/get_data_organized/174940580"
+        url: "${{ secrets.API_URL_2_NEG }}"
         method: 'GET'
