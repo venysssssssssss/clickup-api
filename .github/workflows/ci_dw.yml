@@ -10,13 +10,19 @@ jobs:
 
     steps:
     - name: Make API request to get_data_organized/192959544
-      uses: githubcommunity/http-request-action@v1
-      with:
-        url: "${{ secrets.API_URL_1_INO }}"
-        method: 'GET'
+      run: |
+        echo "Fetching: ${{ secrets.API_URL_1_INO }}"
+        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_1_INO }}"
+        if [ $? -ne 0 ]; then
+          echo "Failed to fetch ${{ secrets.API_URL_1_INO }}"
+          exit 1
+        fi
 
     - name: Make API request to get_data_organized/174940580
-      uses: githubcommunity/http-request-action@v1
-      with:
-        url: "${{ secrets.API_URL_2_NEG }}"
-        method: 'GET'
+      run: |
+        echo "Fetching: ${{ secrets.API_URL_2_NEG }}"
+        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_2_NEG }}"
+        if [ $? -ne 0 ]; then
+          echo "Failed to fetch ${{ secrets.API_URL_2_NEG }}"
+          exit 1
+        fi
