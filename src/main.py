@@ -25,6 +25,15 @@ postgres_db = PostgresDB(
 
 @app.get('/get_data_organized/{list_id}')
 async def get_data_organized(list_id: str):
+    """
+    Obtém e organiza os dados das tarefas de uma lista específica no ClickUp.
+
+    Args:
+        list_id (str): O ID da lista no ClickUp.
+
+    Returns:
+        list: Uma lista de tarefas filtradas.
+    """
     print(f'Fetching tasks for list ID: {list_id}')
     tasks = await clickup_api.get_tasks(list_id)
     filtered_tasks, status_history_data = clickup_api.filter_tasks(tasks)
