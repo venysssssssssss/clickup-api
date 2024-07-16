@@ -6,10 +6,12 @@ nav:
   - Docker: docker.pt.md
   - Principal: main.pt.md
   - Redis: redis.pt.md
-  - Renderizar: render.pt.md
+  - Render: render.pt.md
   - Rotas: routes.pt.md
   - Testes: tests.pt.md
   - Utilidades: utils.pt.md
+  - Settings: settings.pt.md
+  - Postgre: postgre.pt.md
 plugins:
   - search
   - mkdocstrings:
