@@ -14,6 +14,14 @@ logger = logging.getLogger(__name__)
 
 class ClickUpAPI:
     def __init__(self, api_key: str, timezone: str, redis_cache):
+        """
+        Inicializa uma instância da classe ClickUpAPI.
+
+        Parâmetros:
+        - api_key (str): A chave de API do ClickUp.
+        - timezone (str): O fuso horário utilizado para converter as datas.
+        - redis_cache: O objeto de cache Redis utilizado para armazenar os dados em cache.
+        """
         if not api_key:
             raise ValueError('API key must be provided')
 
@@ -24,6 +32,16 @@ class ClickUpAPI:
         self.cache = redis_cache
 
     async def fetch_clickup_data(self, url: str, query: Dict) -> Dict:
+        """
+        Faz uma requisição assíncrona para a API do ClickUp e retorna os dados em formato JSON.
+
+        Parâmetros:
+        - url (str): A URL da API do ClickUp.
+        - query (Dict): Os parâmetros da consulta.
+
+        Retorna:
+        - Dict: Os dados da resposta em formato JSON.
+        """
         try:
             async with self.semaphore, httpx.AsyncClient(
                 timeout=60.0
@@ -39,6 +57,16 @@ class ClickUpAPI:
             )
 
     async def fetch_all_tasks(self, url: str, query: Dict) -> List[Dict]:
+        """
+        Faz uma requisição assíncrona para a API do ClickUp e retorna todas as tarefas.
+
+        Parâmetros:
+        - url (str): A URL da API do ClickUp.
+        - query (Dict): Os parâmetros da consulta.
+
+        Retorna:
+        - List[Dict]: Uma lista de dicionários contendo as informações das tarefas.
+        """
         tasks = []
         page = 0
         while True:
@@ -54,12 +82,31 @@ class ClickUpAPI:
     async def fetch_time_in_status(
         self, task_id: str, client: httpx.AsyncClient
     ) -> Dict:
+        """
+        Faz uma requisição assíncrona para a API do ClickUp e retorna o tempo em cada status de uma tarefa.
+
+        Parâmetros:
+        - task_id (str): O ID da tarefa.
+        - client (httpx.AsyncClient): O cliente HTTP utilizado para fazer a requisição.
+
+        Retorna:
+        - Dict: Os dados do tempo em cada status da tarefa em formato JSON.
+        """
         url = f'https://api.clickup.com/api/v2/task/{task_id}/time_in_status'
         response = await client.get(url, headers=self.headers)
         response.raise_for_status()
         return response.json()
 
     async def fetch_all_time_in_status(self, tasks: List[Dict]) -> None:
+        """
+        Faz uma requisição assíncrona para a API do ClickUp e retorna o tempo em cada status de todas as tarefas.
+
+        Parâmetros:
+        - tasks (List[Dict]): Uma lista de dicionários contendo as informações das tarefas.
+
+        Retorna:
+        - None
+        """
         async with httpx.AsyncClient() as client:
             tasks_with_time_in_status = await asyncio.gather(
                 *[
@@ -74,6 +121,15 @@ class ClickUpAPI:
     def filter_tasks(
         self, tasks: List[Dict]
     ) -> (List[Dict], List[Dict]):   # type: ignore
+        """
+        Filtra as tarefas retornando apenas as informações relevantes e o histórico de status.
+
+        Parâmetros:
+        - tasks (List[Dict]): Uma lista de dicionários contendo as informações das tarefas.
+
+        Retorna:
+        - Tuple[List[Dict], List[Dict]]: Uma tupla contendo a lista de tarefas filtradas e o histórico de status.
+        """
         filtered_data = []
         status_history_data = []
         for project_count, task in enumerate(tasks, start=1):
@@ -121,6 +177,15 @@ class ClickUpAPI:
         return filtered_data, status_history_data
 
     def parse_date(self, timestamp: int) -> str:
+        """
+        Converte um timestamp em milissegundos para uma string formatada de data e hora.
+
+        Parâmetros:
+        - timestamp (int): O timestamp em milissegundos.
+
+        Retorna:
+        - str: A data e hora formatada.
+        """
         return (
             datetime.utcfromtimestamp(int(timestamp) / 1000)
             .replace(tzinfo=pytz.utc)
@@ -130,6 +195,15 @@ class ClickUpAPI:
 
     @staticmethod
     def convert_time(time_in_minutes: int) -> str:
+        """
+        Converte o tempo em minutos para uma string formatada.
+
+        Parâmetros:
+        - time_in_minutes (int): O tempo em minutos.
+
+        Retorna:
+        - str: O tempo formatado.
+        """
         if time_in_minutes < 60:
             return f'{time_in_minutes} minutos'
         elif time_in_minutes < 1440:
@@ -141,12 +215,30 @@ class ClickUpAPI:
 
     @staticmethod
     def parse_task_text(task_text: str) -> str:
+        """
+        Remove quebras de linha e caracteres especiais do texto da tarefa.
+
+        Parâmetros:
+        - task_text (str): O texto da tarefa.
+
+        Retorna:
+        - str: O texto da tarefa formatado.
+        """
         return (
             task_text.replace('\n', ' ').replace('.:', '') if task_text else ''
         )
 
     @staticmethod
     def extract_field_values(task_text: str) -> Dict[str, str]:
+        """
+        Extrai os valores dos campos do texto da tarefa.
+
+        Parâmetros:
+        - task_text (str): O texto da tarefa.
+
+        Retorna:
+        - Dict[str, str]: Um dicionário contendo os valores dos campos extraídos do texto da tarefa.
+        """
         field_values = {field: '' for field in FIELD_NAMES_SET}
         for field_name in FIELD_NAMES_SET:
             pattern = FIELD_PATTERNS[field_name]
@@ -156,6 +248,15 @@ class ClickUpAPI:
         return field_values
 
     def convert_status_history(self, status_history: Dict) -> Dict:
+        """
+        Converte o histórico de status em um formato mais legível.
+
+        Parâmetros:
+        - status_history (Dict): O histórico de status da tarefa.
+
+        Retorna:
+        - Dict: O histórico de status convertido em formato mais legível.
+        """
         result = {}
         if (
             'current_status' in status_history
@@ -183,6 +284,15 @@ class ClickUpAPI:
     async def get_tasks(
         self, list_id: str
     ) -> List[Dict[str, Union[str, None]]]:
+        """
+        Obtém as tarefas de uma lista específica.
+
+        Parâmetros:
+        - list_id (str): O ID da lista.
+
+        Retorna:
+        - List[Dict[str, Union[str, None]]]: Uma lista de dicionários contendo as informações das tarefas.
+        """
         cache_key = f'tasks_{list_id}'
         cached_tasks = self.cache.get(cache_key)
         if cached_tasks:
