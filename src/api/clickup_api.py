@@ -6,9 +6,11 @@ from typing import Dict, List, Union
 import httpx
 import pytz
 from fastapi import HTTPException
+import logging
 
-from utils.regex_utils import FIELD_NAMES_SET, FIELD_PATTERNS
+from src.utils.regex_utils import FIELD_NAMES_SET, FIELD_PATTERNS
 
+logger = logging.getLogger(__name__)
 
 class ClickUpAPI:
     def __init__(self, api_key: str, timezone: str, redis_cache):
@@ -63,6 +65,7 @@ class ClickUpAPI:
                 *[
                     self.fetch_time_in_status(task['id'], client)
                     for task in tasks
+                    if 'id' in task
                 ]
             )
             for task, time_in_status in zip(tasks, tasks_with_time_in_status):
@@ -74,42 +77,46 @@ class ClickUpAPI:
         filtered_data = []
         status_history_data = []
         for project_count, task in enumerate(tasks, start=1):
-            filtered_task = {
-                'Projeto': project_count,
-                'ID': task['id'],
-                'Status': task['status'].get('status', ''),
-                'Name': task.get('name', ''),
-                'Priority': task.get('priority', {}).get('priority', None)
-                if task.get('priority')
-                else None,
-                'Líder': task.get('assignees', [{}])[0].get('username')
-                if task.get('assignees')
-                else None,
-                'Email líder': task.get('assignees', [{}])[0].get('email')
-                if task.get('assignees')
-                else None,
-                'date_created': self.parse_date(task['date_created']),
-                'date_updated': self.parse_date(task['date_updated']),
-            }
+            try:
+                filtered_task = {
+                    'Projeto': project_count,
+                    'ID': task['id'],
+                    'Status': task['status'].get('status', ''),
+                    'Name': task.get('name', ''),
+                    'Priority': task.get('priority', {}).get('priority', None)
+                    if task.get('priority')
+                    else None,
+                    'Líder': task.get('assignees', [{}])[0].get('username')
+                    if task.get('assignees')
+                    else None,
+                    'Email líder': task.get('assignees', [{}])[0].get('email')
+                    if task.get('assignees')
+                    else None,
+                    'date_created': self.parse_date(task['date_created']),
+                    'date_updated': self.parse_date(task['date_updated']),
+                }
 
-            task_text = self.parse_task_text(task.get('text_content', ''))
-            field_values = self.extract_field_values(task_text)
-            filtered_task.update(field_values)
+                task_text = self.parse_task_text(task.get('text_content', ''))
+                field_values = self.extract_field_values(task_text)
+                filtered_task.update(field_values)
 
-            filtered_data.append(filtered_task)
+                filtered_data.append(filtered_task)
 
-            status_history = self.convert_status_history(
-                task.get('time_in_status', {})
-            )
-            for entry in status_history.get('status_history', []):
-                status_history_data.append(
-                    {
-                        'task_id': task['id'],
-                        'status': entry['status'],
-                        'time_in_status': entry['time_in_status'],
-                        'timestamp': datetime.now(self.timezone),
-                    }
+                status_history = self.convert_status_history(
+                    task.get('time_in_status', {})
                 )
+                for entry in status_history.get('status_history', []):
+                    status_history_data.append(
+                        {
+                            'task_id': task['id'],
+                            'status': entry['status'],
+                            'time_in_status': entry['time_in_status'],
+                            'timestamp': datetime.now(self.timezone),
+                        }
+                    )
+            except KeyError as e:
+                logger.error(f"Missing key {e} in task {task}")
+                continue
 
         return filtered_data, status_history_data
 
