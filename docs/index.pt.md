@@ -2,6 +2,10 @@
 
 ---
 
+Aqui está a versão modificada do guia, incluindo instruções para rodar o seu projeto atual usando `Poetry`, configurando o ambiente virtual e instalando as dependências sem instalar o pacote raiz.
+
+---
+
 ## Instalação do pyenv
 
 ### Linux
@@ -81,7 +85,7 @@ Para Windows, recomendamos usar o `pyenv-win`:
 
 1. **Defina a versão do Python usando pyenv**:
    ```bash
-   pyenv local 3.9.0
+   pyenv local 3.x.x
    ```
 
 2. **Navegue até o diretório do seu projeto**:
