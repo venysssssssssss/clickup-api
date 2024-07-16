@@ -2,7 +2,6 @@ site_name: CLICKUPAPI DOCUMENTATION
 nav:
   - Início: index.pt.md
   - API: api.pt.md
-  - Backup: backup.pt.md
   - Docker: docker.pt.md
   - Principal: main.pt.md
   - Redis: redis.pt.md
@@ -12,6 +11,9 @@ nav:
   - Utilidades: utils.pt.md
   - Settings: settings.pt.md
   - Postgre: postgre.pt.md
+  - Backup: backup.md
+  - GitHub Actions: gh_actions.md
+  - DBT: dbt.md
 plugins:
   - search
   - mkdocstrings:
