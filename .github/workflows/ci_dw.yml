@@ -13,13 +13,13 @@ jobs:
       run: |
         curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_1_INO }}"
         if [ $? -ne 0 ]; then
-          echo "Failed to fetch ${{ secrets.API_URL_1 }}"
+          echo "Failed to fetch ${{ secrets.API_URL_1_INO }}"
           exit 1
         fi
 
     - name: Make API request to get_data_organized/174940580
       run: |
-        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_2 }}"
+        curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_2_NEG }}"
         if [ $? -ne 0 ]; then
           echo "Failed to fetch ${{ secrets.API_URL_2_NEG }}"
           exit 1
