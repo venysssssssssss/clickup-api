@@ -1,4 +1,4 @@
-[![clickup_api_to_dw](docs\static\img_exca.svg)](https://excalidraw.com/#json=CNdxxeExm7K-clUexHxMr,DGr7x_W10WefJ8Up9aey7w)
+[![clickup_api_to_dw](static/img_exca.svg)](https://excalidraw.com/#json=CNdxxeExm7K-clUexHxMr,DGr7x_W10WefJ8Up9aey7w)
 
 ---
 
