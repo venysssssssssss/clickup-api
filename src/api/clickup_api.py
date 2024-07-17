@@ -135,8 +135,7 @@ class ClickUpAPI:
         for project_count, task in enumerate(tasks, start=1):
             try:
                 filtered_task = {
-                    'Projeto': project_count,
-                    'ID': task['id'],
+                    'task_id': task['id'],
                     'Status': task['status'].get('status', ''),
                     'Name': task.get('name', ''),
                     'Priority': task.get('priority', {}).get('priority', None)
