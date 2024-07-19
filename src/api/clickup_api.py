@@ -2,6 +2,7 @@ import asyncio
 import json
 from datetime import datetime
 from typing import Dict, List, Union
+import re
 
 import httpx
 import pytz
@@ -43,18 +44,12 @@ class ClickUpAPI:
         - Dict: Os dados da resposta em formato JSON.
         """
         try:
-            async with self.semaphore, httpx.AsyncClient(
-                timeout=60.0
-            ) as client:
-                response = await client.get(
-                    url, headers=self.headers, params=query
-                )
+            async with self.semaphore, httpx.AsyncClient(timeout=60.0) as client:
+                response = await client.get(url, headers=self.headers, params=query)
                 response.raise_for_status()
                 return response.json()
         except httpx.RequestError as e:
-            raise HTTPException(
-                status_code=500, detail=f'HTTP error: {str(e)}'
-            )
+            raise HTTPException(status_code=500, detail=f'HTTP error: {str(e)}')
 
     async def fetch_all_tasks(self, url: str, query: Dict) -> List[Dict]:
         """
@@ -79,9 +74,7 @@ class ClickUpAPI:
             page += 1
         return tasks
 
-    async def fetch_time_in_status(
-        self, task_id: str, client: httpx.AsyncClient
-    ) -> Dict:
+    async def fetch_time_in_status(self, task_id: str, client: httpx.AsyncClient) -> Dict:
         """
         Faz uma requisição assíncrona para a API do ClickUp e retorna o tempo em cada status de uma tarefa.
 
@@ -109,18 +102,12 @@ class ClickUpAPI:
         """
         async with httpx.AsyncClient() as client:
             tasks_with_time_in_status = await asyncio.gather(
-                *[
-                    self.fetch_time_in_status(task['id'], client)
-                    for task in tasks
-                    if 'id' in task
-                ]
+                *[self.fetch_time_in_status(task['id'], client) for task in tasks if 'id' in task]
             )
             for task, time_in_status in zip(tasks, tasks_with_time_in_status):
                 task['time_in_status'] = time_in_status
 
-    def filter_tasks(
-        self, tasks: List[Dict]
-    ) -> (List[Dict], List[Dict]):   # type: ignore
+    def filter_tasks(self, tasks: List[Dict]) -> (List[Dict], List[Dict]): # type: ignore
         """
         Filtra as tarefas retornando apenas as informações relevantes e o histórico de status.
 
@@ -132,21 +119,22 @@ class ClickUpAPI:
         """
         filtered_data = []
         status_history_data = []
+        emoji_pattern = re.compile(
+            "["u"\U0001F600-\U0001F64F"  # emoticons
+            u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+            u"\U0001F680-\U0001F6FF"  # transport & map symbols
+            u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+            "]+", flags=re.UNICODE)
+        
         for project_count, task in enumerate(tasks, start=1):
             try:
                 filtered_task = {
                     'task_id': task['id'],
-                    'Status': task['status'].get('status', ''),
+                    'Status': emoji_pattern.sub(r'', task['status'].get('status', '')),
                     'Name': task.get('name', ''),
-                    'Priority': task.get('priority', {}).get('priority', None)
-                    if task.get('priority')
-                    else None,
-                    'Líder': task.get('assignees', [{}])[0].get('username')
-                    if task.get('assignees')
-                    else None,
-                    'Email líder': task.get('assignees', [{}])[0].get('email')
-                    if task.get('assignees')
-                    else None,
+                    'Priority': task.get('priority', {}).get('priority', None) if task.get('priority') else None,
+                    'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
+                    'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
                     'date_created': self.parse_date(task['date_created']),
                     'date_updated': self.parse_date(task['date_updated']),
                 }
@@ -157,18 +145,14 @@ class ClickUpAPI:
 
                 filtered_data.append(filtered_task)
 
-                status_history = self.convert_status_history(
-                    task.get('time_in_status', {})
-                )
+                status_history = self.convert_status_history(task.get('time_in_status', {}))
                 for entry in status_history.get('status_history', []):
-                    status_history_data.append(
-                        {
-                            'task_id': task['id'],
-                            'status': entry['status'],
-                            'time_in_status': entry['time_in_status'],
-                            'timestamp': datetime.now(self.timezone),
-                        }
-                    )
+                    status_history_data.append({
+                        'task_id': task['id'],
+                        'status': emoji_pattern.sub(r'', entry['status']),
+                        'time_in_status': self.convert_time_to_days(entry['time_in_status']),
+                        'timestamp': datetime.now(self.timezone),
+                    })
             except KeyError as e:
                 logger.error(f"Missing key {e} in task {task}")
                 continue
@@ -223,9 +207,7 @@ class ClickUpAPI:
         Retorna:
         - str: O texto da tarefa formatado.
         """
-        return (
-            task_text.replace('\n', ' ').replace('.:', '') if task_text else ''
-        )
+        return task_text.replace('\n', ' ').replace('.:', '') if task_text else ''
 
     @staticmethod
     def extract_field_values(task_text: str) -> Dict[str, str]:
@@ -257,32 +239,45 @@ class ClickUpAPI:
         - Dict: O histórico de status convertido em formato mais legível.
         """
         result = {}
-        if (
-            'current_status' in status_history
-            and 'total_time' in status_history['current_status']
-        ):
+        if 'current_status' in status_history and 'total_time' in status_history['current_status']:
             result['current_status'] = {
                 'status': status_history['current_status']['status'],
-                'time_in_status': self.convert_time(
-                    status_history['current_status']['total_time']['by_minute']
-                ),
+                'time_in_status': self.convert_time(status_history['current_status']['total_time']['by_minute']),
             }
         if 'status_history' in status_history:
             result['status_history'] = [
                 {
                     'status': status['status'],
-                    'time_in_status': self.convert_time(
-                        status['total_time']['by_minute']
-                    ),
+                    'time_in_status': self.convert_time(status['total_time']['by_minute']),
                 }
                 for status in status_history['status_history']
                 if 'total_time' in status
             ]
         return result
 
-    async def get_tasks(
-        self, list_id: str
-    ) -> List[Dict[str, Union[str, None]]]:
+    @staticmethod
+    def convert_time_to_days(time_str: str) -> float:
+        """
+        Converte uma string de tempo em um valor float representando dias.
+
+        Parâmetros:
+        - time_str (str): O tempo em string, por exemplo '23.7 horas' ou '48.1 dias'.
+
+        Retorna:
+        - float: O tempo convertido em dias.
+        """
+        if 'horas' in time_str:
+            hours = float(time_str.split()[0])
+            return hours / 24
+        elif 'dias' in time_str:
+            return float(time_str.split()[0])
+        elif 'minutos' in time_str:
+            minutes = float(time_str.split()[0])
+            return minutes / 1440  # 1440 minutos em um dia
+        else:
+            return 0.0
+
+    async def get_tasks(self, list_id: str) -> List[Dict[str, Union[str, None]]]:
         """
         Obtém as tarefas de uma lista específica.
 
