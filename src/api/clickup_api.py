@@ -128,6 +128,9 @@ class ClickUpAPI:
         
         for project_count, task in enumerate(tasks, start=1):
             try:
+                date_created = self.parse_date(task['date_created'])
+                date_updated = self.parse_date(task['date_updated'])
+
                 filtered_task = {
                     'task_id': task['id'],
                     'Status': emoji_pattern.sub(r'', task['status'].get('status', '')),
@@ -135,8 +138,12 @@ class ClickUpAPI:
                     'Priority': task.get('priority', {}).get('priority', None) if task.get('priority') else None,
                     'Líder': task.get('assignees', [{}])[0].get('username') if task.get('assignees') else None,
                     'Email líder': task.get('assignees', [{}])[0].get('email') if task.get('assignees') else None,
-                    'date_created': self.parse_date(task['date_created']),
-                    'date_updated': self.parse_date(task['date_updated']),
+                    'date_created_data': date_created['data'],
+                    'date_created_ano': date_created['ano'],
+                    'date_created_hora': date_created['hora'],
+                    'date_updated_data': date_updated['data'],
+                    'date_updated_ano': date_updated['ano'],
+                    'date_updated_hora': date_updated['hora'],
                 }
 
                 task_text = self.parse_task_text(task.get('text_content', ''))
@@ -159,22 +166,22 @@ class ClickUpAPI:
 
         return filtered_data, status_history_data
 
-    def parse_date(self, timestamp: int) -> str:
+    def parse_date(self, timestamp: int) -> Dict[str, str]:
         """
-        Converte um timestamp em milissegundos para uma string formatada de data e hora.
+        Converte um timestamp em milissegundos para um dicionário contendo data, ano e hora.
 
         Parâmetros:
         - timestamp (int): O timestamp em milissegundos.
 
         Retorna:
-        - str: A data e hora formatada.
+        - Dict[str, str]: Um dicionário com data, ano e hora separadas.
         """
-        return (
-            datetime.utcfromtimestamp(int(timestamp) / 1000)
-            .replace(tzinfo=pytz.utc)
-            .astimezone(self.timezone)
-            .strftime('%d-%m-%Y %H:%M:%S')
-        )
+        dt = datetime.utcfromtimestamp(int(timestamp) / 1000).replace(tzinfo=pytz.utc).astimezone(self.timezone)
+        return {
+            'data': dt.strftime('%d-%m-%Y'),
+            'ano': dt.strftime('%Y'),
+            'hora': dt.strftime('%H:%M:%S')
+        }
 
     @staticmethod
     def convert_time(time_in_minutes: int) -> str:
