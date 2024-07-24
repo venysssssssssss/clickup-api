@@ -21,20 +21,27 @@ postgres_db = PostgresDB(
     settings.DB_SCHEMA,
 )
 
+
 @app.get('/get_data_organized/{list_id}')
 async def get_data_organized(list_id: str):
     print(f'Fetching tasks for list ID: {list_id}')
     tasks = await clickup_api.get_tasks(list_id)
-    filtered_tasks, status_history_data = filter_tasks(tasks, settings.TIMEZONE)
+    filtered_tasks, status_history_data = filter_tasks(
+        tasks, settings.TIMEZONE
+    )
 
     df_tasks = pd.DataFrame(filtered_tasks)
     df_status_history = pd.DataFrame(status_history_data)
 
     if list_id == '192959544':
         postgres_db.save_to_postgres(df_tasks, 'lista_dados_inovacao')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_inovacao')
+        postgres_db.save_to_postgres(
+            df_status_history, 'status_history_inovacao'
+        )
     elif list_id == '174940580':
         postgres_db.save_to_postgres(df_tasks, 'lista_dados_negocios')
-        postgres_db.save_to_postgres(df_status_history, 'status_history_negocios')
+        postgres_db.save_to_postgres(
+            df_status_history, 'status_history_negocios'
+        )
 
-    return {"filtered_tasks": filtered_tasks}
+    return {'filtered_tasks': filtered_tasks}
