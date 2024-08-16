@@ -26,7 +26,7 @@ class ClickUpAPI:
     async def fetch_clickup_data(self, url: str, query: Dict) -> Dict:
         try:
             async with self.semaphore, httpx.AsyncClient(
-                timeout=60.0
+                timeout=120.0
             ) as client:
                 response = await client.get(
                     url, headers=self.headers, params=query

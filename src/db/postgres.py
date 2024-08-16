@@ -2,14 +2,12 @@ import logging
 import os
 
 import pandas as pd
-from fastapi import logger
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Atualização na classe PostgresDB para incluir verificação da existência da tabela
 class PostgresDB:
     """
     Uma classe que representa uma conexão com um banco de dados PostgreSQL.
@@ -42,7 +40,8 @@ class PostgresDB:
         self.database_url = (
             f'postgresql://{user}:{password}@{host}:{port}/{dbname}'
         )
-        self.engine = create_engine(self.database_url)
+        self.engine = create_engine(self.database_url, connect_args={"connect_timeout": 10})
+
 
     def save_to_postgres(self, df: pd.DataFrame, table_name: str):
         """
@@ -70,7 +69,7 @@ class PostgresDB:
                 f"Dados salvos na tabela '{table_name}' no esquema '{self.schema}' do banco de dados PostgreSQL"
             )
         except SQLAlchemyError as e:
-            logger.error(f'Erro ao salvar dados no PostgreSQL: {e}')
+            logger.error(f'Erro ao salvar dados na tabela "{table_name}" no PostgreSQL: {e}')
             raise
 
     def table_exists(self, table_name: str) -> bool:
@@ -89,10 +88,12 @@ class PostgresDB:
         SELECT EXISTS (
             SELECT 1
             FROM information_schema.tables 
-            WHERE table_schema = '{self.schema}'
+            WHERE table_schema = :schema
             AND table_name = :table_name
         );
         """
         )
         with self.engine.connect() as conn:
-            return conn.execute(query, {'table_name': table_name}).scalar()
+            exists = conn.execute(query, {'schema': self.schema, 'table_name': table_name}).scalar()
+        logger.info(f"Tabela '{table_name}' existe: {exists}")
+        return exists
