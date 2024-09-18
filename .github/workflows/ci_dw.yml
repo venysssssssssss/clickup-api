@@ -1,14 +1,8 @@
-name: Schedule and Push API Requests
+name: Schedule API Requests
 
 on:
-  # Executa a cada 3 horas
   schedule:
     - cron: '0 */3 * * *'  # Executa a cada 3 horas
-  
-  # Executa sempre que houver uma mudança no repositório
-  push:
-    branches:
-      - main  # Ou a branch que você deseja monitorar, por exemplo, 'main'
 
 jobs:
   call_apis:
