@@ -17,7 +17,7 @@ RUN poetry install --no-root
 COPY . /src
 
 # Copia o arquivo .env para o contêiner
-COPY .env /src/.env
+COPY .env /src
 
 # Expõe a porta 8000 para acesso à aplicação FastAPI
 EXPOSE 8000
