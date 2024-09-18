@@ -23,6 +23,6 @@ jobs:
         echo "Fetching: ${{ secrets.API_URL_2_NEG }}"
         curl -s -o /dev/null -w "%{http_code}" "${{ secrets.API_URL_2_NEG }}"
         if [ $? -ne 0 ]; then
-          echo "Failed to fetch ${{ secrets.API_URL_2_NEG }}"
+          echo "Failed to fetch ${{ secrets.API_URL_2_NE }}"
           exit 1
         fi
