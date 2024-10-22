@@ -10,12 +10,6 @@ from src.utils.task_utils import filter_tasks  # Atualize a importação
 
 app = FastAPI()
 
-# Parâmetros de conexão Redis
-host = "oregon-redis.render.com"
-port = 6379
-username = "red-cpn3p3o8fa8c73aqq8q0"
-password = "vYcELCVWAem69bACEgQRp6XKnpCAcHfH"
-
 # Inicializa o cache Redis
 redis_cache = RedisCache(host=settings.HOST_CACHE, port=settings.PORT_CACHE, username=settings.USER_CACHE, password=settings.PASS_CACHE)
 clickup_api = ClickUpAPI(settings.API_KEY, settings.TIMEZONE, redis_cache)
